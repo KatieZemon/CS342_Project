@@ -23,7 +23,7 @@ public class Demo extends JApplet implements ActionListener
   private JMenu aboutMenu, demoMenu, algorithmsMenu, dataMenu;
   private JMenuItem authorMenuItem, problemMenuItem, referencesMenuItem, helpMenuItem, unselectMenuItem, mainDisplayItem;
   JCheckBoxMenuItem bubbleMenuItem, insertionMenuItem, selectionMenuItem, quicksortMenuItem,
-  heapsortMenuItem, shellsortMenuItem;
+          heapsortMenuItem, shellsortMenuItem;
   JRadioButtonMenuItem randomCaseMenuItem, bestCaseMenuItem, worstCaseMenuItem;
   //ButtonGroup
   private JDesktopPane desktop = new JDesktopPane();
@@ -93,7 +93,7 @@ public class Demo extends JApplet implements ActionListener
     algorithmsMenu.setBackground(menuBackgroundColor);
     algorithmsMenu.setForeground(menuTextColor);
     demoMenu.add(algorithmsMenu);
-    
+
     dataMenu = new JMenu("Data Type Items");
     dataMenu.setForeground(menuTextColor);
     dataMenu.setBackground(menuBackgroundColor);
@@ -284,4 +284,5 @@ public class Demo extends JApplet implements ActionListener
     mainFrame.setVisible(true);
   }
 }
+
 

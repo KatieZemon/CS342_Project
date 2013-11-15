@@ -3,13 +3,9 @@ package code;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.net.URL;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.swing.event.ChangeEvent;
@@ -27,7 +23,7 @@ public class MainDisplay extends JInternalFrame
   int frameWidth = 900, frameHeight = 700;
   //** delay = the number of milliseconds of delay between steps in any sorting algorithm.
   // This number is obtained from the delaySlider*/
-  int delay = 1;
+  int delay = 50;
   //** numItems = the number of items to be sorted.
   // This number is obtained by itemCountSlider*/
   int numItems = 100;
@@ -37,8 +33,6 @@ public class MainDisplay extends JInternalFrame
   LineBorder itemCount_border, delay_border;
   /** vals= the values to be sorted */
   int[] vals;
-  // Create the URL for getting our audioClip
-  AudioClip audioClip = Applet.newAudioClip(getClass().getResource("/Nyan Cat.wav"));
 
   /**
    * class: MainDisplay
@@ -129,10 +123,8 @@ public class MainDisplay extends JInternalFrame
     c.add(delaySlider);
   }
 
-  // Override the JInternalFrame's default close operation to first stop the audioClip
   public void doDefaultCloseAction()
   {
-    audioClip.stop();
     executor.shutdown();
     this.dispose();
   }
@@ -161,12 +153,11 @@ public class MainDisplay extends JInternalFrame
 
         // Begin execution of our algorithms
         initValsArr(); // Reinitialize our array of values in case the ItemCountSlider changed
-       // Executor exe = Executors.newCachedThreadPool();
-      //  exe.execute(selectionSort);
+        // Executor exe = Executors.newCachedThreadPool();
+        //  exe.execute(selectionSort);
         executor.execute(selectionSort);
 
-       // c.add(new selectionSort(vals));
-        audioClip.loop();
+        // c.add(new selectionSort(vals));
 
 
         repaint();
@@ -179,7 +170,6 @@ public class MainDisplay extends JInternalFrame
         resetButton.setEnabled(false);
         startButton.setEnabled(true);
         itemCountSlider.setEnabled(true);
-        audioClip.stop();
         executor.shutdown();
       }
       repaint();
