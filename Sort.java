@@ -43,7 +43,6 @@ public abstract class Sort extends JPanel implements Runnable {
     bars = new Rectangle[values.length];
     graphTitle = "Selection Sort";
 
-
     lb = new LineBorder(Color.BLACK,3);
     tb = new TitledBorder(
             lb, graphTitle, TitledBorder.CENTER,
@@ -88,7 +87,6 @@ public abstract class Sort extends JPanel implements Runnable {
 
   protected abstract void runSort();
 
-  // I'm not so sure this passes as selection sort, but it's a good test run!
   public void run()
   {
     running = true;

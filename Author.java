@@ -1,6 +1,5 @@
 package code;
 
-//TODO: State code originality, individual contribution, what did you learn
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,10 +9,19 @@ import java.awt.*;
  */
 public class Author extends JInternalFrame
 {
-  Font bold = new Font("Arial", Font.BOLD, 20);
-  FontMetrics fn;
-  int strwid,y,h,w;
-  String str;
+  /**
+   * font_bold- The font style for printing all of our strings
+   * fn - our font metrics
+   * str- the string that is typed
+   * strwid- keeps track of the width of our string
+   * y- used for positioning text on the screen (y-axis)
+   * w- used for storing the width of our string
+   * h- used to store the height of our string
+  */
+  private Font font_bold = new Font("Arial", Font.BOLD, 20);
+  private FontMetrics fn;
+  private String str;
+  private int strwid, y, h, w;
   private int frameWidth = 500, frameHeight = 500;
 
   /**
@@ -36,12 +44,12 @@ public class Author extends JInternalFrame
     super.paint(g);
     Color darkGreen =  new Color(18, 135, 26);
     Color darkRed = new Color(180, 31, 31);
-    fn = g.getFontMetrics(bold);
+    fn = g.getFontMetrics(font_bold);
     g.setColor(darkGreen);
     y=115;
     w = getWidth();
     h = getHeight();
-    g.setFont(bold);
+    g.setFont(font_bold);
 
     str= "Demonstration of FS213 CS342 Project for";
     strwid = fn.stringWidth(str);
@@ -70,7 +78,7 @@ public class Author extends JInternalFrame
     g.drawString(str, w/2-(strwid/2), y);
     y += 20;
 
-    str= "Katie Isbell and Westin Sykes";
+    str= "Tom Clay, Katie Isbell, and Westin Sykes";
     strwid = fn.stringWidth(str);
     g.setColor(Color.BLUE);
     g.drawString(str, w / 2 - (strwid / 2), y);

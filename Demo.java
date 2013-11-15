@@ -1,6 +1,6 @@
 package code;
 /**
- * @author Katie Isbell, Westin Sykes, and Thomas Clay
+ * @author Tom Clay, Katie Isbell, and Westin Sykes
  * @version 1.0
  * Date: December 3, 2013
  * Class: CS342 Java GUI
