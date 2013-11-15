@@ -23,10 +23,10 @@ public class MainDisplay extends JInternalFrame
   int frameWidth = 900, frameHeight = 700;
   //** delay = the number of milliseconds of delay between steps in any sorting algorithm.
   // This number is obtained from the delaySlider*/
-  int delay = 50;
+  int delay = 100;
   //** numItems = the number of items to be sorted.
   // This number is obtained by itemCountSlider*/
-  int numItems = 100;
+  int numItems = 50;
   FlowLayout layout;
   Font font_bold = new Font("Bold", Font.BOLD, 15);
   TitledBorder itemCount_tBorder, delay_tBorder;
