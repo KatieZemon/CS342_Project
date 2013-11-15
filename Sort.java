@@ -5,6 +5,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+
 // I used this reference here:
 // http://jlipton.web.wesleyan.edu/courses/fall2012/lecs/barGraph/arrayVersion/ArrayBarGraph.java
 
@@ -12,9 +13,9 @@ public abstract class Sort extends JPanel implements Runnable {
   protected int[] values;
   protected Rectangle[] bars; // Our rectangular bars in the chart
   protected String graphTitle;
-  protected boolean running = false;
+  public boolean running = false;
   protected int xPos, yPos, xWidth, yHeight;
-  protected int delay;
+  public int delay;
   protected LineBorder lb;
   protected TitledBorder tb;
   protected Font font_bold = new Font("Bold", Font.BOLD, 15);
@@ -63,6 +64,24 @@ public abstract class Sort extends JPanel implements Runnable {
     }
   }
 
+  protected abstract void runSort();
+
+  public void run()
+  {
+    running = true;
+    runSort();
+    running = false;
+  }
+
+  // swap two bars
+  protected void swap(int left, int right)
+  {
+    int height = bars[right].height;
+    int yPos = bars[right].y;
+    bars[right].setBounds(bars[right].x, bars[left].y, bars[left].width, bars[left].height );
+    bars[left].setBounds( bars[left].x, yPos, bars[left].width, height );
+  }
+
   public void paintComponent(Graphics g)
   {
     super.paintComponent(g);
@@ -85,35 +104,4 @@ public abstract class Sort extends JPanel implements Runnable {
       }
     }
   }
-
-  protected abstract void runSort();
-
-  // I'm not so sure this passes as selection sort, but it's a good test run!
-  public void run()
-  {
-    running = true;
-    runSort();
-    running = false;
-  }
-
-  public void stop()
-  {
-    running = false;
-  }
-
-  public void setDelay(int d)
-  {
-    delay = d;
-  }
-
-  // swap two bars
-  protected void swap(int left, int right)
-  {
-    int height = bars[right].height;
-    int yPos = bars[right].y;
-    bars[right].setBounds(bars[right].x, bars[left].y, bars[left].width, bars[left].height );
-    bars[left].setBounds( bars[left].x, yPos, bars[left].width, height );
-  }
-
-
 }

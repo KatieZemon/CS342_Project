@@ -170,6 +170,7 @@ public class MainDisplay extends JInternalFrame
         resetButton.setEnabled(false);
         startButton.setEnabled(true);
         itemCountSlider.setEnabled(true);
+        selectionSort.running = false;
         executor.shutdown();
       }
       repaint();
@@ -206,6 +207,7 @@ public class MainDisplay extends JInternalFrame
       else if (e.getSource() == delaySlider)
       {
         delay = delaySlider.getValue();
+        selectionSort.delay = delay;
 
         // Change the border
         delay_tBorder = new TitledBorder(
