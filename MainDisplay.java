@@ -10,12 +10,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.util.ArrayList;
 
-public class MainDisplay extends JInternalFrame
+public class MainDisplay extends JInternalFrame implements ActionListener, ChangeListener
 {
-  SelectionSort selectionSort;
+  JPanel sortPanel;
   ExecutorService executor;
-  SliderListener sListener;
   JSlider delaySlider, itemCountSlider;
   JButton startButton, resetButton;
   Container c = getContentPane();
@@ -33,6 +33,10 @@ public class MainDisplay extends JInternalFrame
   LineBorder itemCount_border, delay_border;
   /** vals= the values to be sorted */
   int[] vals;
+  ArrayList<String> sortTypeList = new ArrayList<String>();
+  ArrayList<Sort> sortList = new ArrayList<Sort>();
+  final int sortCountMax = 3;
+  GridLayout sortLayout;
 
   /**
    * class: MainDisplay
@@ -56,12 +60,91 @@ public class MainDisplay extends JInternalFrame
     // Store random numbers in our array to be sorted
     initValsArr();
 
-    selectionSort = new SelectionSort(vals,delay);
-
-    c.add(selectionSort);
+    sortPanel = new JPanel();
+    c.add(sortPanel);
 
     executor = Executors.newFixedThreadPool(3);
 
+    addSort("SelectionSort");
+  }
+
+  /**
+  * Creates all sorts new that are to be shown.
+  */
+  private void updateSorts()
+  {
+    sortPanel.removeAll();
+    sortLayout = new GridLayout(sortTypeList.size(), 1);
+    sortPanel.setLayout(sortLayout);
+    sortList = new ArrayList<Sort>();
+    Sort tmpSort = null;
+    for(String s: sortTypeList)
+    {
+      if(s.equals("SelectionSort"))
+      {
+        tmpSort = new SelectionSort(vals, delay);
+      }
+      else if(s.equals("BubbleSort"))
+      {
+        tmpSort = new BubbleSort(vals, delay);
+      }
+      else
+      {
+        System.out.println("Invalid sort type!");
+        return;
+      }
+      if(tmpSort != null)
+      {
+        sortList.add(tmpSort);
+        sortPanel.add(tmpSort);
+      }
+    }
+    c.validate();
+  }
+
+  public void addSort(String className)
+  {
+    if(sortTypeList.size() < sortCountMax)
+    {
+      sortTypeList.add(className);
+    }
+    updateSorts();
+  }
+
+  /**
+  * Removes all sorts and sets only the ones in the ArrayList.
+  * This can be used for initializing the Demo frame
+  */
+  public void setSorts(ArrayList<String> classNames)
+  {
+    removeAllSorts();
+    for(String s: classNames)
+    {
+      addSort(s);
+    }
+  }
+
+  /**
+  * Removes a single sort from being shown.
+  */
+  public void removeSort(String className)
+  {
+    if(sortTypeList.contains(className))
+    {
+      sortTypeList.remove(className);
+    }
+    updateSorts();
+  }
+
+  /**
+  * Removes all sorts.
+  */
+  public void removeAllSorts()
+  {
+    for(String s: sortTypeList)
+    {
+      removeSort(s);
+    }
   }
 
 
@@ -86,14 +169,13 @@ public class MainDisplay extends JInternalFrame
   void initComponents()
   {
     // itemCountSlider
-    sListener = new SliderListener();
     itemCount_border = new LineBorder(Color.BLACK,3);
     itemCount_tBorder = new TitledBorder(
             itemCount_border, "Array Length: N = " + numItems, TitledBorder.CENTER,
             TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
     itemCountSlider = new JSlider(1, 800, numItems);
     itemCountSlider.setBorder(itemCount_tBorder);
-    itemCountSlider.addChangeListener(sListener);
+    itemCountSlider.addChangeListener(this);
     Dimension d = itemCountSlider.getPreferredSize();
     itemCountSlider.setPreferredSize(new Dimension(d.width+60,d.height));
     itemCountSlider.setMajorTickSpacing(50);
@@ -101,13 +183,13 @@ public class MainDisplay extends JInternalFrame
 
     // Start Button
     startButton = new JButton("Sort");
-    startButton.addActionListener( new ButtonListener() );
+    startButton.addActionListener(this);
     c.add(startButton);
 
     // Reset Button
     resetButton = new JButton("Reset");
     resetButton.setEnabled(false); // Initially this is disabled
-    resetButton.addActionListener( new ButtonListener() );
+    resetButton.addActionListener(this);
     c.add(resetButton);
 
     // delaySlider
@@ -117,7 +199,7 @@ public class MainDisplay extends JInternalFrame
             TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
     delaySlider = new JSlider(1, 800, delay);
     delaySlider.setBorder(delay_tBorder);
-    delaySlider.addChangeListener(sListener);
+    delaySlider.addChangeListener(this);
     d = delaySlider.getPreferredSize();
     delaySlider.setPreferredSize(new Dimension(d.width+60,d.height));
     c.add(delaySlider);
@@ -129,94 +211,77 @@ public class MainDisplay extends JInternalFrame
     this.dispose();
   }
 
-  /**
-   * class: ButtonListener
-   * desc:  An ActionListener class for the Sort and Reset buttons.
-   * If the sort button is pressed, the algorithms begin executing.
-   * If the reset button is pressed, the execution stops.
-   */
-  class ButtonListener implements ActionListener
+
+  public void actionPerformed(ActionEvent e)
   {
-    /**
-     * fn: actionPerformed
-     * desc: This function is used when selecting the sort and reset buttons to start our selected algorithms
-     */
-    public void actionPerformed(ActionEvent e)
+    // Sort button
+    if (e.getSource() == startButton)
     {
-      // Sort button
-      if (e.getSource() == startButton)
+      // Disable the start button and enabled our reset button
+      startButton.setEnabled(false);
+      resetButton.setEnabled(true);
+      itemCountSlider.setEnabled(false);
+
+      // Begin execution of our algorithms
+      initValsArr(); // Reinitialize our array of values in case the ItemCountSlider changed
+      // Executor exe = Executors.newCachedThreadPool();
+      //  exe.execute(selectionSort);
+      for(Sort s: sortList)
       {
-        // Disable the start button and enabled our reset button
-        startButton.setEnabled(false);
-        resetButton.setEnabled(true);
-        itemCountSlider.setEnabled(false);
-
-        // Begin execution of our algorithms
-        initValsArr(); // Reinitialize our array of values in case the ItemCountSlider changed
-        // Executor exe = Executors.newCachedThreadPool();
-        //  exe.execute(selectionSort);
-        executor.execute(selectionSort);
-
-        // c.add(new selectionSort(vals));
-
-
-        repaint();
-      }
-
-      // Reset Button
-      else if (e.getSource() == resetButton)
-      {
-        // Disable our resetButton and enable our startButton
-        resetButton.setEnabled(false);
-        startButton.setEnabled(true);
-        itemCountSlider.setEnabled(true);
-        selectionSort.running = false;
-        executor.shutdown();
+        executor.execute(s);
       }
       repaint();
     }
-  }
 
-
-  /**
-   * class: SliderListener
-   * desc:  A ChangeListener class for our sliders
-   */
-  class SliderListener implements ChangeListener
-  {
-    /**
-     * fn: stateChanged
-     * desc: This function is used when changing the itemCountSlider or delaySlider and updates the
-     * variables storing both the numItems and the delay
-     */
-    public void stateChanged(ChangeEvent e)
+    // Reset Button
+    else if (e.getSource() == resetButton)
     {
-      // Item Count Slider
-      if (e.getSource() == itemCountSlider)
+      // Disable our resetButton and enable our startButton
+      resetButton.setEnabled(false);
+      startButton.setEnabled(true);
+      itemCountSlider.setEnabled(true);
+      for(Sort s: sortList)
       {
-        numItems = itemCountSlider.getValue();
-
-        // Change the border
-        itemCount_tBorder = new TitledBorder(
-                itemCount_border, "Array Length: N = " + numItems, TitledBorder.CENTER,
-                TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
-        itemCountSlider.setBorder(itemCount_tBorder);
+        s.running = false;
       }
-
-      // Delay Slider
-      else if (e.getSource() == delaySlider)
-      {
-        delay = delaySlider.getValue();
-        selectionSort.delay = delay;
-
-        // Change the border
-        delay_tBorder = new TitledBorder(
-                delay_border, "Current Delay = " + delay + "ms", TitledBorder.CENTER,
-                TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
-        delaySlider.setBorder(delay_tBorder);
-      }
-      repaint();
+      executor.shutdown();
+      updateSorts();
+      c.validate();
+      executor = Executors.newFixedThreadPool(3);
     }
+    repaint();
   }
 
+  public void stateChanged(ChangeEvent e)
+  {
+    // Item Count Slider
+    if (e.getSource() == itemCountSlider)
+    {
+      numItems = itemCountSlider.getValue();
+
+      // Change the border
+      itemCount_tBorder = new TitledBorder(
+              itemCount_border, "Array Length: N = " + numItems, TitledBorder.CENTER,
+              TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
+      itemCountSlider.setBorder(itemCount_tBorder);
+      initValsArr();
+      updateSorts();
+    }
+
+    // Delay Slider
+    else if (e.getSource() == delaySlider)
+    {
+      delay = delaySlider.getValue();
+      for(Sort s: sortList)
+      {
+        s.delay = delay;
+      }
+      // Change the border
+      delay_tBorder = new TitledBorder(
+              delay_border, "Current Delay = " + delay + "ms", TitledBorder.CENTER,
+              TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
+      delaySlider.setBorder(delay_tBorder);
+    }
+    repaint();
+  }
 }

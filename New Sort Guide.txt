@@ -1,0 +1,11 @@
+To Create A new Sort:
+
+Create a class with the name of the sort similar to one already made.
+Make sure to check the class variable "running". If it is false, the sort should stop.
+Use the class variable "delay" for the delay.
+The array "bars" is what is being sorted
+
+
+In Demo.java's actionPerformed(), add the item as the other sorts are added.
+
+In MainDisplay.java, add an else if section to updateSorts() for that sort class

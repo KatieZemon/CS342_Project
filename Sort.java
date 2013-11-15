@@ -36,13 +36,13 @@ public abstract class Sort extends JPanel implements Runnable {
    * param v: The set of data to be sorted. The set of data to be sorted is always
    * randomely assorted
    */
-  public Sort(int[] v, int d) {
+  public Sort(int[] v, int d, String sortName) {
     panelWidth = panelWidth/v.length * v.length;
     this.setPreferredSize(new Dimension(panelWidth, panelHeight));
     values = v;
     delay = d;
     bars = new Rectangle[values.length];
-    graphTitle = "Selection Sort";
+    graphTitle = sortName;
 
 
     lb = new LineBorder(Color.BLACK,3);

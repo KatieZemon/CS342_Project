@@ -27,7 +27,7 @@ public class Demo extends JApplet implements ActionListener
   JRadioButtonMenuItem randomCaseMenuItem, bestCaseMenuItem, worstCaseMenuItem;
   //ButtonGroup
   private JDesktopPane desktop = new JDesktopPane();
-  private static JInternalFrame authorFrame, problemFrame, referencesFrame, helpFrame, mainFrame;
+  private static JInternalFrame authorFrame, problemFrame, referencesFrame, helpFrame, mainDisplayFrame;
   private Container c = getContentPane();
   Color menuBackgroundColor = new Color(49, 78, 139);
   Color menuTextColor = new Color(254, 253, 255);
@@ -48,7 +48,7 @@ public class Demo extends JApplet implements ActionListener
     problemFrame = new Problem();
     referencesFrame = new References();
     helpFrame = new Help();
-    mainFrame = new MainDisplay();
+    mainDisplayFrame = new MainDisplay();
 
     desktop.add(authorFrame);
     authorFrame.dispose();
@@ -58,7 +58,7 @@ public class Demo extends JApplet implements ActionListener
     referencesFrame.dispose();
     desktop.add(helpFrame);
     helpFrame.dispose();
-    desktop.add(mainFrame);
+    desktop.add(mainDisplayFrame);
 
     desktop.setBackground(Color.LIGHT_GRAY);
 
@@ -140,6 +140,7 @@ public class Demo extends JApplet implements ActionListener
     algorithmsMenu.add(insertionMenuItem);
 
     selectionMenuItem = new JCheckBoxMenuItem("Selection");
+    selectionMenuItem.setState(true);
     selectionMenuItem.addActionListener(this);
     selectionMenuItem.setForeground(menuTextColor);
     selectionMenuItem.setBackground(menuBackgroundColor);
@@ -238,17 +239,49 @@ public class Demo extends JApplet implements ActionListener
         helpFrame = new Help();
         desktop.add(helpFrame);
         helpFrame.toFront();
-        helpFrame.setLocation(75,75);
+        helpFrame.setLocation(75, 75);
       }
     }
     else if (event.getSource() == mainDisplayItem)
     {
-      if (mainFrame.isClosed())
+      if (mainDisplayFrame.isClosed())
       {
-        mainFrame = new MainDisplay();
-        desktop.add(mainFrame);
-        mainFrame.toFront();
-        mainFrame.setLocation(100,100);
+        mainDisplayFrame = new MainDisplay();
+        desktop.add(mainDisplayFrame);
+        mainDisplayFrame.toFront();
+        mainDisplayFrame.setLocation(100, 100);
+      }
+    }
+    else if (event.getSource() == unselectMenuItem)
+    {
+      ((MainDisplay)mainDisplayFrame).removeAllSorts();
+    }
+    else if (event.getSource() == selectionMenuItem)
+    {
+      if(mainDisplayFrame != null && !mainDisplayFrame.isClosed())
+      {
+        if(selectionMenuItem.getState())
+        {
+          ((MainDisplay)mainDisplayFrame).addSort("SelectionSort");
+        }
+        else
+        {
+          ((MainDisplay)mainDisplayFrame).removeSort("SelectionSort");
+        }
+      }
+    }
+    else if (event.getSource() == bubbleMenuItem)
+    {
+      if(mainDisplayFrame != null && !mainDisplayFrame.isClosed())
+      {
+        if(bubbleMenuItem.getState())
+        {
+          ((MainDisplay)mainDisplayFrame).addSort("BubbleSort");
+        }
+        else
+        {
+          ((MainDisplay)mainDisplayFrame).removeSort("BubbleSort");
+        }
       }
     }
   }
@@ -275,9 +308,9 @@ public class Demo extends JApplet implements ActionListener
      */
     mainFrame.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent evt) {
-        if(!Demo.mainFrame.isClosed())
+        if(!Demo.mainDisplayFrame.isClosed())
         {
-          Demo.mainFrame.doDefaultCloseAction();
+          Demo.mainDisplayFrame.doDefaultCloseAction();
         }
       }
     });

@@ -6,12 +6,12 @@ class SelectionSort extends Sort
 {
   public SelectionSort(int[] v, int d)
   {
-    super(v, d);
+    super(v, d, "Selection Sort");
   }
 
   public void runSort()
   {
-    for (int j = values.length; j > 0; j--)
+    for (int j = bars.length; j > 0; j--)
     {
       int max = 0;
       for (int i = 0; i < j; i++)
