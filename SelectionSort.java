@@ -1,5 +1,7 @@
 package code;
 
+import java.awt.*;
+
 class SelectionSort extends Sort
 {
   public SelectionSort(int[] v, int d)
@@ -14,7 +16,7 @@ class SelectionSort extends Sort
       int max = 0;
       for (int i = 0; i < j; i++)
       {
-        if(!running)
+        if(running == false)
         {
           return;
         }
@@ -27,7 +29,7 @@ class SelectionSort extends Sort
         if ( bars[i].height > bars[max].height )
         {
           max = i; // set new max value
-        //  System.out.println("new max: "+ mx + " Val: " + bars[max].height);
+          System.out.println("new max: "+ max + " Val: " + bars[max].height);
         }
         repaint();
       }

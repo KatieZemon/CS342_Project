@@ -90,11 +90,13 @@ public class Demo extends JApplet implements ActionListener
     menuBar.add(demoMenu);
 
     algorithmsMenu = new JMenu("Algorithms");
+    algorithmsMenu.setOpaque(true); // This is required for setting the background color of submenus
     algorithmsMenu.setBackground(menuBackgroundColor);
     algorithmsMenu.setForeground(menuTextColor);
     demoMenu.add(algorithmsMenu);
 
     dataMenu = new JMenu("Data Type Items");
+    dataMenu.setOpaque(true); // This is required for setting the background color of submenus
     dataMenu.setForeground(menuTextColor);
     dataMenu.setBackground(menuBackgroundColor);
     demoMenu.add(dataMenu);
