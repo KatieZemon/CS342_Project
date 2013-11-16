@@ -1,22 +1,26 @@
 package code;
 
-import java.awt.*;
-
-//I used wikipedia as a source
-
+/**
+ * class: BubbleSort
+ * desc:  This class is used for running a simulation of bubble sort.
+ */
 class BubbleSort extends Sort
 {
   /**
-  * Constructor for bubble sort. Should be passed an array of values and the delay
-  */
+   * fn:   BubbleSort
+   * desc: Constructor for bubble sort. Draws the intial graph and sets values for v and d
+   * param v: The set of data to be sorted.
+   * param d: The delay (in milliseconds) in between each step of the algorithm
+   */
   public BubbleSort(int[] v, int d)
   {
     super(v, d, "Bubble Sort");
   }
 
   /**
-  * Sort function for the BubbleSort class
-  */
+   * fn:   runSort
+   * desc: This runs the simulation for bubble sort
+   */
   public void runSort()
   {
     int n = bars.length;
