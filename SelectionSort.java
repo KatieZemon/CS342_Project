@@ -46,6 +46,10 @@ class SelectionSort extends Sort
         repaint();
       }
       swap(max,j-1);
+      // Each time we swap, we add a delay
+      try {
+        Thread.sleep(delay);
+      } catch (InterruptedException e){}
       repaint();
     }
   }
