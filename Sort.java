@@ -23,13 +23,16 @@ public abstract class Sort extends JPanel implements Runnable {
   protected int panelWidth = 800;
   protected int panelHeight = 150;
   protected int selectedBar = 0; // The highlighted bar
-  protected Color panelBackgroundColor = new Color(255, 255, 255);
-  protected Color unselectedBarColor = new Color(31, 50, 131);
-  protected Color selectedBarColor = new Color(31, 50, 131);
-  protected Color poptartPurple = new Color(175, 116, 192);
-  protected Color pink = new Color(221, 161, 182);
-  protected GradientPaint rainbowPoptart = new GradientPaint(75, 75, poptartPurple,
-          95, 95, pink, true);
+  protected Color panelBackgroundColor = new Color(247, 247, 247);
+  protected Color barOutlineColor = new Color(14, 0, 10);
+  protected Color unselectedBarColor = new Color(49, 78, 139);
+  protected Color selectedBarColor1 = new Color(216, 47, 154);
+  protected Color selectedBarColor2 = new Color (164, 63, 197);
+
+  protected GradientPaint selectedBarColor = new GradientPaint(75, 75, selectedBarColor1,
+          95, 95, selectedBarColor2, true);
+
+ // protected Color selectedBarColor = new Color(164, 24, 28);
 
   public Sort(int[] v, int d, String sortName) {
     panelWidth = panelWidth/v.length * v.length;
@@ -85,18 +88,21 @@ public abstract class Sort extends JPanel implements Runnable {
     g2.setColor(unselectedBarColor);
     for (int i = 0; i < values.length; i++)
     {
-      g2.fill(bars[i]); // Fill the rectangle
+      // Fill selected bar with selectedBarColor
       if (i == selectedBar)
       {
-        g2.setPaint(rainbowPoptart);
-        g2.draw(bars[i]);
+        g2.setPaint(selectedBarColor);
         g2.fill(bars[i]);
-        g2.setColor(unselectedBarColor);
       }
+      // Fill unselected bar with unselectedBarColor
       else
       {
-        g2.draw(bars[i]);
+        g2.setPaint(unselectedBarColor);
+        g2.fill(bars[i]);
       }
+      // Draw the outline
+      g2.setPaint(barOutlineColor);
+     g2.draw(bars[i]);
     }
   }
 }
