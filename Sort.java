@@ -5,10 +5,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-
-// I used this reference here:
-// http://jlipton.web.wesleyan.edu/courses/fall2012/lecs/barGraph/arrayVersion/ArrayBarGraph.java
-
+/**
+ * class:   Sort
+ * desc:    Holds the functionality shared by all sorting algorithms. It draws a horizontal bar graph of
+ *          data to be sorted and contains a function for swapping one value with another
+ */
 public abstract class Sort extends JPanel implements Runnable {
   protected int[] values;
   protected Rectangle[] bars; // Our rectangular bars in the chart
@@ -30,12 +31,6 @@ public abstract class Sort extends JPanel implements Runnable {
   protected GradientPaint rainbowPoptart = new GradientPaint(75, 75, poptartPurple,
           95, 95, pink, true);
 
-  /**
-   * class: SelectionSort
-   * desc:  implements selection sort sorting algorithm on a set of data
-   * param v: The set of data to be sorted. The set of data to be sorted is always
-   * randomely assorted
-   */
   public Sort(int[] v, int d, String sortName) {
     panelWidth = panelWidth/v.length * v.length;
     this.setPreferredSize(new Dimension(panelWidth, panelHeight));
