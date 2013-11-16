@@ -77,6 +77,7 @@ public abstract class Sort extends JPanel implements Runnable {
     int yPos = bars[right].y;
     bars[right].setBounds(bars[right].x, bars[left].y, bars[left].width, bars[left].height );
     bars[left].setBounds( bars[left].x, yPos, bars[left].width, height );
+    repaint();
   }
 
   public void paintComponent(Graphics g)

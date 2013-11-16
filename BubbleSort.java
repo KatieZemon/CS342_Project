@@ -33,21 +33,23 @@ class BubbleSort extends Sort
         {
           return;
         }
+        repaint();
         try {
           Thread.sleep(delay);
         } catch (InterruptedException e){}
+        selectedBar = i;
 
-        selectedBar = i-1;
         if(bars[i - 1].height > bars[i].height)
         {
           swap(i-1, i);
+          selectedBar = i;
           newN = i;
+          repaint();
           // Each time we swap, there will be a delay
           try {
             Thread.sleep(delay);
           } catch (InterruptedException e){}
         }
-        repaint();
       }
       n = newN;
     } while(n != 0);
