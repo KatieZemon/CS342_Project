@@ -36,6 +36,7 @@ class BubbleSort extends Sort
         try {
           Thread.sleep(delay);
         } catch (InterruptedException e){}
+        selectedBar = i;
         if(bars[i - 1].height > bars[i].height)
         {
           swap(i-1, i);

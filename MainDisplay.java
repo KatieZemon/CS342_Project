@@ -207,6 +207,10 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
 
   public void doDefaultCloseAction()
   {
+    for(Sort s: sortList)
+    {
+      s.running = false;
+    }
     executor.shutdown();
     this.dispose();
   }
@@ -225,7 +229,6 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       // Begin execution of our algorithms
       initValsArr(); // Reinitialize our array of values in case the ItemCountSlider changed
       // Executor exe = Executors.newCachedThreadPool();
-      //  exe.execute(selectionSort);
       for(Sort s: sortList)
       {
         executor.execute(s);
