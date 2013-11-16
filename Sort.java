@@ -42,7 +42,6 @@ public abstract class Sort extends JPanel implements Runnable {
     bars = new Rectangle[values.length];
     graphTitle = sortName;
 
-
     lb = new LineBorder(Color.BLACK,3);
     tb = new TitledBorder(
             lb, graphTitle, TitledBorder.CENTER,
