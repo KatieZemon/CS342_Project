@@ -91,7 +91,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       }
       else if(s.equals("InsertionSort"))
       {
-        tmpSort = new InsertionSort(vals, delay);
+        // tmpSort = new InsertionSort(vals, delay);
       }
       else
       {
@@ -179,9 +179,9 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
         }
         break;
       case 3:
-        for (int i = numItems; i > 0; i--)
+        for (int i = 0; i < numItems; i++)
         {
-          vals[i] = i;
+          vals[i] = numItems - i;
         }
         break;
 
@@ -210,6 +210,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   void updateSortMode(int dataMode)
   {
     initValsArr(dataMode);
+    resetButtonAction();
     updateSorts();
   }
 
@@ -266,6 +267,26 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     this.dispose();
   }
 
+  /**
+   * fn: resetButtonAction
+   * desc: Resets all sorts
+   */
+  public void resetButtonAction()
+  {
+    // Disable our resetButton and enable our startButton
+    resetButton.setEnabled(false);
+    startButton.setEnabled(true);
+    itemCountSlider.setEnabled(true);
+    for(Sort s: sortList)
+    {
+      s.running = false;
+    }
+    executor.shutdown();
+    updateSorts();
+    c.validate();
+    executor = Executors.newFixedThreadPool(3);
+    repaint();
+  }
 
   public void actionPerformed(ActionEvent e)
   {
@@ -290,20 +311,8 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     // Reset Button
     else if (e.getSource() == resetButton)
     {
-      // Disable our resetButton and enable our startButton
-      resetButton.setEnabled(false);
-      startButton.setEnabled(true);
-      itemCountSlider.setEnabled(true);
-      for(Sort s: sortList)
-      {
-        s.running = false;
-      }
-      executor.shutdown();
-      updateSorts();
-      c.validate();
-      executor = Executors.newFixedThreadPool(3);
+      resetButtonAction();
     }
-    repaint();
   }
 
   public void stateChanged(ChangeEvent e)

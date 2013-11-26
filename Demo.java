@@ -25,7 +25,7 @@ public class Demo extends JApplet implements ActionListener
   JCheckBoxMenuItem bubbleMenuItem, insertionMenuItem, selectionMenuItem, quicksortMenuItem,
           heapsortMenuItem, shellsortMenuItem;
   JRadioButtonMenuItem randomCaseMenuItem, bestCaseMenuItem, worstCaseMenuItem;
-  //ButtonGroup
+  ButtonGroup sortDataButtonGroup;
   private JDesktopPane desktop = new JDesktopPane();
   private static JInternalFrame authorFrame, problemFrame, referencesFrame, helpFrame, mainDisplayFrame;
   private Container c = getContentPane();
@@ -172,19 +172,28 @@ public class Demo extends JApplet implements ActionListener
 
     // Add menu items to Demo > DataTypeItems menu
     randomCaseMenuItem = new JRadioButtonMenuItem("Random");
+    randomCaseMenuItem.addActionListener(this);
     randomCaseMenuItem.setForeground(menuTextColor);
     randomCaseMenuItem.setBackground(menuBackgroundColor);
+    randomCaseMenuItem.setSelected(true);
     dataMenu.add(randomCaseMenuItem);
 
     bestCaseMenuItem = new JRadioButtonMenuItem("Best");
+    bestCaseMenuItem.addActionListener(this);
     bestCaseMenuItem.setForeground(menuTextColor);
     bestCaseMenuItem.setBackground(menuBackgroundColor);
     dataMenu.add(bestCaseMenuItem);
 
     worstCaseMenuItem = new JRadioButtonMenuItem("Worst");
+    worstCaseMenuItem.addActionListener(this);
     worstCaseMenuItem.setForeground(menuTextColor);
     worstCaseMenuItem.setBackground(menuBackgroundColor);
     dataMenu.add(worstCaseMenuItem);
+
+    sortDataButtonGroup = new ButtonGroup();
+    sortDataButtonGroup.add(randomCaseMenuItem);
+    sortDataButtonGroup.add(bestCaseMenuItem);
+    sortDataButtonGroup.add(worstCaseMenuItem);
 
     // Add mainDisplay
     mainDisplayItem = new JMenuItem("Main Display");
@@ -297,6 +306,18 @@ public class Demo extends JApplet implements ActionListener
           ((MainDisplay)mainDisplayFrame).removeSort("InsertionSort");
         }
       }
+    }
+    else if(event.getSource() == randomCaseMenuItem)
+    {
+      ((MainDisplay)mainDisplayFrame).updateSortMode(1);
+    }
+    else if(event.getSource() == bestCaseMenuItem)
+    {
+      ((MainDisplay)mainDisplayFrame).updateSortMode(2);
+    }
+    else if(event.getSource() == worstCaseMenuItem)
+    {
+      ((MainDisplay)mainDisplayFrame).updateSortMode(3);
     }
   }
 
