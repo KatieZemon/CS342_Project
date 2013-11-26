@@ -284,6 +284,20 @@ public class Demo extends JApplet implements ActionListener
         }
       }
     }
+    else if (event.getSource() == insertionMenuItem)
+    {
+      if(mainDisplayFrame != null && !mainDisplayFrame.isClosed())
+      {
+        if(insertionMenuItem.getState())
+        {
+          ((MainDisplay)mainDisplayFrame).addSort("InsertionSort");
+        }
+        else
+        {
+          ((MainDisplay)mainDisplayFrame).removeSort("InsertionSort");
+        }
+      }
+    }
   }
 
 

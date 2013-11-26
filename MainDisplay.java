@@ -89,6 +89,10 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       {
         tmpSort = new BubbleSort(vals, delay);
       }
+      else if(s.equals("InsertionSort"))
+      {
+        tmpSort = new InsertionSort(vals, delay);
+      }
       else
       {
         System.out.println("Invalid sort type!");
