@@ -83,7 +83,7 @@ public class Help extends JInternalFrame
             "7. Press the reset button to stop the execution of the sorting algorithms.\n\n\n" +
 
             "********************* Algorithm Descriptions *********************\n" +
-           // The following are the required sorting algorithms
+            // The following are the required sorting algorithms
             "1. Bubble Sort\n\n" +
 
             "2. Insertion Sort:\n" +

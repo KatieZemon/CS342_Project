@@ -48,6 +48,7 @@ class BubbleSort extends Sort
           // Each time we swap, there will be a delay
           try {
             Thread.sleep(delay);
+            Thread.sleep(delay);
           } catch (InterruptedException e){}
         }
       }

@@ -91,7 +91,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       }
       else if(s.equals("InsertionSort"))
       {
-        // tmpSort = new InsertionSort(vals, delay);
+         tmpSort = new InsertionSort(vals, delay);
       }
       else
       {
