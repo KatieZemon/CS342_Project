@@ -37,6 +37,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   ArrayList<Sort> sortList = new ArrayList<Sort>();
   final int sortCountMax = 3;
   GridLayout sortLayout;
+  public int currentDataMode = -1;
 
   /**
    * class: MainDisplay
@@ -58,7 +59,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     initComponents();
 
     // Store random numbers in our array to be sorted
-    initValsArr();
+    initValsArr(1);
 
     sortPanel = new JPanel();
     c.add(sortPanel);
@@ -150,16 +151,62 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
 
   /**
    * fn: initValsArray
-   * desc: Initialize the size of our values array and store random values
+   * desc: Initialize the size of our values array and store values
    * in each location of the array. Numerical values are in the range [1,100]
+   * dataMode updates currentDataMode. If this is 1, random numbers are used,
+   * 2 sets best case numbers (already sorted) and 3 is worst case.
+   */
+  void initValsArr(int dataMode)
+  {
+    currentDataMode = dataMode;
+    vals = new int[numItems];
+    switch(currentDataMode)
+    {
+      case 1:  // Random numbers
+        for (int i = 0; i < numItems; i++)
+        {
+          vals[i] = (int)(100 * Math.random() + 1); // random number from 1-100
+        }
+        break;
+      case 2:  // Best Case
+        for (int i = 0; i < numItems; i++)
+        {
+          vals[i] = i;
+        }
+        break;
+      case 3:
+        for (int i = numItems; i > 0; i--)
+        {
+          vals[i] = i;
+        }
+        break;
+
+      default:
+        System.out.println("Invalid currentDataMode!");
+    }
+  }
+
+    /**
+   * fn: initValsArray
+   * desc: Initialize the size of our values array and store values
+   * in each location of the array. Numerical values are in the range [1,100]
+   * This uses currentDataMode. If this is 1, random numbers are used,
+   * 2 sets best case numbers (already sorted) and 3 is worst case.
    */
   void initValsArr()
   {
-    vals = new int[numItems];
-    for (int i = 0; i < numItems; i++)
-    {
-      vals[i] = (int)(100 * Math.random() + 1); // random number from 1-100
-    }
+    initValsArr(currentDataMode);
+  }
+
+   /**
+  * fn: updateSortMode
+  * desc: Updates currentSortMode and repaints all the sorts with new data.
+  * dataMode should be 1 for random, 2 for best case, and 3 for worst case.
+  */
+  void updateSortMode(int dataMode)
+  {
+    initValsArr(dataMode);
+    updateSorts();
   }
 
   /**
