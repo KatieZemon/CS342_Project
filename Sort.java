@@ -15,10 +15,8 @@ public abstract class Sort extends JPanel implements Runnable {
   protected Rectangle[] bars; // Our rectangular bars in the chart
   protected String graphTitle;
   public boolean running = false;
-  protected int xPos, yPos, xWidth, yHeight;
   public int delay;
-  protected LineBorder lb;
-  protected TitledBorder tb;
+  protected TitledBorder titleBorder;
   protected Font font_bold = new Font("Bold", Font.BOLD, 15);
   protected int panelWidth = 800;
   protected int panelHeight = 150;
@@ -45,18 +43,23 @@ public abstract class Sort extends JPanel implements Runnable {
     this.setPreferredSize(new Dimension(panelWidth, panelHeight));
     this.values = values;
     this.delay = delay;
-    bars = new Rectangle[values.length];
     graphTitle = sortName;
 
-    lb = new LineBorder(Color.BLACK,3);
-    tb = new TitledBorder(
-            lb, graphTitle, TitledBorder.CENTER,
+    titleBorder = new TitledBorder(
+        new LineBorder(Color.BLACK,3), graphTitle, TitledBorder.CENTER,
             TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
-    this.setBorder(tb);
+    this.setBorder(titleBorder);
 
     this.setBackground(panelBackgroundColor);
 
+    initBars();
+
+  }
+
+  private void initBars(){
+    int xPos, yPos, xWidth, yHeight;
     // Initialize all bar sizes
+    bars = new Rectangle[values.length];
     xWidth = (panelWidth)/values.length; // The width of each bar
     for (int i = 0; i < values.length; i++)
     {
@@ -70,6 +73,7 @@ public abstract class Sort extends JPanel implements Runnable {
   public void setValues(int[] values){
     if(!running){
       this.values = values;
+      if (bars.length != values.length) initBars();
     }
   }
 

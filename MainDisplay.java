@@ -11,7 +11,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.util.ArrayList;
 
 public class MainDisplay extends JInternalFrame implements ActionListener, ChangeListener
 {
@@ -28,16 +27,14 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   //** numItems = the number of items to be sorted.
   // This number is obtained by itemCountSlider*/
   int numItems = 50;
-  FlowLayout layout;
   Font font_bold = new Font("Bold", Font.BOLD, 15);
   TitledBorder itemCount_tBorder, delay_tBorder;
   LineBorder itemCount_border, delay_border;
-  /** vals= the values to be sorted */
-  int[] vals;
+  /** values= the values to be sorted */
+  int[] values;
   HashMap<Class, Sort> sorts = new HashMap<Class, Sort>();
   final int sortCountMax = 3;
-  GridLayout sortLayout;
-  public int currentDataMode = -1;
+  private int currentDataMode = -1;
   public static final int RANDOM = 1;
   public static final int BEST = 2;
   public static final int WORST = 3;
@@ -55,8 +52,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     setOpaque(true);
 
     // Set the layout
-    layout = new FlowLayout();
-    c.setLayout(layout);
+    c.setLayout(new FlowLayout());
 
     // Create and add our sliders and buttons
     initComponents();
@@ -83,7 +79,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     for(Sort sorter : sorts.values())
     {
       System.out.println("\t >" + sorter.toString());
-      sorter.setValues(vals);
+      sorter.setValues(values);
       sorter.delay = delay;
       sortPanel.add(sorter);
     }
@@ -97,7 +93,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       System.out.println("Adding sort " + clazz.toString());
       Sort algorithm = null;
       try{
-        algorithm = (Sort) clazz.getConstructor(int[].class, int.class).newInstance(vals, delay);
+        algorithm = (Sort) clazz.getConstructor(int[].class, int.class).newInstance(values, delay);
         sorts.put(clazz, algorithm);
       }
       catch(Exception e){
@@ -138,25 +134,25 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   void initValsArr(int dataMode)
   {
     currentDataMode = dataMode;
-    vals = new int[numItems];
+    values = new int[numItems];
     switch(currentDataMode)
     {
       case RANDOM:  // Random numbers
         for (int i = 0; i < numItems; i++)
         {
-          vals[i] = (int)(100 * Math.random() + 1); // random number from 1-100
+          values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
         }
         break;
       case BEST:  // Best Case
         for (int i = 0; i < numItems; i++)
         {
-          vals[i] = i;
+          values[i] = i;
         }
         break;
       case WORST:
         for (int i = 0; i < numItems; i++)
         {
-          vals[i] = numItems - i;
+          values[i] = numItems - i;
         }
         break;
 
@@ -196,10 +192,8 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   void initComponents()
   {
     // itemCountSlider
-    itemCount_border = new LineBorder(Color.BLACK,3);
-    itemCount_tBorder = new TitledBorder(
-            itemCount_border, "Array Length: N = " + numItems, TitledBorder.CENTER,
-            TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
+    itemCount_tBorder = new TitledBorder(new LineBorder(Color.BLACK,3), "Array Length: N = " + numItems,
+        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
     itemCountSlider = new JSlider(1, 800, numItems);
     itemCountSlider.setBorder(itemCount_tBorder);
     itemCountSlider.addChangeListener(this);
@@ -220,10 +214,8 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     c.add(resetButton);
 
     // delaySlider
-    delay_border = new LineBorder(Color.BLACK,3);
-    delay_tBorder = new TitledBorder(
-            delay_border, "Current Delay = " + delay + "ms", TitledBorder.CENTER,
-            TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
+    delay_tBorder = new TitledBorder(new LineBorder(Color.BLACK,3), "Current Delay = " + delay + "ms",
+        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
     delaySlider = new JSlider(1, 800, delay);
     delaySlider.setBorder(delay_tBorder);
     delaySlider.addChangeListener(this);
@@ -296,12 +288,8 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     if (e.getSource() == itemCountSlider)
     {
       numItems = itemCountSlider.getValue();
-
       // Change the border
-      itemCount_tBorder = new TitledBorder(
-              itemCount_border, "Array Length: N = " + numItems, TitledBorder.CENTER,
-              TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
-      itemCountSlider.setBorder(itemCount_tBorder);
+      itemCount_tBorder.setTitle("Array Length: N = " + numItems);
       initValsArr();
       updateSorts();
     }
@@ -315,10 +303,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
         s.delay = delay;
       }
       // Change the border
-      delay_tBorder = new TitledBorder(
-              delay_border, "Current Delay = " + delay + "ms", TitledBorder.CENTER,
-              TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
-      delaySlider.setBorder(delay_tBorder);
+      delay_tBorder.setTitle("Current Delay = " + delay + "ms");
     }
     repaint();
   }
