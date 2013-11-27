@@ -5,15 +5,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * Implementation of ActionListener that listens for commands to display
+ * internal frames on the given {@link JDesktopPane}
  * User: Thomas
- * Date: 11/26/13
- * Time: 7:51 PM
+ * Date: 11/26/13 7:51 PM
  */
 public class FrameDisplayListener implements ActionListener {
 
+  /** String of the Author frame's title and action command*/
   public static final String AUTHOR = "Author";
+  /** String of the Problem Statement frame's title and action command */
   public static final String PROBLEM = "Problem Statement";
+  /** String of the References frame's title and action command */
   public static final String REFERENCE = "References";
+  /** String of the Help frame's title and action command */
   public static final String HELP = "Help";
 
   private Author authorFrame = new Author();
@@ -22,6 +27,9 @@ public class FrameDisplayListener implements ActionListener {
   private Help helpFrame = new Help();
   private JDesktopPane desktop;
 
+  /**
+   * @param desktopPane the pane to show the internal frames in
+   */
   FrameDisplayListener(JDesktopPane desktopPane){
     desktop = desktopPane;
   }
@@ -42,6 +50,12 @@ public class FrameDisplayListener implements ActionListener {
     }
   }
 
+  /**
+   * Adds a frame to the <code>desktop</code> to display, and brings to front
+   * @param iframe internal frame to show
+   * @param x x position of frame
+   * @param y y position of frame
+   */
   public void addFrame(JInternalFrame iframe, int x, int y){
     //consider adding if closed check
     desktop.add(iframe);

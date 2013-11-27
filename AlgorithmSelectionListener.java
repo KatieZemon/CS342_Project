@@ -6,25 +6,38 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 /**
- * User: Thomas
+ * This class is an implementation of ActionListener whose domain of responsibility is
+ * configuring a MainDisplay object with the correct algorithms and data sets
+ * to use for its sorting demo
+ *
+ * @author Thomas Clay
  * Date: 11/26/13
  * Time: 7:51 PM
  */
 public class AlgorithmSelectionListener implements ActionListener {
-
+  /** String representation for use of random numbers in the data to be sorted */
   public static final String RANDOM = "Random";
+  /** String representation for use of worst-case numbers in the data to be sorted */
   public static final String WORST = "Worst";
+  /** String representation for use of best-case numbers in the data to be sorted */
   public static final String BEST = "Best";
+  /** String representation for action command to unselect all algorithms to be sorted */
   public static final String UNSELECT = "Unselect";
 
-  MainDisplay mainDisplay;
+  private MainDisplay mainDisplay;
 
+  /** A map between the name of the sort and the sorts Class */
   static HashMap<String, Class> sortingAlgorithms = new HashMap<String, Class>();
-  static{
+  static{ //initialize the static hash map of sorts
     sortingAlgorithms.put("Insertion Sort", InsertionSort.class);
     sortingAlgorithms.put("Selection Sort", SelectionSort.class);
+    //NEW SORTS TO BE ADDED HERE
   }
 
+  /**
+   *
+   * @param mainDisplay the display to modify when events happen
+   */
   AlgorithmSelectionListener(MainDisplay mainDisplay){
     this.mainDisplay = mainDisplay;
   }
@@ -52,6 +65,8 @@ public class AlgorithmSelectionListener implements ActionListener {
         case BEST: mainDisplay.updateDataDistribution(mainDisplay.BEST);
           break;
         case WORST: mainDisplay.updateDataDistribution(mainDisplay.WORST);
+          break;
+        case UNSELECT: mainDisplay.removeAllSorts();
       }
     }
   }
