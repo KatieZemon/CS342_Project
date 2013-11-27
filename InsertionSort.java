@@ -17,6 +17,7 @@ class InsertionSort extends Sort
     super(v, d, "Insertion Sort");
   }
 
+
   /**
    * fn:   runSort
    * desc: This runs the simulation for Insertion sort

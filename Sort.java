@@ -34,11 +34,17 @@ public abstract class Sort extends JPanel implements Runnable {
 
  // protected Color selectedBarColor = new Color(164, 24, 28);
 
-  public Sort(int[] v, int d, String sortName) {
-    panelWidth = panelWidth/v.length * v.length;
+  /**
+   *
+   * @param values
+   * @param delay
+   * @param sortName
+   */
+  public Sort(int[] values, Integer delay, String sortName) {
+    //panelWidth = panelWidth/values.length * values.length;
     this.setPreferredSize(new Dimension(panelWidth, panelHeight));
-    values = v;
-    delay = d;
+    this.values = values;
+    this.delay = delay;
     bars = new Rectangle[values.length];
     graphTitle = sortName;
 
@@ -58,6 +64,12 @@ public abstract class Sort extends JPanel implements Runnable {
       xPos = i*xWidth + 5;
       yPos = panelHeight - yHeight - 5;
       bars[i] = new Rectangle(xPos,yPos,xWidth,yHeight);
+    }
+  }
+
+  public void setValues(int[] values){
+    if(!running){
+      this.values = values;
     }
   }
 
@@ -104,5 +116,11 @@ public abstract class Sort extends JPanel implements Runnable {
       g2.setPaint(barOutlineColor);
      g2.draw(bars[i]);
     }
+  }
+
+  @Override
+  public String toString()
+  {
+    return graphTitle;
   }
 }

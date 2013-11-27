@@ -6,15 +6,16 @@ package code;
  */
 class SelectionSort extends Sort
 {
+
   /**
    * fn:   SelectionSort
    * desc: Draws the intial graph and sets values for v and d
    * param v: The set of data to be sorted.
    * param d: The delay (in milliseconds) in between each step of the algorithm
    */
-  public SelectionSort(int[] v, int d)
+  public SelectionSort(int[] values, int delay)
   {
-    super(v, d, "Selection Sort");
+    super(values, delay, "Selection Sort");
   }
 
   /**

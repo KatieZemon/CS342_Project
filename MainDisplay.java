@@ -6,6 +6,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.swing.event.ChangeEvent;
@@ -33,11 +34,13 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   LineBorder itemCount_border, delay_border;
   /** vals= the values to be sorted */
   int[] vals;
-  ArrayList<String> sortTypeList = new ArrayList<String>();
-  ArrayList<Sort> sortList = new ArrayList<Sort>();
+  HashMap<Class, Sort> sorts = new HashMap<Class, Sort>();
   final int sortCountMax = 3;
   GridLayout sortLayout;
   public int currentDataMode = -1;
+  public static final int RANDOM = 1;
+  public static final int BEST = 2;
+  public static final int WORST = 3;
 
   /**
    * class: MainDisplay
@@ -47,7 +50,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   {
     // Initialize the internal frame
     super("Main Display", true, true, true, true);
-    setSize(frameWidth,frameHeight);
+    setSize(frameWidth, frameHeight);
     setVisible(true);
     setOpaque(true);
 
@@ -66,7 +69,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
 
     executor = Executors.newFixedThreadPool(3);
 
-    addSort("SelectionSort");
+    addSort(SelectionSort.class);
   }
 
   /**
@@ -74,70 +77,44 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   */
   private void updateSorts()
   {
+    System.out.println("updating sorts...");
     sortPanel.removeAll();
-    sortLayout = new GridLayout(sortTypeList.size(), 1);
-    sortPanel.setLayout(sortLayout);
-    sortList = new ArrayList<Sort>();
-    Sort tmpSort = null;
-    for(String s: sortTypeList)
+    sortPanel.setLayout(new GridLayout(sorts.size(), 1));
+    for(Sort sorter : sorts.values())
     {
-      if(s.equals("SelectionSort"))
-      {
-        tmpSort = new SelectionSort(vals, delay);
-      }
-      else if(s.equals("BubbleSort"))
-      {
-        tmpSort = new BubbleSort(vals, delay);
-      }
-      else if(s.equals("InsertionSort"))
-      {
-         tmpSort = new InsertionSort(vals, delay);
-      }
-      else
-      {
-        System.out.println("Invalid sort type!");
-        return;
-      }
-      if(tmpSort != null)
-      {
-        sortList.add(tmpSort);
-        sortPanel.add(tmpSort);
-      }
+      System.out.println("\t >" + sorter.toString());
+      sorter.setValues(vals);
+      sorter.delay = delay;
+      sortPanel.add(sorter);
     }
     c.validate();
   }
 
-  public void addSort(String className)
+  public void addSort(Class clazz)
   {
-    if(sortTypeList.size() < sortCountMax)
+    if(sorts.size() < sortCountMax)
     {
-      sortTypeList.add(className);
+      System.out.println("Adding sort " + clazz.toString());
+      Sort algorithm = null;
+      try{
+        algorithm = (Sort) clazz.getConstructor(int[].class, int.class).newInstance(vals, delay);
+        sorts.put(clazz, algorithm);
+      }
+      catch(Exception e){
+        e.printStackTrace();
+      }
+      System.out.println("sorts: ");
+      System.out.println(sorts.keySet());
     }
     updateSorts();
   }
 
   /**
-  * Removes all sorts and sets only the ones in the ArrayList.
-  * This can be used for initializing the Demo frame
-  */
-  public void setSorts(ArrayList<String> classNames)
-  {
-    removeAllSorts();
-    for(String s: classNames)
-    {
-      addSort(s);
-    }
-  }
-
-  /**
   * Removes a single sort from being shown.
   */
-  public void removeSort(String className)
+  public void removeSort(Class clazz)
   {
-    if(sortTypeList.contains(className))
-    {
-      sortTypeList.remove(className);
-    }
+    sorts.remove(clazz);
     updateSorts();
   }
 
@@ -146,10 +123,8 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   */
   public void removeAllSorts()
   {
-    for(String s: sortTypeList)
-    {
-      removeSort(s);
-    }
+    sorts.clear();
+    updateSorts();
   }
 
 
@@ -166,19 +141,19 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     vals = new int[numItems];
     switch(currentDataMode)
     {
-      case 1:  // Random numbers
+      case RANDOM:  // Random numbers
         for (int i = 0; i < numItems; i++)
         {
           vals[i] = (int)(100 * Math.random() + 1); // random number from 1-100
         }
         break;
-      case 2:  // Best Case
+      case BEST:  // Best Case
         for (int i = 0; i < numItems; i++)
         {
           vals[i] = i;
         }
         break;
-      case 3:
+      case WORST:
         for (int i = 0; i < numItems; i++)
         {
           vals[i] = numItems - i;
@@ -203,11 +178,11 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   }
 
    /**
-  * fn: updateSortMode
+  * fn: updateDataDistribution
   * desc: Updates currentSortMode and repaints all the sorts with new data.
   * dataMode should be 1 for random, 2 for best case, and 3 for worst case.
   */
-  void updateSortMode(int dataMode)
+  void updateDataDistribution(int dataMode)
   {
     initValsArr(dataMode);
     resetButtonAction();
@@ -259,7 +234,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
 
   public void doDefaultCloseAction()
   {
-    for(Sort s: sortList)
+    for(Sort s: sorts.values())
     {
       s.running = false;
     }
@@ -277,7 +252,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     resetButton.setEnabled(false);
     startButton.setEnabled(true);
     itemCountSlider.setEnabled(true);
-    for(Sort s: sortList)
+    for(Sort s: sorts.values())
     {
       s.running = false;
     }
@@ -301,7 +276,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       // Begin execution of our algorithms
       initValsArr(); // Reinitialize our array of values in case the ItemCountSlider changed
       // Executor exe = Executors.newCachedThreadPool();
-      for(Sort s: sortList)
+      for(Sort s: sorts.values())
       {
         executor.execute(s);
       }
@@ -335,7 +310,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     else if (e.getSource() == delaySlider)
     {
       delay = delaySlider.getValue();
-      for(Sort s: sortList)
+      for(Sort s: sorts.values())
       {
         s.delay = delay;
       }
