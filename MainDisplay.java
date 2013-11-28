@@ -2,7 +2,6 @@ package code;
 
 import code.sorts.SelectionSort;
 import code.sorts.Sort;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -25,28 +24,46 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   JPanel sortPanel;
   ExecutorService executor;
   JSlider delaySlider, itemCountSlider;
-  JButton startButton, resetButton;
+
+  /** Button to begin initiation of selected sorting algorithms */
+  JButton startButton;
+
+  /** Button to stop execution of selected sorting algorithms */
+  JButton resetButton;
+
   Container c = getContentPane();
-  //** frameWidth and frameHeight = the initial width and height of the internalframe */
-  private int frameWidth = 900, frameHeight = 700;
-  /** delay = the number of milliseconds of delay between steps in any sorting algorithm.
-   * This number is obtained from the delaySlider */
+
+  /** The initial width of the internal frame */
+  private int frameWidth = 900;
+
+  /** The initial height of the internal frame */
+  private int frameHeight = 700;
+
+  /** The number of milliseconds of delay between steps in any sorting algorithm. */
   int delay = 100;
-  /**
-  /* the number of items to be sorted.
-  *This number is obtained by itemCountSlider*/
+
+  /** the number of items to be sorted. This number is obtained by itemCountSlider*/
   int numItems = 50;
+
   Font font_bold = new Font("Bold", Font.BOLD, 15);
   TitledBorder itemCount_tBorder, delay_tBorder;
-  /** values= the values to be sorted */
+
+  /** the values to be sorted */
   int[] values;
+
   HashMap<Class, Sort> sorts = new HashMap<Class, Sort>();
+
+  /** The maximum number of sorts to be displayed on the screen at once */
   final int MAX_SORTS = 3;
+
   private int currentDataMode = 1;
+
   /** The dataMode that represents a random data set */
   public static final int RANDOM = 1;
+
   /** The dataMode that represents a best-case data set */
   public static final int BEST = 2;
+
   /** The dataMode that represents a worst-case data set */
   public static final int WORST = 3;
 
@@ -77,8 +94,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   }
 
   /**
-   * fn: initComponents
-   * desc: Creates and displays our sliders and buttons
+   * Creates and displays our sliders and buttons
    */
   void initComponents()
   {
@@ -117,8 +133,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
 
 
   /**
-   * fn: initValsArray
-   * desc: Initialize the size of our values array and store values
+   * Initializes the size of our values array and stores these values
    * in each location of the array. Numerical values are in the range [1,100]
    * dataMode updates currentDataMode. If this is 1, random numbers are used,
    * 2 sets best case numbers (already sorted) and 3 is worst case.
@@ -140,7 +155,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
           values[i] = i;
         }
         break;
-      case WORST:
+      case WORST: // Worst Case
         for (int i = 0; i < numItems; i++)
         {
           values[i] = numItems - i;
@@ -208,9 +223,8 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     updateSorts();
   }
 
-   /**
-  * fn: updateDataDistribution
-  * desc: Updates currentSortMode and repaints all the sorts with new data.
+  /**
+  *  Updates currentSortMode and repaints all the sorts with new data.
   * dataMode should be 1 for random, 2 for best case, and 3 for worst case.
   */
   void updateDataDistribution(int dataMode)
@@ -221,6 +235,9 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     updateSorts();
   }
 
+  /**
+   * Stops execution of all sorting algorithms when the program is closed
+   */
   public void doDefaultCloseAction()
   {
     for(Sort s: sorts.values())
@@ -232,8 +249,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   }
 
   /**
-   * fn: resetButtonAction
-   * desc: Resets all sorts
+   * Resets all sorts
    */
   public void resetButtonAction()
   {
