@@ -1,10 +1,10 @@
-package code;
+package code.sorts;
 
 /**
  * class: BubbleSort
  * desc:  This class is used for running a simulation of bubble sort.
  */
-class BubbleSort extends Sort
+public class BubbleSort extends Sort
 {
   /**
    * fn:   BubbleSort
@@ -49,7 +49,9 @@ class BubbleSort extends Sort
           try {
             Thread.sleep(delay);
             Thread.sleep(delay);
-          } catch (InterruptedException e){}
+          } catch (InterruptedException e){
+            e.printStackTrace();
+          }
         }
       }
       n = newN;

@@ -1,6 +1,9 @@
 package code;
 
+import code.sorts.*;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -31,6 +34,7 @@ public class AlgorithmSelectionListener implements ActionListener {
   static{ //initialize the static hash map of sorts
     sortingAlgorithms.put("Insertion Sort", InsertionSort.class);
     sortingAlgorithms.put("Selection Sort", SelectionSort.class);
+    sortingAlgorithms.put("Bubble Sort", BubbleSort.class);
     //NEW SORTS TO BE ADDED HERE
   }
 
@@ -66,7 +70,21 @@ public class AlgorithmSelectionListener implements ActionListener {
           break;
         case WORST: mainDisplay.updateDataDistribution(mainDisplay.WORST);
           break;
-        case UNSELECT: mainDisplay.removeAllSorts();
+        case UNSELECT:
+          mainDisplay.removeAllSorts();
+          JMenuItem unselect = (JMenuItem)e.getSource();
+          JPopupMenu menu = (JPopupMenu)unselect.getParent();
+          for(Component component: menu.getComponents()){
+            System.out.println("looking at item of class " + component.getClass());
+            if(component.getClass() == JCheckBoxMenuItem.class){
+              JCheckBoxMenuItem item = (JCheckBoxMenuItem) component;
+              System.out.println("Unselecting checkbox");
+              item.setSelected(false);
+            }
+          }
+         break;
+        default:
+          System.err.println("Could not understand menu command");
       }
     }
   }
