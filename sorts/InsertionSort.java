@@ -1,34 +1,37 @@
 package code.sorts;
 
 /**
- * class: InsertionSort
- * desc:  This class is used for running a simulation of Insertion sort.
+ * Runs a simulation of Insertion Sort
  */
 public class InsertionSort extends Sort
 {
   /**
-   * fn:   InsertionSort
-   * desc: Draws the intial graph and sets values for v and d
-   * param v: The set of data to be sorted.
-   * param d: The delay (in milliseconds) in between each step of the algorithm
+   * Draws the intial graph and sets values for v and d
+   * @param values: The set of data to be sorted.
+   * @param delay: The delay (in milliseconds) in between each step of the algorithm
    */
-  public InsertionSort(int[] v, int d)
+  public InsertionSort(int[] values, int delay)
   {
-    super(v, d, "Insertion Sort");
+    super(values, delay, "Insertion Sort");
   }
 
 
+
   /**
-   * fn:   runSort
-   * desc: This runs the simulation for Insertion sort
+   * This runs the simulation for Insertion sort
    */
   public void runSort()
   {
     for(int i = 0; i < bars.length; i++)
     {
+
       selectedBar = i;
       for (int j = i-1; j>=0; j--)
       {
+        if(running == false)
+        {
+          return;
+        }
         if(bars[selectedBar].height < bars[j].height)
         {
           swap(selectedBar,j);

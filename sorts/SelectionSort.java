@@ -8,10 +8,9 @@ public class SelectionSort extends Sort
 {
 
   /**
-   * fn:   SelectionSort
-   * desc: Draws the intial graph and sets values for v and d
-   * param v: The set of data to be sorted.
-   * param d: The delay (in milliseconds) in between each step of the algorithm
+   * Draws the intial graph and sets values for v and d
+   * @param values: The set of data to be sorted.
+   * @param delay: The delay (in milliseconds) in between each step of the algorithm
    */
   public SelectionSort(int[] values, int delay)
   {
@@ -19,8 +18,7 @@ public class SelectionSort extends Sort
   }
 
   /**
-   * fn:   runSort
-   * desc: This runs the simulation for selection sort
+   * This runs the simulation for Insertion sort
    */
   public void runSort()
   {
@@ -42,7 +40,6 @@ public class SelectionSort extends Sort
         if ( bars[i].height > bars[max].height )
         {
           max = i; // set new max value
-//          System.out.println("new max: "+ max + " Val: " + bars[max].height);
         }
         repaint();
       }
