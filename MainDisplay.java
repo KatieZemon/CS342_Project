@@ -1,5 +1,8 @@
 package code;
 
+import code.sorts.SelectionSort;
+import code.sorts.Sort;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -9,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -28,16 +32,16 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   /** delay = the number of milliseconds of delay between steps in any sorting algorithm.
    * This number is obtained from the delaySlider */
   int delay = 100;
-  //** numItems = the number of items to be sorted.
-  // This number is obtained by itemCountSlider*/
+  /**
+  /* the number of items to be sorted.
+  *This number is obtained by itemCountSlider*/
   int numItems = 50;
   Font font_bold = new Font("Bold", Font.BOLD, 15);
   TitledBorder itemCount_tBorder, delay_tBorder;
-  LineBorder itemCount_border, delay_border;
   /** values= the values to be sorted */
   int[] values;
   HashMap<Class, Sort> sorts = new HashMap<Class, Sort>();
-  final int sortCountMax = 3;
+  final int MAX_SORTS = 3;
   private int currentDataMode = 1;
   /** The dataMode that represents a random data set */
   public static final int RANDOM = 1;
@@ -67,114 +71,9 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     sortPanel = new JPanel();
     c.add(sortPanel);
 
-    executor = Executors.newFixedThreadPool(3);
+    executor = Executors.newFixedThreadPool(MAX_SORTS);
 
     addSort(SelectionSort.class);
-  }
-
-  /**
-  * Creates all sorts new that are to be shown.
-  */
-  private void updateSorts()
-  {
-    System.out.println("updating sorts...");
-    sortPanel.removeAll();
-    sortPanel.setLayout(new GridLayout(sorts.size(), 1));
-    for(Sort sorter : sorts.values())
-    {
-      System.out.println("\t >" + sorter.toString());
-      sorter.setValues(values);
-      sorter.delay = delay;
-      sortPanel.add(sorter);
-    }
-    c.validate();
-  }
-
-  public void addSort(Class clazz)
-  {
-    if(sorts.size() < sortCountMax)
-    {
-      System.out.println("Adding sort " + clazz.toString());
-      Sort algorithm = null;
-      try{
-        algorithm = (Sort) clazz.getConstructor(int[].class, int.class).newInstance(values, delay);
-        sorts.put(clazz, algorithm);
-      }
-      catch(Exception e){
-        e.printStackTrace();
-      }
-      System.out.println("sorts: ");
-      System.out.println(sorts.keySet());
-    }
-    updateSorts();
-  }
-
-  /**
-  * Removes a single sort from being shown.
-  */
-  public void removeSort(Class clazz)
-  {
-    sorts.remove(clazz);
-    updateSorts();
-  }
-
-  /**
-  * Removes all sorts.
-  */
-  public void removeAllSorts()
-  {
-    sorts.clear();
-    updateSorts();
-  }
-
-
-  /**
-   * fn: initValsArray
-   * desc: Initialize the size of our values array and store values
-   * in each location of the array. Numerical values are in the range [1,100]
-   * dataMode updates currentDataMode. If this is 1, random numbers are used,
-   * 2 sets best case numbers (already sorted) and 3 is worst case.
-   */
-  void initValsArr()
-  {
-    values = new int[numItems];
-    switch(currentDataMode)
-    {
-      case RANDOM:  // Random numbers
-        for (int i = 0; i < numItems; i++)
-        {
-          values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
-        }
-        break;
-      case BEST:  // Best Case
-        for (int i = 0; i < numItems; i++)
-        {
-          values[i] = i;
-        }
-        break;
-      case WORST:
-        for (int i = 0; i < numItems; i++)
-        {
-          values[i] = numItems - i;
-        }
-        break;
-
-      default:
-        System.out.println("Invalid currentDataMode!");
-    }
-  }
-
-   /**
-  * fn: updateDataDistribution
-  * desc: Updates currentSortMode and repaints all the sorts with new data.
-  * dataMode should be 1 for random, 2 for best case, and 3 for worst case.
-  */
-  void updateDataDistribution(int dataMode)
-  {
-    currentDataMode = dataMode;
-    initValsArr();
-    resetButtonAction();
-    updateSorts();
   }
 
   /**
@@ -216,6 +115,112 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     c.add(delaySlider);
   }
 
+
+  /**
+   * fn: initValsArray
+   * desc: Initialize the size of our values array and store values
+   * in each location of the array. Numerical values are in the range [1,100]
+   * dataMode updates currentDataMode. If this is 1, random numbers are used,
+   * 2 sets best case numbers (already sorted) and 3 is worst case.
+   */
+  void initValsArr()
+  {
+    values = new int[numItems];
+    switch(currentDataMode)
+    {
+      case RANDOM:  // Random numbers
+        for (int i = 0; i < numItems; i++)
+        {
+          values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
+        }
+        break;
+      case BEST:  // Best Case
+        for (int i = 0; i < numItems; i++)
+        {
+          values[i] = i;
+        }
+        break;
+      case WORST:
+        for (int i = 0; i < numItems; i++)
+        {
+          values[i] = numItems - i;
+        }
+        break;
+
+      default:
+        System.out.println("Invalid currentDataMode!");
+    }
+  }
+
+  /**
+  * Creates all sorts new that are to be shown.
+  */
+  private void updateSorts()
+  {
+    System.out.println("updating sorts...");
+    sortPanel.removeAll();
+    sortPanel.setLayout(new GridLayout(sorts.size(), 1));
+    for(Sort sorter : sorts.values())
+    {
+      System.out.println("\t >" + sorter.toString());
+      sorter.setValues(values);
+      sorter.delay = delay;
+      sortPanel.add(sorter);
+    }
+    c.validate();
+  }
+
+  public void addSort(Class clazz)
+  {
+    if(sorts.size() < MAX_SORTS)
+    {
+      System.out.println("Adding sort " + clazz.toString());
+      Sort algorithm = null;
+      try{
+        algorithm = (Sort) clazz.getConstructor(int[].class, int.class).newInstance(values, delay);
+        sorts.put(clazz, algorithm);
+      }
+      catch(Exception e){
+        e.printStackTrace();
+      }
+      System.out.println("sorts: ");
+      System.out.println(sorts.keySet());
+    }
+    updateSorts();
+  }
+
+  /**
+  * Removes a single sort from being shown.
+  */
+  public void removeSort(Class clazz)
+  {
+    sorts.remove(clazz);
+    updateSorts();
+  }
+
+  /**
+  * Removes all sorts.
+  */
+  public void removeAllSorts()
+  {
+    resetButtonAction();
+    sorts.clear();
+    updateSorts();
+  }
+
+   /**
+  * fn: updateDataDistribution
+  * desc: Updates currentSortMode and repaints all the sorts with new data.
+  * dataMode should be 1 for random, 2 for best case, and 3 for worst case.
+  */
+  void updateDataDistribution(int dataMode)
+  {
+    currentDataMode = dataMode;
+    initValsArr();
+    resetButtonAction();
+    updateSorts();
+  }
+
   public void doDefaultCloseAction()
   {
     for(Sort s: sorts.values())
@@ -233,17 +238,45 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   public void resetButtonAction()
   {
     // Disable our resetButton and enable our startButton
-    resetButton.setEnabled(false);
-    startButton.setEnabled(true);
-    itemCountSlider.setEnabled(true);
     for(Sort s: sorts.values())
     {
       s.running = false;
     }
-    executor.shutdown();
-    updateSorts();
-    c.validate();
-    executor = Executors.newFixedThreadPool(3);
+
+    try {
+      executor.shutdown();
+      executor.awaitTermination(delay*2, TimeUnit.MILLISECONDS);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    executor.shutdownNow();
+    if(executor.isTerminated()){
+      resetButton.setEnabled(false);
+      startButton.setEnabled(true);
+      itemCountSlider.setEnabled(true);
+      updateSorts();
+      c.validate();
+      executor = Executors.newFixedThreadPool(3);
+      repaint();
+    }
+    else{
+      System.err.println("Problem terminating threads");
+    }
+
+  }
+
+  private void startButtonAction(){
+    // Disable the start button and enabled our reset button
+    startButton.setEnabled(false);
+    resetButton.setEnabled(true);
+    itemCountSlider.setEnabled(false);
+
+    // Begin execution of our algorithms
+    initValsArr(); // Reinitialize our array of values in case the ItemCountSlider changed
+    for(Sort s: sorts.values())
+    {
+      executor.execute(s);
+    }
     repaint();
   }
 
@@ -252,24 +285,16 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     // Sort button
     if (e.getSource() == startButton)
     {
-      // Disable the start button and enabled our reset button
-      startButton.setEnabled(false);
-      resetButton.setEnabled(true);
-      itemCountSlider.setEnabled(false);
-
-      // Begin execution of our algorithms
-      initValsArr(); // Reinitialize our array of values in case the ItemCountSlider changed
-      for(Sort s: sorts.values())
-      {
-        executor.execute(s);
-      }
-      repaint();
+      startButtonAction();
     }
-
     // Reset Button
     else if (e.getSource() == resetButton)
     {
       resetButtonAction();
+    }
+    else
+    {
+      System.err.println("Action not implemented for " + e.getSource());
     }
   }
 
