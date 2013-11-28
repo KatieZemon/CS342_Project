@@ -12,6 +12,10 @@ import java.util.concurrent.Executors;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * The display that houses the charts that represent the different sorting algorithms
+ * This is responsible for managing the algorithms and data being used
+ */
 public class MainDisplay extends JInternalFrame implements ActionListener, ChangeListener
 {
   JPanel sortPanel;
@@ -20,9 +24,9 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   JButton startButton, resetButton;
   Container c = getContentPane();
   //** frameWidth and frameHeight = the initial width and height of the internalframe */
-  int frameWidth = 900, frameHeight = 700;
-  //** delay = the number of milliseconds of delay between steps in any sorting algorithm.
-  // This number is obtained from the delaySlider*/
+  private int frameWidth = 900, frameHeight = 700;
+  /** delay = the number of milliseconds of delay between steps in any sorting algorithm.
+   * This number is obtained from the delaySlider */
   int delay = 100;
   //** numItems = the number of items to be sorted.
   // This number is obtained by itemCountSlider*/
@@ -34,15 +38,15 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   int[] values;
   HashMap<Class, Sort> sorts = new HashMap<Class, Sort>();
   final int sortCountMax = 3;
-  private int currentDataMode = -1;
+  private int currentDataMode = 1;
+  /** The dataMode that represents a random data set */
   public static final int RANDOM = 1;
+  /** The dataMode that represents a best-case data set */
   public static final int BEST = 2;
+  /** The dataMode that represents a worst-case data set */
   public static final int WORST = 3;
 
-  /**
-   * class: MainDisplay
-   * desc:
-   */
+
   public MainDisplay()
   {
     // Initialize the internal frame
@@ -58,7 +62,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     initComponents();
 
     // Store random numbers in our array to be sorted
-    initValsArr(1);
+    initValsArr();
 
     sortPanel = new JPanel();
     c.add(sortPanel);
@@ -131,9 +135,8 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
    * dataMode updates currentDataMode. If this is 1, random numbers are used,
    * 2 sets best case numbers (already sorted) and 3 is worst case.
    */
-  void initValsArr(int dataMode)
+  void initValsArr()
   {
-    currentDataMode = dataMode;
     values = new int[numItems];
     switch(currentDataMode)
     {
@@ -161,18 +164,6 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     }
   }
 
-    /**
-   * fn: initValsArray
-   * desc: Initialize the size of our values array and store values
-   * in each location of the array. Numerical values are in the range [1,100]
-   * This uses currentDataMode. If this is 1, random numbers are used,
-   * 2 sets best case numbers (already sorted) and 3 is worst case.
-   */
-  void initValsArr()
-  {
-    initValsArr(currentDataMode);
-  }
-
    /**
   * fn: updateDataDistribution
   * desc: Updates currentSortMode and repaints all the sorts with new data.
@@ -180,7 +171,8 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   */
   void updateDataDistribution(int dataMode)
   {
-    initValsArr(dataMode);
+    currentDataMode = dataMode;
+    initValsArr();
     resetButtonAction();
     updateSorts();
   }
@@ -267,7 +259,6 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
 
       // Begin execution of our algorithms
       initValsArr(); // Reinitialize our array of values in case the ItemCountSlider changed
-      // Executor exe = Executors.newCachedThreadPool();
       for(Sort s: sorts.values())
       {
         executor.execute(s);

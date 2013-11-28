@@ -54,7 +54,7 @@ public class AlgorithmSelectionListener implements ActionListener {
         mainDisplay.addSort(clazz);
       }
       else if(!menuItem.getState() && mainDisplay.sorts.containsKey(clazz)){
-        mainDisplay.sorts.remove(clazz);
+        mainDisplay.removeSort(clazz);
       }
     }
     // If command deals with data or delay:

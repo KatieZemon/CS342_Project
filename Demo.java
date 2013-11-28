@@ -20,7 +20,7 @@ import static javax.swing.KeyStroke.getKeyStroke;
 public class Demo extends JApplet implements ActionListener
 {
   private JDesktopPane desktop = new JDesktopPane();
-  private static MainDisplay mainDisplayFrame;
+  static MainDisplay mainDisplayFrame;
   private Container c = getContentPane();
   private ActionListener displayListener = new FrameDisplayListener(desktop);
   static ActionListener algorithmSelectionListener = null;
@@ -112,7 +112,7 @@ public class Demo extends JApplet implements ActionListener
     demoMenu.add(MenuBuilder.makeRadioButtonMenu("Data Type Items", algorithmSelectionListener, 0,
         AlgorithmSelectionListener.RANDOM, AlgorithmSelectionListener.BEST, AlgorithmSelectionListener.WORST));
     // Add Demo > Main Display
-    MenuBuilder.addMenuItem(demoMenu, "Main Display", algorithmSelectionListener, getKeyStroke('5', CTRL_MASK));
+    MenuBuilder.addMenuItem(demoMenu, FrameDisplayListener.MAIN, displayListener, getKeyStroke('5', CTRL_MASK));
     menuBar.add(demoMenu);
 
   }

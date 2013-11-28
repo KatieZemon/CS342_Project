@@ -6,9 +6,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**
- * class:   Sort
- * desc:    Holds the functionality shared by all sorting algorithms. It draws a horizontal bar graph of
- *          data to be sorted and contains a function for swapping one value with another
+ * Holds the functionality shared by all sorting algorithms. It draws a horizontal bar graph of
+ * data to be sorted and contains a function for swapping one value with another
  */
 public abstract class Sort extends JPanel implements Runnable {
   protected int[] values;
@@ -30,13 +29,11 @@ public abstract class Sort extends JPanel implements Runnable {
   protected GradientPaint selectedBarColor = new GradientPaint(75, 75, selectedBarColor1,
           95, 95, selectedBarColor2, true);
 
- // protected Color selectedBarColor = new Color(164, 24, 28);
-
   /**
    *
-   * @param values
-   * @param delay
-   * @param sortName
+   * @param values the values to sort
+   * @param delay the delay per iteration of sort
+   * @param sortName the name of the sort
    */
   public Sort(int[] values, Integer delay, String sortName) {
     //panelWidth = panelWidth/values.length * values.length;
@@ -56,6 +53,9 @@ public abstract class Sort extends JPanel implements Runnable {
 
   }
 
+  /**
+   * Initializes the rectangles that represent the data to be sorted in the chart
+   */
   private void initBars(){
     int xPos, yPos, xWidth, yHeight;
     // Initialize all bar sizes
@@ -70,6 +70,9 @@ public abstract class Sort extends JPanel implements Runnable {
     }
   }
 
+  /**
+   * @param values the array of integers to be sorted
+   */
   public void setValues(int[] values){
     if(!running){
       this.values = values;

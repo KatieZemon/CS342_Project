@@ -20,6 +20,8 @@ public class FrameDisplayListener implements ActionListener {
   public static final String REFERENCE = "References";
   /** String of the Help frame's title and action command */
   public static final String HELP = "Help";
+  /** String of the Main frame's title and action command */
+  public static final String MAIN = "Main Display";
 
   private Author authorFrame = new Author();
   private Problem problemFrame = new Problem();
@@ -38,15 +40,17 @@ public class FrameDisplayListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     String command = e.getActionCommand();
     switch (command){
-      case AUTHOR: addFrame(authorFrame, 0, 0);
+      case AUTHOR: addFrame(authorFrame, 10, 10);
         break;
-      case PROBLEM: addFrame(problemFrame, 25, 25);
+      case PROBLEM: addFrame(problemFrame, 35, 35);
         break;
-      case REFERENCE: addFrame(referencesFrame, 50, 50);
+      case REFERENCE: addFrame(referencesFrame, 60, 60);
         break;
-      case HELP: addFrame(helpFrame, 75, 75);
+      case HELP: addFrame(helpFrame, 85, 85);
         break;
-      default: System.err.print("FrameDisplayListener could not udnerstand command");
+      case MAIN: addFrame(Demo.mainDisplayFrame, 0, 0);
+        break;
+      default: System.err.print("FrameDisplayListener could not understand command");
     }
   }
 
