@@ -15,6 +15,7 @@ public class MenuBuilder {
 
   /** The background color of the menu, and menu items */
   public static Color menuBackgroundColor = new Color(49, 78, 139);
+
   /** The text color of menus and menu items */
   public static Color menuTextColor = new Color(254, 253, 255);
 
