@@ -59,15 +59,18 @@ public class AlgorithmSelectionListener implements ActionListener {
     }
     // If command deals with data or delay:
     else {
-      switch(command){
-        case RANDOM: mainDisplay.updateDataDistribution(mainDisplay.RANDOM);
-          break;
-        case BEST: mainDisplay.updateDataDistribution(mainDisplay.BEST);
-          break;
-        case WORST: mainDisplay.updateDataDistribution(mainDisplay.WORST);
-          break;
-        case UNSELECT: mainDisplay.removeAllSorts();
-      }
+
+      if (command == RANDOM)
+       mainDisplay.updateDataDistribution(mainDisplay.RANDOM);
+
+      else if (command == BEST)
+      mainDisplay.updateDataDistribution(mainDisplay.BEST);
+
+      else if (command == WORST)
+        mainDisplay.updateDataDistribution(mainDisplay.WORST);
+        else if (command == UNSELECT)
+         mainDisplay.removeAllSorts();
+
     }
   }
 }

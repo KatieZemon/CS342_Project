@@ -39,19 +39,19 @@ public class FrameDisplayListener implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     String command = e.getActionCommand();
-    switch (command){
-      case AUTHOR: addFrame(authorFrame, 10, 10);
-        break;
-      case PROBLEM: addFrame(problemFrame, 35, 35);
-        break;
-      case REFERENCE: addFrame(referencesFrame, 60, 60);
-        break;
-      case HELP: addFrame(helpFrame, 85, 85);
-        break;
-      case MAIN: addFrame(Demo.mainDisplayFrame, 0, 0);
-        break;
-      default: System.err.print("FrameDisplayListener could not understand command");
-    }
+      if (command == AUTHOR)
+        addFrame(authorFrame, 10, 10);
+    else if (command == PROBLEM)
+      addFrame(problemFrame, 35, 35);
+      else if (command == REFERENCE)
+         addFrame(referencesFrame, 60, 60);
+      else if (command == HELP)
+        addFrame(helpFrame, 85, 85);
+      else if (command == MAIN)
+       addFrame(Demo.mainDisplayFrame, 0, 0);
+      else
+      System.err.print("FrameDisplayListener could not understand command");
+
   }
 
   /**
