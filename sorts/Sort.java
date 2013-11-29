@@ -45,7 +45,7 @@ public abstract class Sort extends JPanel implements Runnable {
   protected int barWidth;
 
   /** The background color of the panel that holds the bar graph*/
-  protected Color panelBackgroundColor = new Color(213, 213, 213);
+  protected Color panelBackgroundColor = new Color(200, 200, 200);
 
   /** The color for the outline of each bar */
   protected Color barOutlineColor = new Color(14, 0, 10);
@@ -54,10 +54,10 @@ public abstract class Sort extends JPanel implements Runnable {
   protected Color unselectedBarColor = new Color(48, 57, 114);
 
   /** One of two colors for the selected bar */
-  protected Color selectedBarColor1 = new Color(255, 74, 194);
+  protected Color selectedBarColor1 = new Color(255, 226, 41);
 
   /** One of two colors for the selected bar */
-  protected Color selectedBarColor2 = new Color (239, 161, 156);
+  protected Color selectedBarColor2 = new Color (254, 166, 51);
 
   /** The fill Color (gradient of two colors) for the selected bar.*/
   protected GradientPaint selectedBarColor = new GradientPaint(75, 75, selectedBarColor1,

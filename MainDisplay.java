@@ -279,6 +279,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
 
   /**
    * Stops execution of all threads (ie. stops all running sorting algorithms)
+   * and resets the data in the algorithm
    */
   public void resetButtonAction()
   {
@@ -299,16 +300,17 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       resetButton.setEnabled(false);
       startButton.setEnabled(true);
       itemCountSlider.setEnabled(true);
+      numItems++; //TODO algorithm should work without this though
       initValsArr();
       updateSorts();
       c.validate();
       executor = Executors.newFixedThreadPool(3);
       repaint();
     }
+
     else{
       System.err.println("Problem terminating threads");
     }
-
   }
 
   private void startButtonAction(){
