@@ -146,6 +146,7 @@ public abstract class Sort extends JPanel implements Runnable {
    */
   protected int compare(int barIndex1, int barIndex2){
     delay();
+    repaint();
     return bars[barIndex1].height - bars[barIndex2].height;
   }
 
@@ -166,7 +167,7 @@ public abstract class Sort extends JPanel implements Runnable {
 
 
   protected void colorBar(int barIndex, Color color){
-    //TODO consider having a repaint method here, maybe just repaint the one bar
+    repaint(); // Repaint the bar that was colored
     specialColoredBars.put(barIndex, color);
   }
 
