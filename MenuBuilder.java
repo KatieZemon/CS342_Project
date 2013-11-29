@@ -55,7 +55,7 @@ public class MenuBuilder {
    * @return the menu item added
    */
   public static JMenuItem addCheckBoxMenuItem(JMenu parentMenu, String itemName, ActionListener actionListener, boolean checked){
-    JMenuItem menuItem = colorize(new JCheckBoxMenuItem(itemName));
+    JMenuItem menuItem = colorize(new StayOpenCheckBoxMenuItem(itemName));
     menuItem.addActionListener(actionListener);
     menuItem.setActionCommand(itemName);
     menuItem.setSelected(checked);
