@@ -15,13 +15,10 @@ public class AlgorithmSelectionListener implements ActionListener
 {
   /** String representation of using random numbers as the data to be sorted */
   public static final String RANDOM = "Random";
-
-  /** String representation of the worst-case data to be sorted */
+  /** String representation for use of worst-case numbers in the data to be sorted */
   public static final String WORST = "Worst";
-
-  /** String representation of the best-case data to be sorted */
+  /** String representation for use of best-case numbers in the data to be sorted */
   public static final String BEST = "Best";
-
   /** String representation for action command to unselect all algorithms to be sorted */
   public static final String UNSELECT = "Unselect";
 
@@ -29,67 +26,55 @@ public class AlgorithmSelectionListener implements ActionListener
 
   /** A map between the name of the sort and the sorts Class */
   static HashMap<String, Class> sortingAlgorithms = new HashMap<String, Class>();
-
-  //initialize the static hash map of sorts
-  static
-  {
-    sortingAlgorithms.put("Selection Sort", SelectionSort.class);
+  static{ //initialize the static hash map of sorts
     sortingAlgorithms.put("Insertion Sort", InsertionSort.class);
+    sortingAlgorithms.put("Selection Sort", SelectionSort.class);
     sortingAlgorithms.put("Bubble Sort", BubbleSort.class);
     //sortingAlgorithms.put("Merge Sort", MergeSort.class);
     // TODO: Add new sorts
   }
 
   /**
+   *
    * @param mainDisplay the display to modify when events happen
    */
-  AlgorithmSelectionListener(MainDisplay mainDisplay)
-  {
+  AlgorithmSelectionListener(MainDisplay mainDisplay){
     this.mainDisplay = mainDisplay;
   }
 
   @Override
-  public void actionPerformed(ActionEvent e)
-  {
+  public void actionPerformed(ActionEvent e) {
     String command = e.getActionCommand();
     // If command deals with algorithm selection:
-    if (sortingAlgorithms.containsKey(command))
-    {
+    if(sortingAlgorithms.containsKey(command)){
+      mainDisplay.resetButtonAction();
       JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) e.getSource();
       Class clazz = sortingAlgorithms.get(command);
-      if (menuItem.getState())
+      if(menuItem.getState())
       {
         mainDisplay.addSort(clazz);
-      } else if (!menuItem.getState() && mainDisplay.sorts.containsKey(clazz))
-      {
+      }
+      else if(!menuItem.getState() && mainDisplay.sorts.containsKey(clazz)){
         mainDisplay.removeSort(clazz);
       }
     }
-
     // The action we are performing is to choose a Random, Best, or Worst case scenario for our algorithm
     else
     {
-      if (command == RANDOM)
+      mainDisplay.resetButtonAction();
+      if (command.equals(RANDOM))
       {
         mainDisplay.updateDataDistribution(mainDisplay.RANDOM);
       }
-
-      else if (command == BEST)
+      else if (command.equals(BEST))
       {
-        // TODO: These need to redraw the graph
         mainDisplay.updateDataDistribution(mainDisplay.BEST);
-
       }
-
-      else if (command == WORST)
+      else if (command.equals(WORST))
       {
         mainDisplay.updateDataDistribution(mainDisplay.WORST);
-       // mainDisplay.initValsArr();
-        //mainDisplay.updateSorts();
-
       }
-
-      else if (command == UNSELECT)
+      else if (command.equals(UNSELECT))
       {
         mainDisplay.removeAllSorts();
         JMenuItem unselect = (JMenuItem) e.getSource();

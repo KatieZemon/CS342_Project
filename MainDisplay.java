@@ -2,12 +2,14 @@ package code;
 
 import code.sorts.SelectionSort;
 import code.sorts.Sort;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,13 +26,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   static JPanel sortPanel;
   ExecutorService executor;
   JSlider delaySlider, itemCountSlider;
-
-  /** Button to begin initiation of selected sorting algorithms */
-  JButton startButton;
-
-  /** Button to stop execution of selected sorting algorithms */
-  JButton resetButton;
-
+  JButton startButton, resetButton;
   Container c = getContentPane();
 
   /** The initial width of the internal frame */
@@ -44,7 +40,6 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
 
   /** the number of items to be sorted. This number is obtained by itemCountSlider*/
   int numItems = 50;
-
   Font font_bold = new Font("Bold", Font.BOLD, 15);
   TitledBorder itemCount_tBorder, delay_tBorder;
 
@@ -140,60 +135,21 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
    */
   void initValsArr()
   {
+    //TODO consider having prime values, so the reset button goes back to the original data set; this may mean more buttons
     values = new int[numItems];
-    switch(currentDataMode)
+    for (int i = 0; i < numItems; i++)
     {
-      case RANDOM:  // Random numbers
-        for (int i = 0; i < numItems; i++)
-        {
-          values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
-        }
-        break;
-      case BEST:  // Best Case
-        for (int i = 0; i < numItems; i++)
-        {
-          values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
-        }
-        // Selection sort used to sort the random values from least to greatest
-        for (int j = numItems; j > 0; j--)
-        {
-          int maxVal = 0;
-          for (int i = 0; i < j; i++)
-          {
-            if ( values[i] >= values[maxVal] )
-              maxVal = i; // set new max position
-          }
-          // Swap
-          int temp = values[j-1];
-          values[j-1] = values[maxVal];
-          values[maxVal] = temp;
-        }
-
-        break;
-      case WORST: // Worst Case
-        for (int i = 0; i < numItems; i++)
-        {
-          values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
-        }
-        // Selection sort used to sort the random values from greatest to least
-        for (int j = numItems; j > 0; j--)
-        {
-          int minVal = 0;
-          for (int i = 0; i < j; i++)
-          {
-            if ( values[i] < values[minVal] )
-              minVal = i; // set new min position
-          }
-          // Swap
-          int temp = values[j-1];
-          values[j-1] = values[minVal];
-          values[minVal] = temp;
-        }
-        break;
-
-      default:
-        System.out.println("Invalid currentDataMode!");
+      values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
     }
+    if(currentDataMode == RANDOM) return;
+    Arrays.sort(values);
+    if(currentDataMode == BEST) return;
+    //reverse order
+    int[] temp = new int[values.length];
+    for(int i = 0; i < values.length; i++){
+      temp[values.length - 1 - i] = values[i];
+    }
+    values = temp;
   }
 
   /**
@@ -208,7 +164,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     {
       System.out.println("\t >" + sorter.toString());
       sorter.setValues(values);
-      sorter.delay = delay;
+      sorter.delayTime = delay;
       sortPanel.add(sorter);
     }
     c.validate();
@@ -219,7 +175,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     if(sorts.size() < MAX_SORTS)
     {
       System.out.println("Adding sort " + clazz.toString());
-      Sort algorithm = null;
+      Sort algorithm;
       try{
         algorithm = (Sort) clazz.getConstructor(int[].class, int.class).newInstance(values, delay);
         sorts.put(clazz, algorithm);
@@ -253,9 +209,14 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   }
 
   /**
-  * Updates currentDataMode and repaints all the sorts with new data.
-  * dataMode should be 1 for random, 2 for best case, and 3 for worst case.
-  */
+   * Updates currentDataMode and repaints all the sorts with new data.
+   * Use:
+   * <ul>
+   *   <li><code>MainDisplay.BEST</code> for best case</li>
+   *   <li><code>MainDisplay.WORST</code> for worst case</li>
+   *   <li><code>MainDisplay.RANDOM</code> for random (average case)</li>
+   * </ul>
+   */
   void updateDataDistribution(int dataMode)
   {
     currentDataMode = dataMode;
@@ -287,8 +248,8 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     for(Sort s: sorts.values())
     {
       s.running = false;
+      s.clearBarColors();
     }
-
     try {
       executor.shutdown();
       executor.awaitTermination(delay*2, TimeUnit.MILLISECONDS);
@@ -300,14 +261,12 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       resetButton.setEnabled(false);
       startButton.setEnabled(true);
       itemCountSlider.setEnabled(true);
-      numItems++; //TODO algorithm should work without this though
       initValsArr();
       updateSorts();
       c.validate();
       executor = Executors.newFixedThreadPool(3);
       repaint();
     }
-
     else{
       System.err.println("Problem terminating threads");
     }
@@ -371,7 +330,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       delay = delaySlider.getValue();
       for(Sort s: sorts.values())
       {
-        s.delay = delay;
+        s.delayTime = delay;
       }
       // Change the border title to show the new slider value
       delay_tBorder.setTitle("Current Delay = " + delay + "ms");

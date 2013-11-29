@@ -1,5 +1,7 @@
 package code.sorts;
 
+import java.awt.*;
+
 /**
  * class: BubbleSort
  * desc:  This class is used for running a simulation of bubble sort.
@@ -10,7 +12,7 @@ public class BubbleSort extends Sort
    * fn:   BubbleSort
    * desc: Constructor for bubble sort. Draws the intial graph and sets values for v and d
    * param v: The set of data to be sorted.
-   * param d: The delay (in milliseconds) in between each step of the algorithm
+   * param d: The delayTime (in milliseconds) in between each step of the algorithm
    */
   public BubbleSort(int[] v, int d)
   {
@@ -33,28 +35,19 @@ public class BubbleSort extends Sort
         {
           return;
         }
+        colorBar(i-1, Color.YELLOW);
         repaint();
-        try {
-          Thread.sleep(delay);
-        } catch (InterruptedException e){}
-        selectedBar = i;
-
-        if(bars[i - 1].height > bars[i].height)
+        if(compare(i-1, i) > 0) //if(bars[i - 1].height > bars[i].height)
         {
-          swap(i-1, i);
-          selectedBar = i;
+          colorBar(i, Color.YELLOW);
+          uncolorBar(i-1);
+          swap(i - 1, i);
           newN = i;
-          repaint();
-          // Each time we swap, there will be a delay
-          try {
-            Thread.sleep(delay);
-            Thread.sleep(delay);
-          } catch (InterruptedException e){
-            e.printStackTrace();
-          }
-        }
+        } //TODO consider leaving colored bars for previous maxes
+        repaint();
+        clearBarColors();
       }
       n = newN;
-    } while(n != 0);
+    } while(n > 0);
   }
 }

@@ -1,5 +1,7 @@
 package code.sorts;
 
+import java.awt.*;
+
 /**
  * class: SelectionSort
  * desc:  This class is used for running a simulation of selection sort.
@@ -22,36 +24,36 @@ public class SelectionSort extends Sort
    */
   public void runSort()
   {
-    for (int j = bars.length; j > 0; j--)
+    for (int rightLimit = bars.length; rightLimit > 0; rightLimit--)
     {
       int max = 0;
-      for (int i = 0; i < j; i++)
+      for (int i = 0; i < rightLimit; i++)
       {
         if(running == false)
         {
           return;
         }
-        try {
-          Thread.sleep(delay);
-        } catch (InterruptedException e){}
-        selectedBar = i;
+        colorBar(i, Sort.SELECTED_BAR_COLOR1);
 
         // New max
-        if ( bars[i].height > bars[max].height )
+        if(compare(i,max) > 0)//if ( bars[i].height > bars[max].height )
         {
+          System.out.print("i("+i+") = " + bars[i].height);
+          System.out.println("  max("+max+") = " + bars[max].height);
+          System.out.println("compare returned " +  compare(i,max));
+          uncolorBar(max);
           max = i; // set new max value
+          colorBar(max, Color.GREEN);
+        }
+        else{
+          uncolorBar(i);
         }
         repaint();
       }
-      swap(max,j-1);
-      // Each time we swap, we add a delay
-      try {
-        Thread.sleep(delay);
-        Thread.sleep(delay);
-      } catch (InterruptedException e){
-        e.printStackTrace();
-      }
+      swap(max,rightLimit-1);
       repaint();
+      clearBarColors();
     }
+    clearBarColors();
   }
 }
