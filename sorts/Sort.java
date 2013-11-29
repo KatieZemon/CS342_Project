@@ -67,7 +67,6 @@ public abstract class Sort extends JPanel implements Runnable {
    * @param sortName the name of the sort
    */
   public Sort(int[] values, Integer delay, String sortName) {
-    //panelWidth = panelWidth/values.length * values.length;
     this.setPreferredSize(new Dimension(panelWidth, panelHeight));
     this.values = values;
     this.delay = delay;
@@ -81,7 +80,6 @@ public abstract class Sort extends JPanel implements Runnable {
     this.setBackground(panelBackgroundColor);
 
     initBars();
-
   }
 
   /**

@@ -21,7 +21,7 @@ import javax.swing.event.ChangeListener;
  */
 public class MainDisplay extends JInternalFrame implements ActionListener, ChangeListener
 {
-  JPanel sortPanel;
+  static JPanel sortPanel;
   ExecutorService executor;
   JSlider delaySlider, itemCountSlider;
 
@@ -51,7 +51,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   /** the values to be sorted */
   int[] values;
 
-  HashMap<Class, Sort> sorts = new HashMap<Class, Sort>();
+  static HashMap<Class, Sort> sorts = new HashMap<Class, Sort>();
 
   /** The maximum number of sorts to be displayed on the screen at once */
   final int MAX_SORTS = 3;
@@ -152,13 +152,42 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       case BEST:  // Best Case
         for (int i = 0; i < numItems; i++)
         {
-          values[i] = i;
+          values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
         }
+        // Selection sort used to sort the random values from least to greatest
+        for (int j = numItems; j > 0; j--)
+        {
+          int maxVal = 0;
+          for (int i = 0; i < j; i++)
+          {
+            if ( values[i] >= values[maxVal] )
+              maxVal = i; // set new max position
+          }
+          // Swap
+          int temp = values[j-1];
+          values[j-1] = values[maxVal];
+          values[maxVal] = temp;
+        }
+
         break;
       case WORST: // Worst Case
         for (int i = 0; i < numItems; i++)
         {
-          values[i] = numItems - i;
+          values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
+        }
+        // Selection sort used to sort the random values from greatest to least
+        for (int j = numItems; j > 0; j--)
+        {
+          int minVal = 0;
+          for (int i = 0; i < j; i++)
+          {
+            if ( values[i] < values[minVal] )
+              minVal = i; // set new min position
+          }
+          // Swap
+          int temp = values[j-1];
+          values[j-1] = values[minVal];
+          values[minVal] = temp;
         }
         break;
 
@@ -170,7 +199,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   /**
   * Creates all sorts new that are to be shown.
   */
-  private void updateSorts()
+  public void updateSorts()
   {
     System.out.println("updating sorts...");
     sortPanel.removeAll();
@@ -224,7 +253,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   }
 
   /**
-  *  Updates currentSortMode and repaints all the sorts with new data.
+  * Updates currentDataMode and repaints all the sorts with new data.
   * dataMode should be 1 for random, 2 for best case, and 3 for worst case.
   */
   void updateDataDistribution(int dataMode)
@@ -249,7 +278,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   }
 
   /**
-   * Resets all sorts
+   * Stops execution of all threads (ie. stops all running sorting algorithms)
    */
   public void resetButtonAction()
   {
@@ -270,6 +299,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       resetButton.setEnabled(false);
       startButton.setEnabled(true);
       itemCountSlider.setEnabled(true);
+      initValsArr();
       updateSorts();
       c.validate();
       executor = Executors.newFixedThreadPool(3);
@@ -296,6 +326,10 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     repaint();
   }
 
+  /**
+   * This calls the startButtonAction() when the start button is pressed
+   * or it calls the resetButtonAction() when the reset button is pressed
+   */
   public void actionPerformed(ActionEvent e)
   {
     // Sort button
@@ -314,19 +348,22 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
     }
   }
 
+  /**
+   * Function automatically called when the item count slider or delay slider is moved
+   */
   public void stateChanged(ChangeEvent e)
   {
-    // Item Count Slider
+    // Changes the number of items to be sorted and updates the sorting algorithms
     if (e.getSource() == itemCountSlider)
     {
       numItems = itemCountSlider.getValue();
-      // Change the border
+      // Change the border title to show the new slider value
       itemCount_tBorder.setTitle("Array Length: N = " + numItems);
       initValsArr();
       updateSorts();
     }
 
-    // Delay Slider
+    // Changes the delay of the sorting algorithms running
     else if (e.getSource() == delaySlider)
     {
       delay = delaySlider.getValue();
@@ -334,7 +371,7 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
       {
         s.delay = delay;
       }
-      // Change the border
+      // Change the border title to show the new slider value
       delay_tBorder.setTitle("Current Delay = " + delay + "ms");
     }
     repaint();
