@@ -38,9 +38,6 @@ public class SelectionSort extends Sort
         // New max
         if(compare(i,max) > 0)//if ( bars[i].height > bars[max].height )
         {
-          System.out.print("i("+i+") = " + bars[i].height);
-          System.out.println("  max("+max+") = " + bars[max].height);
-          System.out.println("compare returned " +  compare(i,max));
           uncolorBar(max);
           max = i; // set new max value
           colorBar(max, Color.GREEN);

@@ -2,6 +2,7 @@ package code;
 
 import code.sorts.SelectionSort;
 import code.sorts.Sort;
+import code.KInternalFrame;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -21,7 +22,7 @@ import javax.swing.event.ChangeListener;
  * The display that houses the charts that represent the different sorting algorithms
  * This is responsible for managing the algorithms and data being used
  */
-public class MainDisplay extends JInternalFrame implements ActionListener, ChangeListener
+public class MainDisplay extends KInternalFrame implements ActionListener, ChangeListener
 {
   static JPanel sortPanel;
   ExecutorService executor;
@@ -66,10 +67,9 @@ public class MainDisplay extends JInternalFrame implements ActionListener, Chang
   public MainDisplay()
   {
     // Initialize the internal frame
-    super("Main Display", true, true, true, true);
+    super("Main Display");
     setSize(frameWidth, frameHeight);
     setVisible(true);
-    setOpaque(true);
 
     // Set the layout
     c.setLayout(new FlowLayout());

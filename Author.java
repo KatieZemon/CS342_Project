@@ -7,7 +7,7 @@ import java.awt.*;
  * class: Author
  * desc:  This creates an internal frame with information about the author
  */
-public class Author extends JInternalFrame
+public class Author extends KInternalFrame
 {
   /**
    * font_bold- The font style for printing all of our strings
@@ -29,9 +29,7 @@ public class Author extends JInternalFrame
    */
   public Author()
   {
-    super("Author",true,true,true,true);
-    setOpaque(true);
-    setVisible(true);
+    super("Author");
     setSize(frameWidth,frameHeight);
     setBackground(new Color(244, 245, 195));
   }

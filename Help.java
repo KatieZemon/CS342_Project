@@ -12,7 +12,7 @@ import java.awt.Font;
  * desc:  This class contains instructions for how to use the program,
  * and it contains descriptions for algorithms.
  */
-public class Help extends JInternalFrame
+public class Help extends KInternalFrame
 {
   /** Help class variables:
    * FRAME_WIDTH - The width of the internalFrame
@@ -39,10 +39,8 @@ public class Help extends JInternalFrame
    */
   public Help()
   {
-    super("Help", true, true, true, true);
+    super("Help");
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
-    setVisible(true);
-    setOpaque(true);
 
     // Initialize font properties
     font_bold = new Font("Bold", Font.BOLD, 16);
