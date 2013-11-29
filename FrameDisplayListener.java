@@ -41,6 +41,10 @@ public class FrameDisplayListener implements ActionListener
   FrameDisplayListener(JDesktopPane desktopPane)
   {
     desktop = desktopPane;
+    desktop.add(authorFrame);
+    desktop.add(problemFrame);
+    desktop.add(referencesFrame);
+    desktop.add(helpFrame);
   }
 
 
@@ -49,15 +53,15 @@ public class FrameDisplayListener implements ActionListener
   {
     String command = e.getActionCommand();
     if (command == AUTHOR)
-      addFrame(authorFrame, 10, 10);
+      showFrame(authorFrame, 10, 10);
     else if (command == PROBLEM)
-      addFrame(problemFrame, 35, 35);
+      showFrame(problemFrame, 35, 35);
     else if (command == REFERENCE)
-      addFrame(referencesFrame, 60, 60);
+      showFrame(referencesFrame, 60, 60);
     else if (command == HELP)
-      addFrame(helpFrame, 85, 85);
+      showFrame(helpFrame, 85, 85);
     else if (command == MAIN)
-      addFrame(Demo.mainDisplayFrame, 0, 0);
+      showFrame(Demo.mainDisplayFrame, 1, 1);
     else
       System.err.print("FrameDisplayListener could not understand command");
   }
@@ -69,11 +73,9 @@ public class FrameDisplayListener implements ActionListener
    * @param x      x position of frame
    * @param y      y position of frame
    */
-  public void addFrame(JInternalFrame iframe, int x, int y)
+  public void showFrame(JInternalFrame iframe, int x, int y)
   {
-    // TODO: Add check if the iframe is closed
-    desktop.add(iframe);
-    iframe.setVisible(true);
+    iframe.show();
     iframe.toFront();
     iframe.setLocation(x, y);
   }

@@ -10,7 +10,7 @@ import java.awt.Font;
  * class: Problem
  * desc:  This creates an internal frame holding our problem description
  */
-public class Problem extends JInternalFrame
+public class Problem extends KInternalFrame
 {
   /** Problem class variables:
    * FRAME_WIDTH - The width of the internalFrame
@@ -33,10 +33,8 @@ public class Problem extends JInternalFrame
    */
   public Problem()
   {
-    super("Problem Description", true, true, true, true);
+    super("Problem Description");
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
-    setVisible(true);
-    setOpaque(true);
 
     // Initialize font properties
     font_bold = new Font("Bold", Font.BOLD, 16);

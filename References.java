@@ -10,7 +10,7 @@ import java.awt.Font;
  * class: References
  * desc:  This class contains a list of references used for creating the program
  */
-public class References extends JInternalFrame
+public class References extends KInternalFrame
 {
   /** References class variables:
    * FRAME_WIDTH - The width of the internalFrame
@@ -35,10 +35,8 @@ public class References extends JInternalFrame
    */
   public References()
   {
-    super("References", true, true, true, true);
+    super("References");
     setSize(FRAME_WIDTH,FRAME_HEIGHT);
-    setVisible(true);
-    setOpaque(true);
 
     // Initialize font properties
     font_bold = new Font("Bold", Font.BOLD, 16);
