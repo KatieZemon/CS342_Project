@@ -60,7 +60,10 @@ public class References extends JInternalFrame
             "      g2.fill(r);\n" +
             "      g2.setColor(Color.BLACK);\n" +
             "      g2.draw(r);\n" +
-            "    }";
+            "    }\n\n\n" +
+            "StayOpenCheckBoxMenuItem was found at the following sites: \n" +
+            "* http://www.coderanch.com/t/497325/GUI/java/popup-clicking-JCheckBoxMenuItem \n" +
+            "* http://tips4java.wordpress.com/2010/09/12/keeping-menus-open/ \n\n";
 
     // Initialize our text area
     ta = new JTextArea(referencesString, TA_WIDTH, TA_HEIGHT);
