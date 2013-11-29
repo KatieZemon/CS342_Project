@@ -43,6 +43,7 @@ public class FrameDisplayListener implements ActionListener
     desktop = desktopPane;
   }
 
+
   @Override
   public void actionPerformed(ActionEvent e)
   {
@@ -70,7 +71,7 @@ public class FrameDisplayListener implements ActionListener
    */
   public void addFrame(JInternalFrame iframe, int x, int y)
   {
-    //consider adding if closed check
+    // TODO: Add check if the iframe is closed
     desktop.add(iframe);
     iframe.setVisible(true);
     iframe.toFront();
