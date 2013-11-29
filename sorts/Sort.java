@@ -41,20 +41,23 @@ public abstract class Sort extends JPanel implements Runnable {
   /** An integer value representing the highlighted bar*/
   protected int selectedBar = 0;
 
+  /** The width of each bar in the graph */
+  protected int barWidth;
+
   /** The background color of the panel that holds the bar graph*/
-  protected Color panelBackgroundColor = new Color(247, 247, 247);
+  protected Color panelBackgroundColor = new Color(213, 213, 213);
 
   /** The color for the outline of each bar */
   protected Color barOutlineColor = new Color(14, 0, 10);
 
   /** The color used to fill all bars that are not selected*/
-  protected Color unselectedBarColor = new Color(49, 78, 139);
+  protected Color unselectedBarColor = new Color(48, 57, 114);
 
   /** One of two colors for the selected bar */
-  protected Color selectedBarColor1 = new Color(216, 47, 154);
+  protected Color selectedBarColor1 = new Color(255, 74, 194);
 
   /** One of two colors for the selected bar */
-  protected Color selectedBarColor2 = new Color (164, 63, 197);
+  protected Color selectedBarColor2 = new Color (239, 161, 156);
 
   /** The fill Color (gradient of two colors) for the selected bar.*/
   protected GradientPaint selectedBarColor = new GradientPaint(75, 75, selectedBarColor1,
@@ -86,16 +89,16 @@ public abstract class Sort extends JPanel implements Runnable {
    * Initializes the rectangles that represent the data to be sorted in the chart
    */
   private void initBars(){
-    int xPos, yPos, xWidth, yHeight;
+    int xPos, yPos, yHeight;
     // Initialize all bar sizes
     bars = new Rectangle[values.length];
-    xWidth = (panelWidth)/values.length; // The width of each bar
+    barWidth = (panelWidth)/values.length; // The width of each bar
     for (int i = 0; i < values.length; i++)
     {
       yHeight = values[i];
-      xPos = i*xWidth + 5;
+      xPos = i*barWidth + 5;
       yPos = panelHeight - yHeight - 5;
-      bars[i] = new Rectangle(xPos,yPos,xWidth,yHeight);
+      bars[i] = new Rectangle(xPos,yPos,barWidth,yHeight);
     }
   }
 
@@ -155,9 +158,12 @@ public abstract class Sort extends JPanel implements Runnable {
         g2.setPaint(unselectedBarColor);
         g2.fill(bars[i]);
       }
-      // Draw the outline
-      g2.setPaint(barOutlineColor);
-     g2.draw(bars[i]);
+      // Draw an outline for the bar under certain conditions
+      if ( barWidth > 1 || (i != selectedBar && barWidth < 2))
+      {
+        g2.setPaint(barOutlineColor);
+        g2.draw(bars[i]);
+      }
     }
   }
 
