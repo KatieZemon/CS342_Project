@@ -72,6 +72,8 @@ public class Demo extends JApplet
     c.setBackground(Color.WHITE);
     createMenus();
     desktop.add(mainDisplayFrame);
+
+
     desktop.setBackground(Color.LIGHT_GRAY);
     c.add(desktop);
   }

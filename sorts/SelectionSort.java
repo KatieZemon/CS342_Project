@@ -31,6 +31,7 @@ public class SelectionSort extends Sort
       {
         if(running == false)
         {
+          uncolorBar(max);
           return;
         }
         colorBar(i, Sort.SELECTED_BAR_COLOR1);
