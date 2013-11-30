@@ -27,10 +27,10 @@ public class AlgorithmSelectionListener implements ActionListener
   /** A map between the name of the sort and the sorts Class */
   static HashMap<String, Class> sortingAlgorithms = new HashMap<String, Class>();
   static{ //initialize the static hash map of sorts
-    sortingAlgorithms.put("Bubble Sort", BubbleSort.class);
     sortingAlgorithms.put("Insertion Sort", InsertionSort.class);
     sortingAlgorithms.put("Selection Sort", SelectionSort.class);
-    //sortingAlgorithms.put("Merge Sort", MergeSort.class);
+    sortingAlgorithms.put("Bubble Sort", BubbleSort.class);
+    sortingAlgorithms.put("Merge Sort", MergeSort.class);
     sortingAlgorithms.put("Quick Sort", QuickSort.class);
     sortingAlgorithms.put("Comb Sort", CombSort.class);
     sortingAlgorithms.put("Cocktail Sort", CocktailSort.class);

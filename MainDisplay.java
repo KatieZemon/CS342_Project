@@ -1,5 +1,6 @@
 package code;
 
+import code.sorts.MergeSort;
 import code.sorts.SelectionSort;
 import code.sorts.Sort;
 import code.KInternalFrame;
@@ -85,7 +86,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
 
     executor = Executors.newFixedThreadPool(MAX_SORTS);
 
-    addSort(SelectionSort.class);
+    addSort(MergeSort.class);
   }
 
   /**
