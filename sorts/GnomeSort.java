@@ -4,6 +4,11 @@ import java.awt.*;
 
 /**
  * This class is used for running a simulation of Gnome sort.
+ * Gnome sort is a sorting algorithm that works similar
+ * to insertion sort but moves elements to their proper place
+ * by doing a series of swaps between adjacent elements (like
+ * Bubble Sort). It is based on the fact that performing a swap
+ * can introduce a new pair of elements that are out of order.
  */
 public class GnomeSort extends Sort
 {
@@ -22,39 +27,38 @@ public class GnomeSort extends Sort
    */
   public void runSort()
   {
-    int gap = bars.length;
-    boolean swapped = true;
+    int size = bars.length; // The length of the unsorted list
+    int pos = 1;
 
-    // Sort elements until we have searched through the entire
-    // list with a gap == 1 and with no swap performed
-    while (gap > 1 || swapped)
+    while (pos < size)
     {
       if(running == false)
       {
         return;
       }
-      // Update the gap value for the next Gnome
-      if (gap > 1)
+
+      colorBar(pos-1,Color.YELLOW);
+      colorBar(pos,Color.RED);
+      if ( compare(pos,pos-1) >= 0)
       {
-        gap = (int) (gap/1.3);
-      }
-      swapped = false;
-      for (int i = 0; i + gap < bars.length; i++)
-      {
-        if(running == false)
-        {
-          return;
-        }
-        colorBar(i,Color.YELLOW);
-        colorBar(i+gap,Color.RED);
-        if ( compare(i,i+gap) > 0)
-        {
-          swap(i, i+gap);
-          swapped = true;
-        }
+        pos++;
         clearBarColors();
+        colorBar(pos-1,Color.YELLOW);
+        colorBar(pos,Color.RED);
       }
+
+      else
+      {
+        colorBar(pos,Color.YELLOW);
+        colorBar(pos-1,Color.RED);
+        swap(pos,pos-1);
+        if (pos > 1)
+          pos--;
+      }
+      clearBarColors();
     }
+
+
 
   }
 }
