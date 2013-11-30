@@ -43,7 +43,7 @@ public class InsertionSort extends Sort
         uncolorBar(j-1);
       }
       repaint();
-      clearBarColors();
     }
+    clearBarColors();
   }
 }

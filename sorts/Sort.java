@@ -164,6 +164,15 @@ public abstract class Sort extends JPanel implements Runnable {
     delay();
   }
 
+  protected void swap(Rectangle a, Rectangle b){
+    int height = b.height;
+    int yPos = b.y;
+    b.setBounds(b.x, a.y, a.width, a.height);
+    a.setBounds(a.x, yPos, a.width, height);
+    repaint();
+    delay();
+  }
+
 
   protected void colorBar(int barIndex, Color color){
     //TODO consider having a repaint method here, maybe just repaint the one bar
@@ -200,6 +209,7 @@ public abstract class Sort extends JPanel implements Runnable {
     Graphics2D g2 = (Graphics2D) g;
     for (int i = 0; i < values.length; i++){
       g2.setColor(getBarColor(i));
+      if(bars == null) System.err.println("AHHHH SOMETHING FUCKED UP");
       g2.fill(bars[i]);
       // Draw an outline for the bar under certain conditions
 //      if ( barWidth > 1 || (i != selectedBar && barWidth < 2))
