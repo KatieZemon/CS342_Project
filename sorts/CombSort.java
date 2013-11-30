@@ -51,6 +51,10 @@ public class CombSort extends Sort
       swapped = false;
       for (int i = 0; i + gap < bars.length; i++)
       {
+        if(running == false)
+        {
+          return;
+        }
         colorBar(i,Color.YELLOW);
         colorBar(i+gap,Color.RED);
         if ( compare(i,i+gap) > 0)
