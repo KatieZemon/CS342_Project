@@ -78,7 +78,7 @@ public class QuickSort extends Sort
         return;
       }
 
-      // Left height less than pivot height
+      // Left height <=  pivot height
       while ( left < pivot && compare(left, pivot) <= 0 )
       {
         leftList.add(left);

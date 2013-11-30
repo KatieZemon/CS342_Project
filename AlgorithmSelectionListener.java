@@ -32,6 +32,8 @@ public class AlgorithmSelectionListener implements ActionListener
     sortingAlgorithms.put("Bubble Sort", BubbleSort.class);
     //sortingAlgorithms.put("Merge Sort", MergeSort.class);
     sortingAlgorithms.put("Quick Sort", QuickSort.class);
+    sortingAlgorithms.put("Comb Sort", CombSort.class);
+    sortingAlgorithms.put("Cocktail Sort", CocktailSort.class);
     // TODO: Add new sorts
   }
 
