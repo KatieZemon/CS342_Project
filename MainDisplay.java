@@ -62,6 +62,9 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   /** The dataMode that represents a worst-case data set */
   public static final int WORST = 3;
 
+  /** The default sorting algorithm; the first one displayed */
+  public static final String DEFAULT_SORT = "Merge Sort";
+
 
   public MainDisplay()
   {
@@ -84,7 +87,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
 
     executor = Executors.newFixedThreadPool(MAX_SORTS);
 
-    addSort(HeapSort.class);
+    addSort(AlgorithmSelectionListener.sortingAlgorithms.get(DEFAULT_SORT));
   }
 
   /**

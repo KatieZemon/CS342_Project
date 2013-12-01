@@ -108,7 +108,7 @@ public class Demo extends JApplet
 
     // Add the menu items to the Algorithms sub menu, and add the sub menu to the Demo menu
     for(String algorithmName : AlgorithmSelectionListener.sortingAlgorithms.keySet()){
-      MenuBuilder.addCheckBoxMenuItem(algorithmsMenu, algorithmName, algorithmSelectionListener, algorithmName == "Selection Sort");
+      MenuBuilder.addCheckBoxMenuItem(algorithmsMenu, algorithmName, algorithmSelectionListener, algorithmName == MainDisplay.DEFAULT_SORT);
     }
     MenuBuilder.addMenuItem(algorithmsMenu, AlgorithmSelectionListener.UNSELECT, algorithmSelectionListener, null);
     demoMenu.add(algorithmsMenu);
