@@ -82,7 +82,7 @@ public class CountingSort extends Sort {
 
     //find correct position for value
     Rectangle[] sortedArray = new Rectangle[values.length];
-    for (int i = 0; i < values.length; i++){
+    for (int i = 0; i < values.length && running; i++){
       int value = bars[i].height;
       int correctPosition = positions.get(value);
       sortedArray[correctPosition] = new Rectangle(bars[i]);
@@ -93,7 +93,7 @@ public class CountingSort extends Sort {
       delay();
     }
 
-    for (int i = 0; i < values.length; i++){
+    for (int i = 0; i < values.length && running; i++){
       colorBar(i, getColorByHeight(sortedArray[i].height));
       swap(bars[i], sortedArray[i]);
     }
