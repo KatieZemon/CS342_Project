@@ -13,8 +13,6 @@ import java.util.HashMap;
  */
 public class TreeSort extends Sort {
 
-  //TODO fix bug where it only runs once
-
   /**
    * Tree Node class
    */
@@ -56,8 +54,6 @@ public class TreeSort extends Sort {
 
   public TreeSort(int[] values, int delay){
     super(values, delay, "Binary Tree Sort");
-    colorBar(0, new Color(0,0,0));
-    root = new Node(0);
   }
 
   private void insert(Node node, int indexValue, Color color){
@@ -137,6 +133,8 @@ public class TreeSort extends Sort {
     return new Color(r, g, b);
   }
 
+  //TODO add a color compare
+
   /**
    * Reorders the bars
    * @param orderedIndices
@@ -157,9 +155,12 @@ public class TreeSort extends Sort {
 
   @Override
   protected void runSort() {
+    Color c = new Color(0,0,0);
+    colorBar(0, c);
+    root = new Node(0);
     for(int i = 1; i < bars.length; i++){
       if(!running) return;
-      insert(root, i, new Color(0,0,0));
+      insert(root, i, c);
     }
     int[] sortedIndices = new int[values.length];
     in_order(root, 0, sortedIndices);
