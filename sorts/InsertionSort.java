@@ -25,9 +25,9 @@ public class InsertionSort extends Sort
   {
     for(int currentMaxIndex = 0; currentMaxIndex < bars.length; currentMaxIndex++)
     {
-      colorBar(currentMaxIndex-1, Color.GREEN);
       for (int j = currentMaxIndex; j>0; j--)
       {
+        colorBar(currentMaxIndex, Color.GREEN);
         if(running == false) return;
 
         if(compare(j, j-1) < 0) //if(bars[selectedBar].height < bars[j].height)
@@ -42,6 +42,7 @@ public class InsertionSort extends Sort
         repaint();
         uncolorBar(j-1);
       }
+      uncolorBar(currentMaxIndex);
       repaint();
     }
     clearBarColors();
