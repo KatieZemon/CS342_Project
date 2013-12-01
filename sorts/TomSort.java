@@ -58,7 +58,7 @@ public class TomSort extends Sort {
   }
 
   private int findTrend(int start){
-    if(values.length == 0) return 0;
+    if(values.length == 0 || start == values.length -1) return 0;
     for(int i = start; i < values.length -1 && running; i++){
       int comparison = colorCompare(i, i + 1);
 //      System.out.println("comp = " + comparison);
@@ -115,7 +115,9 @@ public class TomSort extends Sort {
     while(runs.size() > 1){
       nextRuns.add(mergeRuns(runs.pollFirst(), runs.pollFirst()));
     }
-    if(runs.size() % 2 == 1) nextRuns.add(runs.pollFirst());
+    if(runs.size() % 2 == 1){
+      nextRuns.addLast(mergeRuns(nextRuns.pollLast(), runs.pollFirst()));
+    }
     merge(nextRuns);
   }
 
@@ -168,7 +170,7 @@ public class TomSort extends Sort {
 
   private void orderRuns(){
     System.out.println("Ordering Runs...");
-    if(orderedRuns.size() > 0) orderedRuns.pollLast();
+    Tuple last = orderedRuns.pollLast();
     assert orderedRuns.size() == 0;
     while(!(increasingRuns.isEmpty() && decreasingRuns.isEmpty()) && running){
       if(decreasingRuns.isEmpty() || (!increasingRuns.isEmpty() && increasingRuns.peekFirst()._1 < decreasingRuns.peekFirst()._1)){
@@ -181,6 +183,10 @@ public class TomSort extends Sort {
         System.out.println("adding " + t + " from decreasing");
         orderedRuns.addLast(t);
       }
+    }
+    if(last != null) {
+      System.out.println("adding last element: " + last);
+      orderedRuns.addLast(last);
     }
   }
 
