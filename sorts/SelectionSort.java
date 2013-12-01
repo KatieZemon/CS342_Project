@@ -40,7 +40,7 @@ public class SelectionSort extends Sort
         if(compare(i,max) > 0)//if ( bars[i].height > bars[max].height )
         {
           uncolorBar(max);
-          max = i; // set new max value
+          max = i; // set new max indexValue
           colorBar(max, Color.GREEN);
         }
         else{

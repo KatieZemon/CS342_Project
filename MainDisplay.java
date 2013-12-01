@@ -4,6 +4,7 @@ import code.sorts.MergeSort;
 import code.sorts.SelectionSort;
 import code.sorts.Sort;
 import code.KInternalFrame;
+import code.sorts.TreeSort;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -86,7 +87,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
 
     executor = Executors.newFixedThreadPool(MAX_SORTS);
 
-    addSort(MergeSort.class);
+    addSort(TreeSort.class);
   }
 
   /**
@@ -319,7 +320,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     if (e.getSource() == itemCountSlider)
     {
       numItems = itemCountSlider.getValue();
-      // Change the border title to show the new slider value
+      // Change the border title to show the new slider indexValue
       itemCount_tBorder.setTitle("Array Length: N = " + numItems);
       initValsArr();
       updateSorts();
@@ -333,7 +334,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
       {
         s.delayTime = delay;
       }
-      // Change the border title to show the new slider value
+      // Change the border title to show the new slider indexValue
       delay_tBorder.setTitle("Current Delay = " + delay + "ms");
     }
     repaint();

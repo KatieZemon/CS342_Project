@@ -31,16 +31,7 @@ public class MergeSort extends Sort {
     }
   }
 
-  private void assertSorted(Rectangle[] array){
-    int y = -1;
-    for (int i = 0; i < array.length; i++) {
-      int newY = array[i].height;
-      if (!(y <= newY)){
-        throw new AssertionError("y(" + y + ")   newY(" + newY + ")");
-      };
-      y = newY;
-    }
-  }
+
 
   private void move2(int start, int end, Rectangle[] sorted){
     for(int m = start; m < end; m++){
@@ -64,7 +55,7 @@ public class MergeSort extends Sort {
       colorBar(right,Color.RED);
       repaint();
       if(!(right < end) || (left < rightStart && compare(left, right) < 0)){
-        //move left value into next array position
+        //move left indexValue into next array position
 //        System.out.println("moving left");
         array[j] = new Rectangle(bars[left]);
         left++;

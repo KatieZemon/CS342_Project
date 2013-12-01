@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 /**
  * Holds the functionality shared by all sorting algorithms. It draws a horizontal bar graph of
- * data to be sorted and contains a function for swapping one value with another
+ * data to be sorted and contains a function for swapping one indexValue with another
  */
 public abstract class Sort extends JPanel implements Runnable {
 
@@ -39,7 +39,7 @@ public abstract class Sort extends JPanel implements Runnable {
   /** The height of the panel holding the bar graph */
   private final int PANEL_HEIGHT = 150;
 
-  /** An integer value representing the highlighted bar*/
+  /** An integer indexValue representing the highlighted bar*/
 //  private int selectedBar = 0;
 
   /** The width of each bar in the graph */
@@ -65,7 +65,7 @@ public abstract class Sort extends JPanel implements Runnable {
 //          95, 95, SELECTED_BAR_COLOR2, true);
 
   /** Keeps track of colored bars */
-  private HashMap<Integer, Color> specialColoredBars = new HashMap<Integer, Color>();
+  protected HashMap<Integer, Color> specialColoredBars = new HashMap<Integer, Color>();
 
   /**
    *
@@ -123,7 +123,7 @@ public abstract class Sort extends JPanel implements Runnable {
   }
 
   /**
-   * sleeps for the value of <code>delayTime</code>
+   * sleeps for the indexValue of <code>delayTime</code>
    */
   protected void delay(){
     try {
@@ -165,6 +165,11 @@ public abstract class Sort extends JPanel implements Runnable {
     delay();
   }
 
+  /**
+   * swaps two rectangles to each other's sizes
+   * @param a
+   * @param b
+   */
   protected void swap(Rectangle a, Rectangle b){
     int height = b.height;
     int yPos = b.y;
@@ -175,11 +180,19 @@ public abstract class Sort extends JPanel implements Runnable {
   }
 
 
+  /**
+   * Sets the bar at the given index to the color provided
+   * @param barIndex
+   * @param color
+   */
   protected void colorBar(int barIndex, Color color){
     repaint(); // Repaint the bar that was colored
     specialColoredBars.put(barIndex, color);
   }
 
+  /**
+   * @param barIndex index of bar to reset to default color
+   */
   protected void uncolorBar(int barIndex){
     if(specialColoredBars.containsKey(barIndex)){
       specialColoredBars.remove(barIndex);
@@ -187,6 +200,10 @@ public abstract class Sort extends JPanel implements Runnable {
     //OR specialColoredBars.put(barIndex, DEFAULT_BAR_COLOR);
   }
 
+  /**
+   * @param barIndex index of bar to check color
+   * @return the color of the given bar
+   */
   protected Color getBarColor(int barIndex){
     if(specialColoredBars.containsKey(barIndex)){
       return specialColoredBars.get(barIndex);
@@ -194,12 +211,28 @@ public abstract class Sort extends JPanel implements Runnable {
     return DEFAULT_BAR_COLOR;
   }
 
+  /**
+   * resets all bars to their default color
+   */
   public void clearBarColors(){
     specialColoredBars.clear();
   }
 
-
-
+  /**
+   * asserts given array is in sorted order
+   * @param array
+   * @throws AssertionError if array not in sorted order
+   */
+  protected void assertSorted(Rectangle[] array){
+    int y = -1;
+    for (int i = 0; i < array.length; i++) {
+      int newY = array[i].height;
+      if (!(y <= newY)){
+        throw new AssertionError("y(" + y + ")   newY(" + newY + ")");
+      };
+      y = newY;
+    }
+  }
 
   /**
    * Draws the bars on the screen

@@ -36,6 +36,7 @@ public class AlgorithmSelectionListener implements ActionListener
     sortingAlgorithms.put("Cocktail Sort", CocktailSort.class);
     sortingAlgorithms.put("Gnome Sort", GnomeSort.class);
     sortingAlgorithms.put("Odd-even Sort", OddEvenSort.class);
+    sortingAlgorithms.put("Binary Tree Sort", TreeSort.class);
     // TODO: Add new sorts
   }
 
