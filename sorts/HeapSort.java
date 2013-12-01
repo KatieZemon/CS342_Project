@@ -3,11 +3,7 @@ package code.sorts;
 import java.awt.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Thomas
- * Date: 11/30/13
- * Time: 8:32 PM
- * To change this template use File | Settings | File Templates.
+ * @author  Thomas
  */
 public class HeapSort extends Sort {
 
@@ -28,6 +24,7 @@ public class HeapSort extends Sort {
   private void siftDown(int start){
     int root = start;
     while(root * 2 + 1 < heapSize){ //while the root has at least one child
+      if(!running) return;
       int child = root * 2 + 1; //left child
       int swap = root;
       if(colorCompare(swap, child) < 0){
@@ -60,6 +57,7 @@ public class HeapSort extends Sort {
     heapSize = values.length;
     heapify();
     while(heapSize > 0){
+      if(!running) return;
       swap(heapSize-1, 0);
       heapSize--;
       siftDown(0);
