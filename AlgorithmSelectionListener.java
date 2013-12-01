@@ -37,6 +37,7 @@ public class AlgorithmSelectionListener implements ActionListener
     sortingAlgorithms.put("Gnome Sort", GnomeSort.class);
     sortingAlgorithms.put("Odd-even Sort", OddEvenSort.class);
     sortingAlgorithms.put("Binary Tree Sort", TreeSort.class);
+    sortingAlgorithms.put("Heap Sort", HeapSort.class);
     // TODO: Add new sorts
   }
 
