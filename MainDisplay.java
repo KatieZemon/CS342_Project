@@ -1,10 +1,7 @@
 package code;
 
-import code.sorts.MergeSort;
-import code.sorts.SelectionSort;
-import code.sorts.Sort;
+import code.sorts.*;
 import code.KInternalFrame;
-import code.sorts.TreeSort;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -87,7 +84,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
 
     executor = Executors.newFixedThreadPool(MAX_SORTS);
 
-    addSort(TreeSort.class);
+    addSort(HeapSort.class);
   }
 
   /**
@@ -244,8 +241,13 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
    * Stops execution of all threads (ie. stops all running sorting algorithms)
    * and resets the data in the algorithm
    */
-  public void resetButtonAction()
+  public void resetButtonAction(){
+    resetButtonAction(3, delay*2);
+  }
+
+  public void resetButtonAction(int retryCount, int waitTime)
   {
+    if(retryCount < 0) return;
     // Disable our resetButton and enable our startButton
     for(Sort s: sorts.values())
     {
@@ -254,11 +256,13 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     }
     try {
       executor.shutdown();
-      executor.awaitTermination(delay*2, TimeUnit.MILLISECONDS);
+      executor.awaitTermination(waitTime, TimeUnit.MILLISECONDS);
+      executor.shutdownNow();
+      Thread.sleep(waitTime);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    executor.shutdownNow();
+
     if(executor.isTerminated()){
       resetButton.setEnabled(false);
       startButton.setEnabled(true);
@@ -271,6 +275,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     }
     else{
       System.err.println("Problem terminating threads");
+      resetButtonAction(retryCount - 1, waitTime);
     }
   }
 
