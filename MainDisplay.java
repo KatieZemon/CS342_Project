@@ -23,6 +23,7 @@ import javax.swing.event.ChangeListener;
  */
 public class MainDisplay extends KInternalFrame implements ActionListener, ChangeListener
 {
+
   static JPanel sortPanel;
   ExecutorService executor;
   JSlider delaySlider, itemCountSlider;
@@ -34,6 +35,9 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
 
   /** The initial height of the internal frame */
   private int frameHeight = 700;
+
+  /** The maximum value of an element in the data array */
+  public static final int MAX_VALUE = 100;
 
   /** The number of milliseconds of delay between steps in any sorting algorithm. */
   int delay = 100;
@@ -63,7 +67,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   public static final int WORST = 3;
 
   /** The default sorting algorithm; the first one displayed */
-  public static final String DEFAULT_SORT = "Merge Sort";
+  public static final String DEFAULT_SORT = "Counting Sort";
 
 
   public MainDisplay()
@@ -141,7 +145,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     values = new int[numItems];
     for (int i = 0; i < numItems; i++)
     {
-      values[i] = (int)(100 * Math.random() + 1); // random number from 1-100
+      values[i] = (int)(MAX_VALUE * Math.random() + 1); // random number from 1-100
     }
     if(currentDataMode == RANDOM) return;
     Arrays.sort(values);

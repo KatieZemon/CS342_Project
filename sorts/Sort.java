@@ -146,7 +146,7 @@ public abstract class Sort extends JPanel implements Runnable {
    */
   protected int compare(int barIndex1, int barIndex2){
     delay();
-    repaint();
+//    repaint();
     return bars[barIndex1].height - bars[barIndex2].height;
   }
 
@@ -157,6 +157,7 @@ public abstract class Sort extends JPanel implements Runnable {
    */
   protected void swap(int left, int right)
   {
+//    if(left == right) return;
     int height = bars[right].height;
     int yPos = bars[right].y;
     bars[right].setBounds(bars[right].x, bars[left].y, bars[left].width, bars[left].height );
