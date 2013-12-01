@@ -43,6 +43,7 @@ public class AlgorithmSelectionListener implements ActionListener
     sortingAlgorithms.put("Cycle Sort", CycleSort.class);
     sortingAlgorithms.put("Tom Sort", TomSort.class);
     sortingAlgorithms.put("Counting Sort", CountingSort.class);
+    sortingAlgorithms.put("Bead Sort", BeadSort.class);
     // TODO: Add new sorts
   }
 
