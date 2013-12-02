@@ -5,9 +5,8 @@ import java.awt.*;
  * This class is used for running a simulation of cocktail sort.
  * Cocktail Sort is also called bidirectional bubble sort, shaker sort,
  * shuffle sort, ripple sort, shuttle sort, or happy hour sort.
- * It is a variation of bubble sort and is both stable and a comparison
- * sorting algorithm. Cocktail Sort is a variation of Bubble Sort but it differs
- * in that it sorts in both directions. (source from Wikipedia).
+ * It is both stable and a comparison sorting algorithm. It is a variation of
+ * Bubble Sort but it differs in that it sorts in both directions. (source from Wikipedia).
  */
 public class CocktailSort extends Sort
 {

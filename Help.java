@@ -1,6 +1,6 @@
 package code;
 
-//TODO: We need algorithm descriptions and run times for all algorithms used
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JInternalFrame;
@@ -10,43 +10,55 @@ import java.awt.Font;
 /**
  * class: Help
  * desc:  This class contains instructions for how to use the program,
- * and it contains descriptions for algorithms.
+ * and it contains descriptions for the algorithms.
  */
 public class Help extends KInternalFrame
 {
-  /** Help class variables:
-   * FRAME_WIDTH - The width of the internalFrame
-   * FRAME_HEIGHT - The height of the internalFrame
-   * ta - The text area holding the instructions for how to use the program
-   * TA_WIDTH - The width of the text area
-   * TA_HEIGHT - The height of the text area
-   * helpInstructions - A string for holding the instructions for how to use the program
-   * font_bold - The font type for our text area
-   * scrollPane - The scrollPane the holds the text area
-   */
-  private final int FRAME_WIDTH = 600, FRAME_HEIGHT = 400;
+  /** The width of the internalFrame */
+  private final int FRAME_WIDTH = 600;
+
+  /** The height of the internalFrame */
+  private final int FRAME_HEIGHT = 400;
+
+  /** The text area holding the instructions for how to use the program */
   private JTextArea ta;
-  private final int TA_WIDTH = 22, TA_HEIGHT = 40;
-  private String helpInstructions, algorithmDescriptions;
+
+  /** The width of the text area */
+  private final int TA_WIDTH = 22;
+
+  /** The height of the text area */
+  private final int TA_HEIGHT = 40;
+
+  /** String containing the list of instructions for how to use the program and the
+   * descriptions about each algorithm used*/
+  private String helpMessage;
+
+  /** The font type for our text area */
   private Font font_bold;
+
+  /** The scrollPane the holds the text area */
   private JScrollPane scrollPane;
 
-
   /**
-   * fn:   Help Default Constructor
-   * desc: Creates our internal frame and displays a text area of instructions for how to
+   * Help Default Constructor that creates the internal frame and displays a text area of instructions for how to
    * use the program
    */
   public Help()
   {
     super("Help");
+
+    /**
+     * Sets the frame size and width
+     * @param FRAME_WIDTH the width of the frame
+     *  @param FRAME_HEIGHT the height of the frame
+     */
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
 
     // Initialize font properties
     font_bold = new Font("Bold", Font.BOLD, 16);
 
     // Write the problem description
-    helpInstructions = "********************Instructions for program usage:********************\n\n" +
+    helpMessage = "********************Instructions for program usage:********************\n\n" +
             "How to open the internal frames within our program:\n" +
             "This is done by either selecting the appropriate menu item from the menu bar or choosing one " +
             "of the following hotkeys: \n" +
@@ -126,7 +138,7 @@ public class Help extends KInternalFrame
 
 
     // Initialize our text area
-    ta = new JTextArea(helpInstructions, TA_WIDTH, TA_HEIGHT);
+    ta = new JTextArea(helpMessage, TA_WIDTH, TA_HEIGHT);
     ta.setFont(font_bold);
     ta.setEnabled(false);
     ta.setDisabledTextColor(new Color(131, 28, 40));
