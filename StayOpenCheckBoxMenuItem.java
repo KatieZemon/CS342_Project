@@ -83,7 +83,6 @@ public class StayOpenCheckBoxMenuItem extends JCheckBoxMenuItem {
 
   /**
    * Overridden to reopen the menu.
-   *
    * @param pressTime the time to "hold down" the button, in milliseconds
    */
   @Override

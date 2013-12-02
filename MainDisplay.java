@@ -101,7 +101,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   {
     // itemCountSlider
     itemCount_tBorder = new TitledBorder(new LineBorder(Color.BLACK,3), "Array Length: N = " + numItems,
-        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
+            TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
     itemCountSlider = new JSlider(1, 800, numItems);
     itemCountSlider.setBorder(itemCount_tBorder);
     itemCountSlider.addChangeListener(this);
@@ -123,7 +123,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
 
     // delaySlider
     delay_tBorder = new TitledBorder(new LineBorder(Color.BLACK,3), "Current Delay = " + delay + "ms",
-        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
+            TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
     delaySlider = new JSlider(1, 800, delay);
     delaySlider.setBorder(delay_tBorder);
     delaySlider.addChangeListener(this);
@@ -159,17 +159,23 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   }
 
   /**
-  * Creates all sorts new that are to be shown.
-  */
+   * Creates all sorts new that are to be shown.
+   */
   public void updateSorts()
   {
     sortPanel.removeAll();
     sortPanel.setLayout(new GridLayout(sorts.size(), 1));
-    for(Sort sorter : sorts.values())
+    if(sorts.size() > 0)
     {
-      sorter.setValues(values);
-      sorter.delayTime = delay;
-      sortPanel.add(sorter);
+      int sortHeight = (getHeight() - 100) / sorts.size();
+      for(Sort sorter : sorts.values())
+      {
+        System.out.println("\t >" + sorter.toString());
+        sorter.setPanelHeight(sortHeight);
+        sorter.setValues(values);
+        sorter.delayTime = delay;
+        sortPanel.add(sorter);
+      }
     }
     c.validate();
   }
@@ -191,8 +197,8 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   }
 
   /**
-  * Removes a single sort from being shown.
-  */
+   * Removes a single sort from being shown.
+   */
   public void removeSort(Class clazz)
   {
     sorts.remove(clazz);
@@ -200,8 +206,8 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   }
 
   /**
-  * Removes all sorts.
-  */
+   * Removes all sorts.
+   */
   public void removeAllSorts()
   {
     resetButtonAction();

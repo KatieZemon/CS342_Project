@@ -37,7 +37,7 @@ public abstract class Sort extends JPanel implements Runnable {
   private final int PANEL_WIDTH = 800;
 
   /** The height of the panel holding the bar graph */
-  private final int PANEL_HEIGHT = 150;
+  private int panelHeight = 150;
 
   /** The width of each bar in the graph */
   private int barWidth;
@@ -62,12 +62,12 @@ public abstract class Sort extends JPanel implements Runnable {
    * @param sortName the name of the sort
    */
   public Sort(int[] values, Integer delay, String sortName) {
-    this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+    // this.panelHeight = panelHeight
     this.values = values;
     this.delayTime = delay;
     graphTitle = sortName;
     titleBorder = new TitledBorder(
-        new LineBorder(Color.BLACK,3), graphTitle, TitledBorder.CENTER,
+            new LineBorder(Color.BLACK,3), graphTitle, TitledBorder.CENTER,
             TitledBorder.DEFAULT_POSITION, TITLE_FONT, Color.BLACK);
     this.setBorder(titleBorder);
     this.setBackground(PANEL_BACKGROUND_COLOR);
@@ -78,15 +78,23 @@ public abstract class Sort extends JPanel implements Runnable {
    * Initializes the rectangles that represent the data to be sorted in the chart
    */
   private void initBars(){
-    int xPos, yPos, yHeight;
+    this.setPreferredSize(new Dimension(PANEL_WIDTH, this.panelHeight));
     // Initialize all bar sizes
-    bars = new Rectangle[values.length];
-    barWidth = (PANEL_WIDTH)/values.length; // The width of each bar
-    for (int i = 0; i < values.length; i++)
+    createBars(values);
+  }
+
+  /**
+   * Creates bars for integer array passed in
+   */
+  protected void createBars(int[] v){
+    int xPos, yPos, yHeight;
+    bars = new Rectangle[v.length];
+    barWidth = (PANEL_WIDTH)/v.length; // The width of each bar
+    for (int i = 0; i < v.length; i++)
     {
-      yHeight = values[i];
+      yHeight = (int)(((float)v[i] / 100) * (this.panelHeight - 30));
       xPos = i*barWidth + 5;
-      yPos = PANEL_HEIGHT - yHeight - 5;
+      yPos = this.panelHeight - yHeight - 5;
       bars[i] = new Rectangle(xPos,yPos,barWidth,yHeight);
     }
   }
@@ -202,7 +210,7 @@ public abstract class Sort extends JPanel implements Runnable {
    */
   protected void setBarValue(int index, int value){
     int yHeight = value;
-    int yPos = PANEL_HEIGHT - yHeight - 5;
+    int yPos = panelHeight - yHeight - 5;
     Rectangle bar = bars[index];
     bar.setBounds(bar.x, yPos, bar.width, yHeight);
     repaint();
@@ -279,6 +287,10 @@ public abstract class Sort extends JPanel implements Runnable {
       };
       y = newY;
     }
+  }
+
+  public void setPanelHeight(int panelHeight){
+    this.panelHeight = panelHeight;
   }
 
   /**
