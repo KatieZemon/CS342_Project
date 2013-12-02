@@ -135,6 +135,17 @@ public abstract class Sort extends JPanel implements Runnable {
   }
 
   /**
+   * @return a copy of the bars array
+   */
+  protected Rectangle[] getBarsCopy(){
+    Rectangle[] barsCopy = new Rectangle[bars.length];
+    for(int i = 0; i < values.length; i++){
+      barsCopy[i] = new Rectangle(bars[i]);
+    }
+    return barsCopy;
+  }
+
+  /**
    * Compares two bars by their index (zero-based)
    * @param barIndex1 index of first bar
    * @param barIndex2 index of second bar
