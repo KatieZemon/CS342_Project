@@ -39,9 +39,6 @@ public abstract class Sort extends JPanel implements Runnable {
   /** The height of the panel holding the bar graph */
   private final int PANEL_HEIGHT = 150;
 
-  /** An integer indexValue representing the highlighted bar*/
-//  private int selectedBar = 0;
-
   /** The width of each bar in the graph */
   private int barWidth;
 
@@ -54,21 +51,12 @@ public abstract class Sort extends JPanel implements Runnable {
   /** The color used to fill all bars that are not selected*/
   protected final static Color DEFAULT_BAR_COLOR = new Color(48, 57, 114);
 
-  /** One of two colors for the selected bar */
-  protected final static Color SELECTED_BAR_COLOR1 = new Color(255, 226, 41);
-
-  /** One of two colors for the selected bar */
-  protected final static Color SELECTED_BAR_COLOR2 = new Color (204, 166, 61);
-
-  /** The fill Color (gradient of two colors) for the selected bar.*/
-//  protected GradientPaint selectedBarColor = new GradientPaint(75, 75, SELECTED_BAR_COLOR1,
-//          95, 95, SELECTED_BAR_COLOR2, true);
-
   /** Keeps track of colored bars */
   protected HashMap<Integer, Color> specialColoredBars = new HashMap<Integer, Color>();
 
   /**
-   *
+   * Constructor used to create a new sorting algorithm. It initializes the
+   * sort with the given values, the delay, and a sort name
    * @param values the values to sort
    * @param delay the delay per iteration of sort
    * @param sortName the name of the sort
@@ -114,8 +102,17 @@ public abstract class Sort extends JPanel implements Runnable {
     }
   }
 
+  /**
+   * This is used in every sorting algorithm which inherits from the
+   * Sort class. It runs the main loop of each sorting algorithm
+   */
   protected abstract void runSort();
 
+  /**
+   * This is used to run the sorting alogorithms and keep track
+   * of the fact that the sorting algorithms are running. When running=false,
+   * we know that the sorting algorithms are complete
+   */
   public void run()
   {
     running = true;
@@ -168,7 +165,6 @@ public abstract class Sort extends JPanel implements Runnable {
    */
   protected void swap(int left, int right)
   {
-//    if(left == right) return;
     int height = bars[right].height;
     int yPos = bars[right].y;
     bars[right].setBounds(bars[right].x, bars[left].y, bars[left].width, bars[left].height );
@@ -178,9 +174,9 @@ public abstract class Sort extends JPanel implements Runnable {
   }
 
   /**
-   * swaps two rectangles to each other's sizes
-   * @param a
-   * @param b
+   * swaps the sizes of Rectangles a and b
+   * @param a Rectangle "a" to be swapped with Rectangle "b"
+   * @param b Rectangle "b" to be swapped with Rectangle "a"
    */
   protected void swap(Rectangle a, Rectangle b){
     int height = b.height;
@@ -196,15 +192,13 @@ public abstract class Sort extends JPanel implements Runnable {
    * @return the value of the bar
    */
   protected int getBarValue(int index){
-//    delay();
     return bars[index].height;
   }
 
   /**
-   *
-   * @param index
-   * @param value
-   * @return
+   * Sets the height of the bar at the specified index
+   * @param index The index value for this bar
+   * @param value The new height of the bar
    */
   protected void setBarValue(int index, int value){
     int yHeight = value;
@@ -215,6 +209,7 @@ public abstract class Sort extends JPanel implements Runnable {
   }
 
   /**
+   * Decrements a specific bar by a specific value
    * @param index of bar to decrement
    * @param value to decrement current bar value
    */
@@ -223,6 +218,7 @@ public abstract class Sort extends JPanel implements Runnable {
   }
 
   /**
+   * Increments a specific bar by a specific value
    * @param index of bar to increment
    * @param value to increment current bar value
    */
@@ -230,11 +226,10 @@ public abstract class Sort extends JPanel implements Runnable {
     setBarValue(index, getBarValue(index) + value);
   }
 
-
   /**
    * Sets the bar at the given index to the color provided
-   * @param barIndex
-   * @param color
+   * @param barIndex The index of the bar
+   * @param color The color of the bar
    */
   protected void colorBar(int barIndex, Color color){
     repaint(); // Repaint the bar that was colored
@@ -242,16 +237,17 @@ public abstract class Sort extends JPanel implements Runnable {
   }
 
   /**
+   * Resets the color of a specific bar
    * @param barIndex index of bar to reset to default color
    */
   protected void uncolorBar(int barIndex){
     if(specialColoredBars.containsKey(barIndex)){
       specialColoredBars.remove(barIndex);
     }
-    //OR specialColoredBars.put(barIndex, DEFAULT_BAR_COLOR);
   }
 
   /**
+   * Get the color of a specific bar
    * @param barIndex index of bar to check color
    * @return the color of the given bar
    */
@@ -270,7 +266,7 @@ public abstract class Sort extends JPanel implements Runnable {
   }
 
   /**
-   * asserts given array is in sorted order
+   * Asserts that the given array is in sorted order
    * @param array
    * @throws AssertionError if array not in sorted order
    */
@@ -294,10 +290,11 @@ public abstract class Sort extends JPanel implements Runnable {
     Graphics2D g2 = (Graphics2D) g;
     for (int i = 0; i < values.length; i++){
       g2.setColor(getBarColor(i));
-      if(bars == null) System.err.println("AHHHH SOMETHING FUCKED UP");
+      // Print an error message if there are no bars to be displayed
+      if(bars == null)
+        System.err.println("Error! There are no values to be printed on this graph!");
       g2.fill(bars[i]);
       // Draw an outline for the bar under certain conditions
-//      if ( barWidth > 1 || (i != selectedBar && barWidth < 2))
       if(barWidth > 3)
       {
         g2.setPaint(BAR_OUTLINE_COLOR);
@@ -306,6 +303,9 @@ public abstract class Sort extends JPanel implements Runnable {
     }
   }
 
+  /**
+   * Get the title of the graph
+   */
   @Override
   public String toString()
   {

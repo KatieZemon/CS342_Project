@@ -1,7 +1,6 @@
 package code.sorts;
 
 import java.awt.*;
-// TODO: Still working on this implementation
 /**
  * This class is used for running a simulation of cocktail sort.
  * Cocktail Sort is also called bidirectional bubble sort, shaker sort,

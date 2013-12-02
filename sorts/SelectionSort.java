@@ -34,7 +34,7 @@ public class SelectionSort extends Sort
           uncolorBar(max);
           return;
         }
-        colorBar(i, Sort.SELECTED_BAR_COLOR1);
+        colorBar(i, Color.YELLOW);
 
         // New max
         if(compare(i,max) > 0)//if ( bars[i].height > bars[max].height )
