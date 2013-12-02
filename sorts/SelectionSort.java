@@ -3,8 +3,12 @@ package code.sorts;
 import java.awt.*;
 
 /**
- * class: SelectionSort
- * desc:  This class is used for running a simulation of selection sort.
+ * This class is used for running a simulation of selection sort.
+ * Selection sort iterates through an entire list of data while searching for the greatest item in that set. The
+ * greatest item is swapped with the last item in that list. The algorithm starts again from the beginning
+ * searching for the greatest item in the list until it reaches the next to last item in the list and swaps
+ * its new greatest item with that item. The algorithm continues to search for the new greatest items in a smaller
+ * and smaller list of unsorted data until that small list of data is size 1.
  */
 public class SelectionSort extends Sort
 {
