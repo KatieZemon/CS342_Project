@@ -103,6 +103,7 @@ public abstract class Sort extends JPanel implements Runnable {
     }
   }
 
+
   /**
    * @param values the array of integers to be sorted
    */
@@ -134,6 +135,17 @@ public abstract class Sort extends JPanel implements Runnable {
   }
 
   /**
+   * @return a copy of the bars array
+   */
+  protected Rectangle[] getBarsCopy(){
+    Rectangle[] barsCopy = new Rectangle[bars.length];
+    for(int i = 0; i < values.length; i++){
+      barsCopy[i] = new Rectangle(bars[i]);
+    }
+    return barsCopy;
+  }
+
+  /**
    * Compares two bars by their index (zero-based)
    * @param barIndex1 index of first bar
    * @param barIndex2 index of second bar
@@ -156,6 +168,7 @@ public abstract class Sort extends JPanel implements Runnable {
    */
   protected void swap(int left, int right)
   {
+//    if(left == right) return;
     int height = bars[right].height;
     int yPos = bars[right].y;
     bars[right].setBounds(bars[right].x, bars[left].y, bars[left].width, bars[left].height );
@@ -176,6 +189,45 @@ public abstract class Sort extends JPanel implements Runnable {
     a.setBounds(a.x, yPos, a.width, height);
     repaint();
     delay();
+  }
+
+  /**
+   * @param index of bar to get value of
+   * @return the value of the bar
+   */
+  protected int getBarValue(int index){
+//    delay();
+    return bars[index].height;
+  }
+
+  /**
+   *
+   * @param index
+   * @param value
+   * @return
+   */
+  protected void setBarValue(int index, int value){
+    int yHeight = value;
+    int yPos = PANEL_HEIGHT - yHeight - 5;
+    Rectangle bar = bars[index];
+    bar.setBounds(bar.x, yPos, bar.width, yHeight);
+    repaint();
+  }
+
+  /**
+   * @param index of bar to decrement
+   * @param value to decrement current bar value
+   */
+  protected void decrementBarValue(int index, int value){
+    setBarValue(index, getBarValue(index) - value);
+  }
+
+  /**
+   * @param index of bar to increment
+   * @param value to increment current bar value
+   */
+  protected void incrementBarValue(int index, int value){
+    setBarValue(index, getBarValue(index) + value);
   }
 
 

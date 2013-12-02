@@ -1,18 +1,56 @@
 package code.sorts;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
- * @author Thomas Clay
- * Date: 11/30/13 Time: 6:50 PM
+ * @author Thomas
+ *         12/1/13 7:31 PM
  */
-public class TreeSort extends Sort {
+public class TrucketSort extends AbstractBucketSort<TreeSortNode[]> {
 
-  private TreeSortNode root;
 
-  public TreeSort(int[] values, int delay){
-    super(values, delay, "Binary Tree Sort");
+  public TrucketSort(int[] values, int delay) {
+    super(values, delay, "Trucket Sort");
+  }
+
+  @Override
+  protected void initializeBuckets() {
+    buckets = new TreeSortNode[getNumRanges()];
+  }
+
+  @Override
+  protected int getNumRanges() {
+    Long num = new Long( Math.round(Math.log(values.length) / Math.log(2)) );
+    return num.intValue();
+  }
+
+  @Override
+  protected void sortBuckets() {
+    // buckets should already be sorted when orderBarsByBuckets gets called
+    return;
+  }
+
+  @Override
+  protected void addToBucket(int bucketNum, int barIndex) {
+    if(buckets[bucketNum] == null){
+      buckets[bucketNum] = new TreeSortNode(barIndex);
+    }
+    else{
+      insert(buckets[bucketNum], barIndex, getColorByBucket(bucketNum));
+    }
+  }
+
+  @Override
+  protected Iterator<Integer> getBucketIterator(int bucketNumber) {
+    int[] array = new int[values.length];
+    int length = in_order(buckets[bucketNumber], 0, array);
+    ArrayList<Integer> list = new ArrayList<Integer>(length);
+    for(int i = 0; i < length && running; i++){
+      list.add(array[i]);
+    }
+    return list.iterator();
   }
 
   private void insert(TreeSortNode node, int indexValue, Color color){
@@ -59,7 +97,7 @@ public class TreeSort extends Sort {
   }
 
   private int in_order(TreeSortNode node, int firstIndex, int[] sortedIndices){
-    if(node == null){
+    if(node == null || !running){
       return firstIndex;
     }
     firstIndex = in_order(node.left, firstIndex, sortedIndices);
@@ -92,37 +130,5 @@ public class TreeSort extends Sort {
     return new Color(r, g, b);
   }
 
-  //TODO add a color compare
 
-  /**
-   * Reorders the bars
-   * @param orderedIndices
-   */
-  private void reorder(int[] orderedIndices){
-    Rectangle[] barsCopy = new Rectangle[bars.length];
-    for(int i = 0; i < barsCopy.length; i++){
-      barsCopy[i] = new Rectangle(bars[i]);
-    }
-    HashMap<Integer, Color> barColorsCopy = new HashMap<Integer, Color>(specialColoredBars);
-    for(int i = 0; i < values.length; i++){
-      if(!running) return;
-      colorBar(i, barColorsCopy.get(orderedIndices[i]));
-      swap(bars[i], barsCopy[orderedIndices[i]]);
-    }
-  }
-
-
-  @Override
-  protected void runSort() {
-    Color c = new Color(0,0,0);
-    colorBar(0, c);
-    root = new TreeSortNode(0);
-    for(int i = 1; i < bars.length; i++){
-      if(!running) return;
-      insert(root, i, c);
-    }
-    int[] sortedIndices = new int[values.length];
-    in_order(root, 0, sortedIndices);
-    reorder(sortedIndices);
-  }
 }
