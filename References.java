@@ -7,31 +7,37 @@ import java.awt.Color;
 import java.awt.Font;
 
 /**
- * class: References
- * desc:  This class contains a list of references used for creating the program
+ * This class contains a list of references used for creating the program
  */
 public class References extends KInternalFrame
 {
-  /** References class variables:
-   * FRAME_WIDTH - The width of the internalFrame
-   * FRAME_HEIGHT - The height of the internalFrame
-   * ta - The text area holding the instructions for how to use the program
-   * TA_WIDTH - The width of the text area
-   * TA_HEIGHT - The height of the text area
-   * referencesString - A string for holding the references used in our program
-   * font_bold - The font type for our text area
-   * scrollPane - The scrollPane the holds the text area
-   */
-  private final int FRAME_WIDTH = 600, FRAME_HEIGHT = 400;
+  /** The width of the internalFrame */
+  private final int FRAME_WIDTH = 600;
+
+  /** The height of the internalFrame */
+  private final int FRAME_HEIGHT = 400;
+
+  /** The text area holding the instructions for how to use the program */
   private JTextArea ta;
-  private final int TA_WIDTH = 22, TA_HEIGHT = 40;
+
+  /** The width of the text area */
+  private final int TA_WIDTH = 22;
+
+  /** The height of the text area */
+  private final int TA_HEIGHT = 40;
+
+  /** String containing the list of references used for creating this program*/
   private String referencesString;
+
+  /** The font type for our text area */
   private Font font_bold;
+
+  /** The scrollPane the holds the text area */
   private JScrollPane scrollPane;
 
   /**
-   * fn:   References Default Constructor
-   * desc: Creates our internal frame and initializes its contents
+   * References Default Constructor. This creates the references
+   * internal frame and initializes its contents
    */
   public References()
   {
