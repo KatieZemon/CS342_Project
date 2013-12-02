@@ -44,7 +44,7 @@ public class References extends KInternalFrame
     // Write the problem description
     referencesString = "References:\n" +
             "1. The problem description for this assignment is a rewritten version of what was originally designed by " +
-            "Dr.Chaman Sabharwal from Missour S&T.\n\n" +
+            "Dr.Chaman Sabharwal from Missour S&T.\n\n\n" +
 
             "2. An example taken from this website was used for creating the bar graph:"+
             "http://jlipton.web.wesleyan.edu/courses/fall2012/lecs/barGraph/arrayVersion/ArrayBarGraph.java\n\n" +
@@ -59,9 +59,33 @@ public class References extends KInternalFrame
             "      g2.setColor(Color.BLACK);\n" +
             "      g2.draw(r);\n" +
             "    }\n\n\n" +
-            "StayOpenCheckBoxMenuItem was found at the following sites: \n" +
-            "* http://www.coderanch.com/t/497325/GUI/java/popup-clicking-JCheckBoxMenuItem \n" +
-            "* http://tips4java.wordpress.com/2010/09/12/keeping-menus-open/ \n\n";
+
+
+            "3. Wikipedia was used for checking our understanding of sorting algorithms. In particular," +
+            " the following websites were referenced for gaining knowledge about each algorithm: " +
+            "http://en.wikipedia.org/wiki/Bead_Sort \n" +
+            "http://en.wikipedia.org/wiki/Bubble_sort \n" +
+            "http://en.wikipedia.org/wiki/Cocktail_sort \n" +
+            "http://en.wikipedia.org/wiki/Comb_sort \n" +
+            "http://en.wikipedia.org/wiki/Counting_sort \n" +
+            "http://en.wikipedia.org/wiki/Cycle_sort \n" +
+            "http://en.wikipedia.org/wiki/Bucket_sort \n" +
+            "http://en.wikipedia.org/wiki/Gnome_sort \n" +
+            "http://en.wikipedia.org/wiki/Heap_sort \n" +
+            "http://en.wikipedia.org/wiki/Insertion_sort \n" +
+            "http://en.wikipedia.org/wiki/Merge_sort \n" +
+            "http://en.wikipedia.org/wiki/Odd_even_sort \n" +
+            "http://en.wikipedia.org/wiki/Quick_sort \n" +
+            "http://en.wikipedia.org/wiki/Selection_sort \n" +
+            "http://en.wikipedia.org/wiki/Shell_sort \n" +
+            "http://en.wikipedia.org/wiki/Stooge_sort \n" +
+            "http://en.wikipedia.org/wiki/Tree_sort \n" +
+            "http://en.wikipedia.org/wiki/Radix_sort \n\n\n" +
+
+            "4. The following sites were referenced in order to create the check box menu item that is able" +
+            "to stay open even after the user selects one of the items. \n" +
+            "http://www.coderanch.com/t/497325/GUI/java/popup-clicking-JCheckBoxMenuItem \n" +
+            "http://tips4java.wordpress.com/2010/09/12/keeping-menus-open/ \n\n";
 
     // Initialize our text area
     ta = new JTextArea(referencesString, TA_WIDTH, TA_HEIGHT);
