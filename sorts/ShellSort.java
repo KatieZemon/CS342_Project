@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * This class is used to run an implementation of shell sort
  * @author Thomas
  *         11/30/13 10:29 PM
  */

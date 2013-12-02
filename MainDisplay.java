@@ -178,7 +178,6 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   {
     if(sorts.size() < MAX_SORTS)
     {
-      System.out.println("Adding sort " + clazz.toString());
       Sort algorithm;
       try{
         algorithm = (Sort) clazz.getConstructor(int[].class, int.class).newInstance(values, delay);
@@ -187,8 +186,6 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
       catch(Exception e){
         e.printStackTrace();
       }
-      System.out.println("sorts: ");
-      System.out.println(sorts.keySet());
     }
     updateSorts();
   }

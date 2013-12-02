@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
+ * This class is used to implement trucket sort
+ * Trucket sort is a hybrid algorithm between tree sort and bucket sort
  * @author Thomas
  *         12/1/13 7:31 PM
  */

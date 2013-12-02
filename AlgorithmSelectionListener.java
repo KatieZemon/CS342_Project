@@ -46,7 +46,6 @@ public class AlgorithmSelectionListener implements ActionListener
     sortingAlgorithms.put("Bead Sort", BeadSort.class);
     sortingAlgorithms.put("Bucket Sort", GenericBucketSort.class);
     sortingAlgorithms.put("Trucket Sort", TrucketSort.class);
-    // TODO: Add new sorts
   }
 
   /**
@@ -96,7 +95,6 @@ public class AlgorithmSelectionListener implements ActionListener
         JPopupMenu menu = (JPopupMenu) unselect.getParent();
         for (Component component : menu.getComponents())
         {
-          System.out.println("looking at item of class " + component.getClass());
           if (component.getClass() == JCheckBoxMenuItem.class)
           {
             JCheckBoxMenuItem item = (JCheckBoxMenuItem) component;

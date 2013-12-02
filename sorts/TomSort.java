@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.LinkedList;
 
 /**
+ * This class is used to implement Tom Sort
+ * Tom sort is a modified version of Merge Sort
  * @author Thomas
  *         12/1/13 1:41 AM
  */

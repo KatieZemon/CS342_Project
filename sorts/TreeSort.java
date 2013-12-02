@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.HashMap;
 
 /**
+ * This class is used to run tree sort
  * @author Thomas Clay
  * Date: 11/30/13 Time: 6:50 PM
  */

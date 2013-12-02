@@ -3,6 +3,7 @@ package code.sorts;
 import java.awt.*;
 
 /**
+ * This class is used to implement stooge sort
  * @author Thomas
  *         11/30/13 11:34 PM
  */

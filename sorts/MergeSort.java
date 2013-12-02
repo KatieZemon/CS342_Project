@@ -45,12 +45,12 @@ public class MergeSort extends Sort {
     int j = 0;
     while(j < array.length){
       if(!running) return null;
-      //if right is out OR left has some and left is less than right
+      // if right is out OR left has some and left is less than right
       colorBar(left, Color.RED);
       colorBar(right,Color.RED);
       repaint();
       if(!(right < end) || (left < rightStart && compare(left, right) < 0)){
-        //move left indexValue into next array position
+        // move left indexValue into next array position
         array[j] = new Rectangle(bars[left]);
         left++;
       }
