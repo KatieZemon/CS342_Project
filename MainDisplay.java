@@ -67,7 +67,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   public static final int WORST = 3;
 
   /** The default sorting algorithm; the first one displayed */
-  public static final String DEFAULT_SORT = "Counting Sort";
+  public static final String DEFAULT_SORT = "Trucket Sort";
 
 
   public MainDisplay()
@@ -163,12 +163,10 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   */
   public void updateSorts()
   {
-    System.out.println("updating sorts...");
     sortPanel.removeAll();
     sortPanel.setLayout(new GridLayout(sorts.size(), 1));
     for(Sort sorter : sorts.values())
     {
-      System.out.println("\t >" + sorter.toString());
       sorter.setValues(values);
       sorter.delayTime = delay;
       sortPanel.add(sorter);
@@ -249,7 +247,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
    * and resets the data in the algorithm
    */
   public void resetButtonAction(){
-    resetButtonAction(3, delay*2);
+    resetButtonAction(5, delay*2);
   }
 
   public void resetButtonAction(int retryCount, int waitTime)

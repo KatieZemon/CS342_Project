@@ -3,6 +3,8 @@ package code.sorts;
 import code.MainDisplay;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * @author Thomas
@@ -25,13 +27,13 @@ public abstract class AbstractBucketSort<T> extends Sort {
 
   private int[] getBucketRanges(){
     int numBuckets = getNumRanges();
-    System.out.println("num buckets = " + numBuckets);
+//    System.out.println("num buckets = " + numBuckets);
     int[] ranges = new int[numBuckets];
     int num = MainDisplay.MAX_VALUE / numBuckets;
-    System.out.println("bucket range = " + num);
+//    System.out.println("bucket range = " + num);
     ranges[0] = 0;
     for(int i = 0; i < numBuckets; i++){
-      System.out.println("ranges[" + i + "] = " + i * num);
+//      System.out.println("ranges[" + i + "] = " + i * num);
       ranges[i] = i * num;
     }
     return ranges;
@@ -53,8 +55,25 @@ public abstract class AbstractBucketSort<T> extends Sort {
 
   protected abstract void addToBucket(int bucketNum, int barIndex);
 
+  protected abstract Iterator<Integer> getBucketIterator(int bucketNumber);
 
-
+  /**
+   * This will make each bucket item's contiguous according to it's iterator
+   */
+  protected void organizeBarsByBuckets(){
+    Rectangle[] barsCopy = getBarsCopy();
+    HashMap<Integer, Color> barColorsCopy = new HashMap<Integer, Color>(specialColoredBars);
+    int i = 0;
+    for(int b = 0; b < getNumRanges(); b++){
+      Iterator<Integer> itr = getBucketIterator(b);
+      while(itr.hasNext()){
+        int next = itr.next();
+        colorBar(i, barColorsCopy.get(next));
+        swap(bars[i], barsCopy[next]);
+        i++;
+      }
+    }
+  }
 
 
   @Override
@@ -64,7 +83,7 @@ public abstract class AbstractBucketSort<T> extends Sort {
     for(int i = 0; i < values.length && running; i++){
       for(int r = ranges.length -1; r >= 0 && running; r--){
         if(getBarValue(i) > ranges[r]){
-          System.out.println("bar[" + i + "] = " + getBarValue(i) + " > ranges[" + r + "] = " + ranges[r]);
+//          System.out.println("bar[" + i + "] = " + getBarValue(i) + " > ranges[" + r + "] = " + ranges[r]);
           colorBar(i, getColorByBucket(r));
           addToBucket(r, i);
           repaint();
@@ -73,6 +92,7 @@ public abstract class AbstractBucketSort<T> extends Sort {
       }
       delay();
     }
+    organizeBarsByBuckets();
     sortBuckets();
   }
 }

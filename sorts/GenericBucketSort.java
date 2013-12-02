@@ -1,9 +1,8 @@
 package code.sorts;
 
-import code.MainDisplay;
-
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author Thomas
@@ -33,24 +32,6 @@ public class GenericBucketSort extends AbstractBucketSort<ArrayList<ArrayList<In
    * Sorts buckets using insertion sort
    */
   protected void sortBuckets() {
-    System.out.println("sorting buckets...");
-
-    Rectangle[] barsCopy = new Rectangle[bars.length];
-    for(int i = 0; i < values.length; i++){
-      barsCopy[i] = new Rectangle(bars[i]);
-    }
-
-
-    int i = 0;
-    for(int b = 0; b < buckets.size() && running; b++){
-      ArrayList<Integer> bucket = buckets.get(b);
-      for(int j = 0; j < bucket.size() && running; j++){
-        colorBar(i, getColorByBucket(b));
-        swap(bars[i], barsCopy[bucket.get(j)]);
-        i++;
-      }
-    }
-
     for(int currentMaxIndex = 0; currentMaxIndex < bars.length; currentMaxIndex++)
     {
       for (int j = currentMaxIndex; j>0; j--)
@@ -73,7 +54,11 @@ public class GenericBucketSort extends AbstractBucketSort<ArrayList<ArrayList<In
       uncolorBar(currentMaxIndex);
       repaint();
     }
+  }
 
+  @Override
+  protected Iterator<Integer> getBucketIterator(int bucketNumber){
+    return buckets.get(bucketNumber).iterator();
   }
 
   @Override
