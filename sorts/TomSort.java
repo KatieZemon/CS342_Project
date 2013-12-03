@@ -29,7 +29,16 @@ public class TomSort extends Sort {
    * A helper class that holds two int values
    */
   class Tuple{
-    int _1, _2;
+
+    /** the first tuple value */
+    int _1;
+    /** the second tuple value */
+    int _2;
+
+    /**
+     * @param a the first tuple value
+     * @param b the second tuple value
+     */
     Tuple(int a, int b){
       _1 = a;
       _2 = b;

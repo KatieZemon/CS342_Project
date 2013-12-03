@@ -6,13 +6,19 @@ import java.awt.*;
 import java.util.HashMap;
 
 /**
+ * Preforms counting sort
  * @author Thomas
- *         12/1/13 2:26 PM
  */
 public class CountingSort extends Sort {
 
+  /** stores the number of instances of a value */
   private HashMap<Integer, Integer> counts;
 
+  /**
+   * Sets sort name to "Counting Sort" in {@link #Sort(int[], Integer, String)}
+   * @param values to sort
+   * @param delay to use during sort (milliseconds)
+   */
   public CountingSort(int[] values, int delay){
     super(values, delay, "Counting Sort");
   }
@@ -63,6 +69,9 @@ public class CountingSort extends Sort {
     return new Color(0, 100, height * 2);
   }
 
+  /**
+   * Runs counting sort
+   */
   @Override
   protected void runSort() {
     counts = new HashMap<Integer, Integer>(MainDisplay.MAX_VALUE);
@@ -86,7 +95,6 @@ public class CountingSort extends Sort {
       int value = bars[i].height;
       int correctPosition = positions.get(value);
       sortedArray[correctPosition] = new Rectangle(bars[i]);
-//      colorBar(correctPosition, getColorByHeight(bars[i].height));
       colorBar(i, getColorByHeight(bars[i].height));
       positions.put(value, correctPosition + 1); //increment position
       repaint();

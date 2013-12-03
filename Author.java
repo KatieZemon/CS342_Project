@@ -78,7 +78,6 @@ public class Author extends KInternalFrame
             "      -TomSort and TrucketSort are originally created by me\n" +
             "Learned:\n" +
             "      -A lot of the different algorithms I implemented, excluding heap, binary tree, and merge.\n" +
-            "\n\n\n" +
 
             // Katie Isbell
             "KATIE ISBELL\n" +

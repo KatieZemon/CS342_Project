@@ -7,8 +7,7 @@ import java.awt.event.ActionListener;
 /**
  * Implementation of ActionListener that listens for commands to display
  * internal frames on the given {@link JDesktopPane}
- * User: Thomas
- * Date: 11/26/13 7:51 PM
+ * @author Thomas
  */
 public class FrameDisplayListener implements ActionListener
 {
@@ -29,10 +28,15 @@ public class FrameDisplayListener implements ActionListener
   public static final String MAIN = "Main Display";
 
 
+  /** Author frame instance */
   private Author authorFrame = new Author();
+  /** Problem Statement frame instance */
   private Problem problemFrame = new Problem();
+  /** References frame instance */
   private References referencesFrame = new References();
+  /** Help frame instance */
   private Help helpFrame = new Help();
+  /** Desktop pane */
   private JDesktopPane desktop;
 
   /**
@@ -48,6 +52,11 @@ public class FrameDisplayListener implements ActionListener
   }
 
 
+  /**
+   * Handles menu events to display frames
+   * @param e
+   * @see #actionPerformed(java.awt.event.ActionEvent)
+   */
   @Override
   public void actionPerformed(ActionEvent e)
   {
@@ -70,8 +79,8 @@ public class FrameDisplayListener implements ActionListener
    * Adds a frame to the <code>desktop</code> to display, and brings to front
    *
    * @param iframe internal frame to show
-   * @param x      x position of frame
-   * @param y      y position of frame
+   * @param x x position of frame
+   * @param y y position of frame
    */
   public void showFrame(JInternalFrame iframe, int x, int y)
   {

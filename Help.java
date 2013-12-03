@@ -94,14 +94,69 @@ public class Help extends KInternalFrame
 
             "********************* Algorithm Descriptions *********************\n" +
             // The following are the required sorting algorithms
-            "1. Bubble Sort\n\n" +
 
-            "2. Insertion Sort:\n" +
+            "1. Bead Sort:\n\n" +
+            "The idea is based on an abacus.  If you had rows of beads on parallel columns, and allowed the beads to " +
+            "fall, then the result rows would be sorted" +
+
+            "2. Bubble Sort:\n\n" +
+
+            "3. Bucket Sort:\n\n" +
+            "Moves values into buckets of certain ranges.  Pulls values out of the buckets and places them into the " +
+            "array.  Since each bucket has values strictly larger than the previous, insertion sort preforms in about " +
+            "O(n) time. \n\n" +
+
+            "4. Cocktail Sort:\n\n" +
+
+            "5. Comb Sort:\n\n" +
+            " Is a sorting algorithim that is faster than bubble sort, but is implemented ina similar fashion. " +
+            " Comb sort is different than bubble sort in that it initializes an index value gap to be usually 1/3 " +
+            " of the number of elements to be sorted.  The algorithm the compares elements i and i+gap until " +
+            " i+gap reaches the end of the array, and preforms swaps where needed.  It reduces the gap index value " +
+            " for each iteration and stops until the gap is equal to one and no swaps have been performed. \n\n" +
+
+            "6. Counting Sort:\n\n" +
+            "This counts the numbers of times an element value occurs.  Then figures out where each value should be in the " +
+            "array by using the number of occurrences of that item.  Then it places items in the correct order\n\n" +
+
+            "7. Cycle Sort:\n\n" +
+            "Looks at each item to find where it should be in the array.  Once it finds it's position " +
+            "it swaps items, then attempts to find the swapped items position in the array.  If the swapped item " +
+            "belongs where it was placed, it goes to the next item in the array.  " +
+
+            "8. Gnome Sort:\n\n" +
+
+            "9 Heap Sort:\n\n" +
+            "Moves items in array until the heap property applies. " +
+            "The heap proprety ensures that the children (2 * index + 1 and 2 * index + 2) " +
+            "and children of those children have a value less than thier parents.  " +
+            "using this proprety, it moves the root (which has the largest value) to the " +
+            "end of the array, and decreases the heap size by one.\n\n" +
+
+            "10. Insertion Sort:\n" +
             "Worst case: O(n^2)\n" +
             "Best case: O(n) - Given an already-sorted array\n" +
             "Average case:\n\n" +
 
-            "3. Selection Sort:\n" +
+            "11. Merge Sort:\n" +
+            "Starts of by ensuring every w items in the array are sorted. " +
+            "w doubles every time the previous w items have been sorted and merged. " +
+            "The merging process takes two consecutive runs of sorted data, and creates " +
+            "a larger run of sorted data.\n" +
+            "Worst case: O(nlogn)\n" +
+            "Best case: O(nlogn))\n" +
+            "Average case: O(nlogn)\n\n" +
+
+            "12. Odd Even Sort:\n\n" +
+
+            "13. Quick Sort:\n" +
+            "Worst case: O(n^2)\n" +
+            "Best case: O(nlogn)\n" +
+            "Average case: O(nlogn)\n\n" +
+
+            "14. Radix Sort:\n\n" +
+
+            "15. Selection Sort:\n" +
             "This algorithm iterates through an entire list of data while searching for the greatest item in that set. The " +
             " greatest item is swapped with the last item in that list. The algorithm starts again from the beginning " +
             "searching for the greatest item in the list until it reaches the next to last item in the list and swaps " +
@@ -111,31 +166,29 @@ public class Help extends KInternalFrame
             "Best case: O(n^2)\n" +
             "Average case: O(n^2)\n" +
 
-            "4. Quick Sort:\n" +
-            "Worst case: O(n^2)" +
-            "Best case: O(nlogn)" +
-            "Average case: O(nlogn)" +
+            "16. Shell Sort:\n\n" +
+            "A lot like comb sort, except it uses insertion sort as a sub sequence instead of bubble sort" +
 
-            "5. Heap Sort:\n\n" +
+            "17. Stooge Sort:\n\n" +
+            "A stupid sorting that unsorts 1/3 of its list while sorting 2/3 of some side.  " +
+            "Preforms worse than bubble sort but still gets the job done, somehow." +
 
-            "6. Shell Sort:\n\n" +
+            "18. Tom Sort:\n\n" +
+            "Similar to TimSort in that it looks for runs -- elements in the array that are already in sorted, or reverse-" +
+            "sorted order.  It then reverses the reverse-sorted runs so that all the runs are in sorted order.  It then " +
+            "preforms merge sort on the sorted runs.\n\n" +
 
-            // The following are sorting algorithms for extra credit
-            "7. Merge Sort:\n" +
-            "Recursively sort\n" +
-            "Worst case: O(nlogn)\n" +
-            "Best case: O(nlogn))\n" +
-            "Average case: O(nlogn)\n\n" +
+            "19. Tree Sort:\n\n" +
+            "Puts each value of an array into a binary tree, where left children are less than the root value, and " +
+            "right children contain values that are greater than the root value.  Preforms an in-order iteration to " +
+            "retrieve the values in sorted order.  " +
+//        "Worst case of tree sort is when all the values are in sorted " +
+//        "(or reverse) sorted." +
 
-            "8. Bucket Sort:\n\n" +
-            "9. Bogo Sort:\n\n" +
-            "10. Comb Sort:\n\n" +
-            "11. Distribution Sort:\n\n" +
-            "12. Counting Sort:\n\n" +
-            "13. Radix Sort:\n\n"+
-            "14. Gnome Sort:\n\n" +
-            "15. ...";
-
+            "20. Trucket Sort:\n\n" +
+            "A variation of bucket sort that places values in a certain range into a respective tree.  " +
+            "Then when the buckets are copied into the array they are in sorted order. " +
+            "\n";
 
     // Initialize our text area
     ta = new JTextArea(helpMessage, TA_WIDTH, TA_HEIGHT);

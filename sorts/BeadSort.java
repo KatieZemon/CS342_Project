@@ -1,19 +1,27 @@
 package code.sorts;
 
-import code.MainDisplay;
-
 import java.awt.*;
 
 /**
- * @author Thomas
- *         12/1/13 3:35 PM
+ * Preforms Bead Sort
+ * @author Thomas Clay
  */
 public class BeadSort extends Sort {
 
+  /**
+   * Sets sort name to "Bead Sort"
+   * @param values to be sorted
+   * @param delay to use during sort
+   * @see #Sort(int[], Integer, String)
+   */
   public BeadSort(int[] values, int delay){
     super(values, delay, "Bead Sort");
   }
 
+  /**
+   * Adds color to the {@link #compare(int, int)} process
+   * @see #compare(int, int)
+   */
   private int colorCompare(int a, int b){
     colorBar(a, Color.ORANGE);
     colorBar(b, Color.ORANGE);
@@ -21,6 +29,9 @@ public class BeadSort extends Sort {
     return compare(a, b);
   }
 
+  /**
+   * Runs Bead Sort
+   */
   @Override
   protected void runSort() {
 
