@@ -252,19 +252,6 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   }
 
   /**
-   * Stops execution of all sorting algorithms when the program is closed
-   */
-  public void doDefaultCloseAction()
-  {
-    for(Sort s: sorts.values())
-    {
-      s.running = false;
-    }
-    executor.shutdown();
-    this.dispose();
-  }
-
-  /**
    * Stops execution of all threads (ie. stops all running sorting algorithms)
    * and resets the data in the algorithm
    */

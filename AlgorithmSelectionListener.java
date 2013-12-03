@@ -47,7 +47,6 @@ public class AlgorithmSelectionListener implements ActionListener
     sortingAlgorithms.put("Bucket Sort", GenericBucketSort.class);
     sortingAlgorithms.put("Trucket Sort", TrucketSort.class);
     sortingAlgorithms.put("Radix Sort", RadixSort.class);
-    sortingAlgorithms.put("Radix 2", RadixSort2.class);
     sortingAlgorithms.put("Clock Sort", ClockSort.class);
   }
 
@@ -105,7 +104,7 @@ public class AlgorithmSelectionListener implements ActionListener
         JPopupMenu menu = (JPopupMenu) unselect.getParent();
         for (Component component : menu.getComponents())
         {
-          if (component.getClass() == JCheckBoxMenuItem.class)
+          if (component.getClass() == JCheckBoxMenuItem.class || component.getClass() == StayOpenCheckBoxMenuItem.class)
           {
             JCheckBoxMenuItem item = (JCheckBoxMenuItem) component;
             item.setSelected(false);

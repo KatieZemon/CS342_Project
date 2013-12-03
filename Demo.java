@@ -35,9 +35,6 @@ public class Demo extends JApplet
   /** The content pane */
   private Container c = getContentPane();
 
-
-
-
   /**
    * Creates a JFrame so that the applet can be used as an application
    */
@@ -45,8 +42,8 @@ public class Demo extends JApplet
   {
     JFrame mainFrame = new JFrame();
     Demo myDemo = new Demo();
-    mainFrame.getContentPane().add(myDemo);
     myDemo.init();
+    mainFrame.getContentPane().add(myDemo);
     mainFrame.setTitle("Demo");
     mainFrame.setSize(1000, 900);
 
@@ -57,11 +54,11 @@ public class Demo extends JApplet
       public void windowClosing(WindowEvent evt) {
         if(!Demo.MAIN_DISPLAY_FRAME.isClosed())
         {
-          Demo.MAIN_DISPLAY_FRAME.doDefaultCloseAction();
+          Demo.MAIN_DISPLAY_FRAME.resetButtonAction();
+          Demo.MAIN_DISPLAY_FRAME.dispose();
         }
       }
     });
-
     mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     mainFrame.setVisible(true);
   }
