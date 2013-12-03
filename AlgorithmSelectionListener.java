@@ -21,7 +21,7 @@ public class AlgorithmSelectionListener implements ActionListener
   public static final String BEST = "Best";
   /** String representation for action command to unselect all algorithms to be sorted */
   public static final String UNSELECT = "Unselect";
-
+  /** The main display frame */
   private MainDisplay mainDisplay;
 
   /** A map between the name of the sort and the sorts Class */
@@ -46,7 +46,7 @@ public class AlgorithmSelectionListener implements ActionListener
     sortingAlgorithms.put("Bead Sort", BeadSort.class);
     sortingAlgorithms.put("Bucket Sort", GenericBucketSort.class);
     sortingAlgorithms.put("Trucket Sort", TrucketSort.class);
-//    sortingAlgorithms.put("Radix Sort", RadixSort.class);
+    sortingAlgorithms.put("Radix Sort", RadixSort.class);
   }
 
   /**
@@ -67,6 +67,13 @@ public class AlgorithmSelectionListener implements ActionListener
       Class clazz = sortingAlgorithms.get(command);
       if(menuItem.getState())
       {
+        if(mainDisplay.sorts.size() >= MainDisplay.MAX_SORTS){
+          // don't allow user to select more sorts
+          ((JCheckBoxMenuItem) e.getSource()).setSelected(false);
+          MessageDisplayHelper.showErrorMessage(mainDisplay,
+              "Dr. Sabharwal says you cannot select more than " + MainDisplay.MAX_SORTS + " sorts.  " +
+                  "Please unselect some first.");
+        }
         mainDisplay.addSort(clazz);
       }
       else if(!menuItem.getState() && mainDisplay.sorts.containsKey(clazz)){
