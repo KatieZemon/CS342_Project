@@ -23,7 +23,6 @@ import javax.swing.event.ChangeListener;
  */
 public class MainDisplay extends KInternalFrame implements ActionListener, ChangeListener
 {
-
   static JPanel sortPanel;
   ExecutorService executor;
   JSlider delaySlider, itemCountSlider;
@@ -53,8 +52,14 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   static HashMap<Class, Sort> sorts = new HashMap<Class, Sort>();
 
   /** The maximum number of sorts to be displayed on the screen at once */
-  final int MAX_SORTS = 3;
+  public static final int MAX_SORTS = 3;
 
+  /**
+   * The current data mode
+   * @see #RANDOM
+   * @see #BEST
+   * @see #WORST
+   */
   private int currentDataMode = 1;
 
   /** The dataMode that represents a random data set */
@@ -66,10 +71,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   /** The dataMode that represents a worst-case data set */
   public static final int WORST = 3;
 
-  /** The default sorting algorithm; the first one displayed */
-  public static final String DEFAULT_SORT = "Trucket Sort";
-
-
+  /** Does what a default constructor does */
   public MainDisplay()
   {
     // Initialize the internal frame
@@ -91,7 +93,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
 
     executor = Executors.newFixedThreadPool(MAX_SORTS);
 
-    addSort(AlgorithmSelectionListener.sortingAlgorithms.get(DEFAULT_SORT));
+//    addSort(AlgorithmSelectionListener.sortingAlgorithms.get(DEFAULT_SORT));
   }
 
   /**
@@ -113,6 +115,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     // Start Button
     startButton = new JButton("Sort");
     startButton.addActionListener(this);
+    startButton.setEnabled(false);
     c.add(startButton);
 
     // Reset Button
@@ -179,10 +182,16 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     c.validate();
   }
 
+  /**
+   * Logic for addinga sort to the display.  Does not allow the number of
+   * sorts to exceed {@link #MAX_SORTS}
+   * @param clazz Class of the sort to add to the display
+   */
   public void addSort(Class clazz)
   {
     if(sorts.size() < MAX_SORTS)
     {
+      startButton.setEnabled(true);
       Sort algorithm;
       try{
         algorithm = (Sort) clazz.getConstructor(int[].class, int.class).newInstance(values, delay);
@@ -252,6 +261,11 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     resetButtonAction(5, delay*2);
   }
 
+  /**
+   * Attempts to stop the sorts threads, and reinitialize them for a new sorting run
+   * @param retryCount the number of tries to try to reset/stop the sorts
+   * @param waitTime the time it should give the threads to finish
+   */
   public void resetButtonAction(int retryCount, int waitTime)
   {
     if(retryCount < 0) return;
@@ -286,6 +300,9 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     }
   }
 
+  /**
+   * Launches the sorting algorithms
+   */
   private void startButtonAction(){
     // Disable the start button and enabled our reset button
     startButton.setEnabled(false);

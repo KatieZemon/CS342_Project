@@ -1,6 +1,5 @@
 package code.sorts;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -155,6 +154,9 @@ public class RadixSort extends Sort
     }
   }
 
+  /**
+   * A (LIFO) Queue class for the radix sort
+   */
   private class Queue
   {
     /**Holds the tail of the queue*/

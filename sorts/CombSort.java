@@ -6,7 +6,7 @@ import java.awt.*;
  * This class is used for running a simulation of comb sort.
  * Comb sort is a sorting algorithm that is faster than bubble sort but is implemented
  * in a similar fashion. Comb sort is different than bubble sort in that it initializes
- * a indexValue "gap" to be usually 1.3 * the number of elements in the list to be sorted.
+ * a indexValue "gap" to be usually 1/3 * the number of elements in the list to be sorted.
  * The algorithm compares element i with element i+gap until i+gap reaches the end of
  * the array and performs swaps where needed. It reduces the gap indexValue for each iteration
  * and stops until the gap is equal to 1 and no swaps have been performed.

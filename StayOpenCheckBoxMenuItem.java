@@ -1,7 +1,5 @@
 package code;
 
-import javax.swing.Action;
-import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.MenuElement;
 import javax.swing.MenuSelectionManager;
@@ -18,6 +16,9 @@ import javax.swing.event.ChangeListener;
  */
 public class StayOpenCheckBoxMenuItem extends JCheckBoxMenuItem {
 
+  /**
+   * Gets the path of the menu so it can be re-displayed
+   */
   private static MenuElement[] path;
   {
     getModel().addChangeListener(new ChangeListener() {

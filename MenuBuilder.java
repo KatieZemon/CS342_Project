@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
  * A utility for building menus.  Colors the menus according to the
  * color scheme specified by its Color members
  * @author Thomas Clay
- * Date: 11/26/13
- * Time: 6:42 PM
  */
 public class MenuBuilder {
 

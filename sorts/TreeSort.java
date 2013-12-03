@@ -121,8 +121,6 @@ public class TreeSort extends Sort {
     return new Color(r, g, b);
   }
 
-  //TODO add a color compare
-
   /**
    * Reorders the bars on the graph
    * @param orderedIndices an array of ordered indices
