@@ -55,6 +55,27 @@ public class Author extends KInternalFrame
 
             // TOM CLAY
             "TOM CLAY\n" +
+        "Contact:\n" +
+        "      Phone: 816-547-5127\n" +
+        "      Email: thomas.clay@mst.edu\n" +
+        "Contributions:\n" +
+        "      -Preformed refactoring of code to make it more concise\n" +
+        "            -Added AlgorithmSelectionListener for modifying selected algorithms\n" +
+        "            -Added FrameDisplayListener for handling display of internal frames\n" +
+        "            -Added MenuBuilder to assist in making the menus\n" +
+        "      -Worked on displaying frames, made the KInternalFrame class\n" +
+        "      -Implemented following algorithms:\n" +
+        "            -Bead Sort\n" +
+        "            -Counting Sort\n" +
+        "            -Cycle Sort\n" +
+        "            -Bucket Sort\n" +
+        "            -Heap Sort\n" +
+        "            -Merge Sort\n" +
+        "            -Shell Sort\n" +
+        "            -Stooge Sort\n" +
+        "            -Tom Sort\n" +
+        "            -Tree Sort\n" +
+        "            -Trucket Sort\n" +
             "\n\n\n" +
 
             // Katie Isbell

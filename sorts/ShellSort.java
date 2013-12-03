@@ -6,13 +6,13 @@ import java.util.List;
 
 /**
  * This class is used to run an implementation of shell sort
- * @author Thomas
+ * @author Thomas Clay
  */
 public class ShellSort extends Sort {
   /**
    * Sets sort name to "Shell Sort" in {@link #Sort(int[], Integer, String)}
    * @param values to sort
-   * @param delay to use during sort
+   * @param delay to use during sort (milliseconds)
    */
   public ShellSort(int[] values, int delay){
     super(values, delay, "Shell Sort");
