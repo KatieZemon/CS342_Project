@@ -4,8 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * class: RadixSort
- * desc:  This class is used for running a simulation of radix sort.
+ * This class is used for running a simulation of radix sort.
  */
 public class RadixSort extends Sort
 {
@@ -30,13 +29,9 @@ public class RadixSort extends Sort
     int numb;
     int count = 0;
 
-
-    System.out.println("Starting radix!!!!!!!!!!!!!!!\n");
-
     for(int i: values)
     {
       q.enqueue(new Integer(i));
-      System.out.println(": " + i);
       count++;
     }
 
@@ -46,52 +41,38 @@ public class RadixSort extends Sort
       {
         return;
       }
-      System.out.println("~");
       for(int i = 0; i < 10; i++)
         p[i] = new Queue();
       for(int i = 0; i < count; i++)
       {
         numb = (Integer)q.dequeue();
-        System.out.println(numb);
         p[getDigit(numb, j)].enqueue(numb);
       }
       for(int i = 0; i < 10; i++)
       {
-        System.out.println("_");
         q.append(p[i]);
       }
-      System.out.println("preparing update");
 
       //Prepare the screen update
       ArrayList<Integer> objectValues = new ArrayList<Integer>();
       int intValues[] = new int[count];
-      System.out.println("starting qtal");
       queueToArrayList(q, objectValues);
-      System.out.println("Finished qtal");
       // for(int i = 0; i < count; i++)
       for(int i = 0; i < objectValues.size(); i++)
       {
         intValues[i] = (int)objectValues.get(i);
       }
-      System.out.println("finished list to array");
       createBars(intValues);
-      System.out.println("Bars created");
       delay();
-      System.out.println("delayed");
       repaint();
     }
-    System.out.println("Finished");
-
-    // Integer n;
-    // while((n = q.dequeue()) != null)
-    // {
-    //   System.out.println("~" + n);
-    // }
   }
 
   /**
    * Converts a queue to an array where the value
-   * in the queue may be another queue
+   * in the queue may be another queue.
+   * @param q: a Queue object to be converted to list
+   * @param a: an ArrayList to send the queue to.
    */
   private void queueToArrayList(Queue q, ArrayList a)
   {
@@ -102,24 +83,23 @@ public class RadixSort extends Sort
     {
       if(first)
         first = false;
-      System.out.println(".");
       if(nextVal.getItem() instanceof Integer)
       {
         Integer val = new Integer((Integer)nextVal.getItem());
-        System.out.println("int found " + val);
         a.add(val);
       } else if(nextVal.getItem() instanceof Queue)
       {
-        System.out.println("queue found");
         queueToArrayList((Queue)nextVal.getItem(), a);
-      } else
-      {
-        System.out.println("Error in queueToArrayList!");
       }
       nextVal = nextVal.getNext();
     }
   }
 
+  /**
+  * Gets the digit at a given position in an int
+  * @param number: the int that the value is pulled from
+  * @param place: the position in number that is returned
+  */
   private int getDigit(int number, int place)
   {
     for(int i = 0; i < place; i++)
@@ -127,27 +107,48 @@ public class RadixSort extends Sort
     return (number % 10);
   }
 
+  /**
+  * Cell class used in Queue class
+  */
   private class Cell
   {
+    /**Holds the item in the cell*/
     Object item;
+
+    /**Holds the next cell*/
     Cell next;
 
+    /**
+    * Constructor for Cell class
+    * @param itm: item the cell holds
+    * @param nxt: holds the next cell
+    */
     public Cell(Object itm, Cell nxt)
     {
       item = itm;
       next = nxt;
     }
 
+    /**
+    * Set method for Cell class
+    * @param nxt: the next cell
+    */
     public void setNext(Cell nxt)
     {
       next = nxt;
     }
 
+    /**
+    * Accessor method to get the next cell
+    */
     public Cell getNext()
     {
       return next;
     }
 
+    /**
+    * Accessor method for the item in the cell object
+    */
     public Object getItem()
     {
       return item;
@@ -156,32 +157,21 @@ public class RadixSort extends Sort
 
   private class Queue
   {
+    /**Holds the tail of the queue*/
     Cell tail;
 
+    /**
+    * Constructs a blank queue object
+    */
     public Queue()
     {
       tail = null;
     }
 
-    // public Queue(Queue q)////////NOT SURE ABOUT THIS
-    // {
-    //   Queue q2 = new Queue();
-    //   Object qCell = q.dequeue();/////USE GETTAIL AND GO FROM THERE!!!!!!!!!
-    //   while(qCell != null)
-    //   {
-    //     q2.enqueue(qCell);
-    //     enqueue(qCell);//////////////THIS IS PROBABLY WRONG!!! PROBABLY BUILDING IT BACKWARDS. MAYBE SHOULD JUST CONSTRUCT IT FROM CELLS
-    //     qCell = q.dequeue();
-    //   }
-    //   //Fix q
-    //   qCell = q2.dequeue();
-    //   while(qCell != null)
-    //   {
-    //     q.enqueue(q2.dequeue());
-    //     qCell = q2.dequeue();
-    //   }
-    // }
-
+    /**
+    * Pushes an Object on to queue
+    * @param obj: object to be pushed
+    */
     public void enqueue(Object obj)
     {
       Cell h;
@@ -190,8 +180,7 @@ public class RadixSort extends Sort
       if(tail == null)
       {
         tail = new Cell(obj, null);
-        tail.setNext(tail);/////////////////////
-        // tail.setNext(null);
+        tail.setNext(tail);
       }
       else
       {
@@ -200,6 +189,9 @@ public class RadixSort extends Sort
       }
     }
 
+    /**
+    * Pops an Object off the queue
+    */
     public Object dequeue()
     {
       Object t;
@@ -212,27 +204,12 @@ public class RadixSort extends Sort
       else
         tail = null;
       return t;
-
-
-      // Object t;
-      // if(tail == null)
-      //   return null;
-      // Cell ptr = tail.getNext();
-      // if(ptr != null)
-      // {
-      //   t = ptr.getItem();
-      //   if(ptr != tail)
-      //     tail.setNext(ptr.getNext());
-      //   else
-      //     tail = null;
-      //   return t;
-      // }
-      // else
-      // {
-      //   return tail.getItem();
-      // }
     }
 
+    /**
+    * Appends a queue on to the queue
+    * @param q: the Queue object to be pushed on to the queue
+    */
     public void append(Queue q)
     {
       Cell ptr;
@@ -247,11 +224,17 @@ public class RadixSort extends Sort
       }
     }
 
+    /**
+    * Accessor method for the tail of the queue
+    */
     public Cell trailer()
     {
       return tail;
     }
 
+    /**
+    * Checks to see if queue is empty
+    */
     public boolean empty()
     {
       return tail == null;
