@@ -7,9 +7,13 @@ import java.util.List;
 /**
  * This class is used to run an implementation of shell sort
  * @author Thomas
- *         11/30/13 10:29 PM
  */
 public class ShellSort extends Sort {
+  /**
+   * Sets sort name to "Shell Sort" in {@link #Sort(int[], Integer, String)}
+   * @param values to sort
+   * @param delay to use during sort
+   */
   public ShellSort(int[] values, int delay){
     super(values, delay, "Shell Sort");
   }
@@ -34,6 +38,10 @@ public class ShellSort extends Sort {
   }
 
 
+  /**
+   * Adds color to the {@link #compare(int, int)} process
+   * @see #compare(int, int)
+   */
   private int colorCompare(int a, int b){
     colorBar(a, Color.RED);
     colorBar(b, Color.RED);
@@ -41,6 +49,7 @@ public class ShellSort extends Sort {
     return compare(a, b);
   }
 
+  /** Runs Shell Sort */
   @Override
   protected void runSort() {
     for(int gap : makeGaps()){

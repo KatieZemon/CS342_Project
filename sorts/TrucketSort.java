@@ -6,13 +6,18 @@ import java.util.Iterator;
 
 /**
  * This class is used to implement trucket sort
- * Trucket sort is a hybrid algorithm between tree sort and bucket sort
+ * Trucket sort is a hybrid algorithm between tree sort and bucket sort.
+ * Items are divided into buckets, where each bucket is a binary tree.
+ * When retrieved, the items are in-order, and are copied to the original array
  * @author Thomas
- *         12/1/13 7:31 PM
  */
 public class TrucketSort extends AbstractBucketSort<TreeSortNode[]> {
 
-
+  /**
+   * Sets sort name to "Trucket Sort" in {@link #Sort(int[], Integer, String)}
+   * @param values to sort
+   * @param delay in milliseconds to use during the sorting process
+   */
   public TrucketSort(int[] values, int delay) {
     super(values, delay, "Trucket Sort");
   }
@@ -55,6 +60,12 @@ public class TrucketSort extends AbstractBucketSort<TreeSortNode[]> {
     return list.iterator();
   }
 
+  /**
+   * Inserts into the tree a node with the given indexValue
+   * @param node the starting node to insert the value
+   * @param indexValue the index of the value to insert
+   * @param color the color the inserted bar should be
+   */
   private void insert(TreeSortNode node, int indexValue, Color color){
     if(!running) return;
     if(compare(node.getIndexValue(), indexValue) > 0){
@@ -72,6 +83,11 @@ public class TrucketSort extends AbstractBucketSort<TreeSortNode[]> {
     }
   }
 
+  /**
+   * @param parent the parent node
+   * @param indexValue the value of the node to be inserted
+   * @param color the base color of the bar being inserted
+   */
   private void insertLeft(TreeSortNode parent, int indexValue, Color color){
     Color nextColor = getNextColor(color, true);
     if(parent.left == null){
@@ -85,6 +101,11 @@ public class TrucketSort extends AbstractBucketSort<TreeSortNode[]> {
     }
   }
 
+  /**
+   * @param parent the parent node
+   * @param indexValue the value of the node to be inserted
+   * @param color the base color of the bar being inserted
+   */
   private void insertRight(TreeSortNode parent, int indexValue, Color color){
     Color nextColor = getNextColor(color, false);
     if(parent.right == null){
@@ -98,6 +119,13 @@ public class TrucketSort extends AbstractBucketSort<TreeSortNode[]> {
     }
   }
 
+  /**
+   * Recursively gets the ordered values of the given node and its children
+   * @param node the root or parent node
+   * @param firstIndex the position in the <code>sortedIndices</code> to place the next item
+   * @param sortedIndices an array to put the sorted indices
+   * @return the next starting position for insertion into <code>sortedIndices</code>
+   */
   private int in_order(TreeSortNode node, int firstIndex, int[] sortedIndices){
     if(node == null || !running){
       return firstIndex;

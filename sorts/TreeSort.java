@@ -6,16 +6,27 @@ import java.util.HashMap;
 /**
  * This class is used to run tree sort
  * @author Thomas Clay
- * Date: 11/30/13 Time: 6:50 PM
  */
 public class TreeSort extends Sort {
 
+  /** The root of the tree */
   private TreeSortNode root;
 
+  /**
+   * Sets sort name to "Tree Sort" in {@link #Sort(int[], Integer, String)}
+   * @param values to sort
+   * @param delay in milliseconds to use during the sorting process
+   */
   public TreeSort(int[] values, int delay){
     super(values, delay, "Binary Tree Sort");
   }
 
+  /**
+   * Inserts into the tree a node with the given indexValue
+   * @param node the starting node to insert the value
+   * @param indexValue the index of the value to insert
+   * @param color the color the inserted bar should be
+   */
   private void insert(TreeSortNode node, int indexValue, Color color){
     if(!running) return;
     if(compare(node.getIndexValue(), indexValue) > 0){
@@ -33,6 +44,11 @@ public class TreeSort extends Sort {
     }
   }
 
+  /**
+   * @param parent the parent node
+   * @param indexValue the value of the node to be inserted
+   * @param color the base color of the bar being inserted
+   */
   private void insertLeft(TreeSortNode parent, int indexValue, Color color){
     Color nextColor = getNextColor(color, true);
     if(parent.left == null){
@@ -46,6 +62,11 @@ public class TreeSort extends Sort {
     }
   }
 
+  /**
+   * @param parent the parent node
+   * @param indexValue the value of the node to be inserted
+   * @param color the base color of the bar being inserted
+   */
   private void insertRight(TreeSortNode parent, int indexValue, Color color){
     Color nextColor = getNextColor(color, false);
     if(parent.right == null){
@@ -59,6 +80,13 @@ public class TreeSort extends Sort {
     }
   }
 
+  /**
+   * Recursively gets the ordered values of the given node and its children
+   * @param node the root or parent node
+   * @param firstIndex the position in the <code>sortedIndices</code> to place the next item
+   * @param sortedIndices an array to put the sorted indices
+   * @return the next starting position for insertion into <code>sortedIndices</code>
+   */
   private int in_order(TreeSortNode node, int firstIndex, int[] sortedIndices){
     if(node == null){
       return firstIndex;
@@ -96,8 +124,8 @@ public class TreeSort extends Sort {
   //TODO add a color compare
 
   /**
-   * Reorders the bars
-   * @param orderedIndices
+   * Reorders the bars on the graph
+   * @param orderedIndices an array of ordered indices
    */
   private void reorder(int[] orderedIndices){
     Rectangle[] barsCopy = new Rectangle[bars.length];
@@ -113,6 +141,7 @@ public class TreeSort extends Sort {
   }
 
 
+  /** Runs tree sort */
   @Override
   protected void runSort() {
     Color c = new Color(0,0,0);

@@ -8,17 +8,27 @@ import java.awt.*;
  */
 public class MergeSort extends Sort {
 
+  /**
+   * Constructor for merge sort.
+   * @param values to be sorted
+   * @param delay to be used during sort
+   * @see #Sort(int[], Integer, String)
+   */
   public MergeSort(int[] values, int delay){
     super(values, delay, "Merge Sort");
   }
 
+  /**
+   * Runs merge sort
+   */
   private void sort(){
-    for(int width = 1; width < values.length; width *= 2){
-      for(int i = 0; i < values.length; i = i + 2 * width){
-        if(!running) return;
+    //set size of 'run' to merge; 1,2,4,8...
+    for(int width = 1; width < values.length && running; width *= 2){
+      //iterator through array by given width
+      for(int i = 0; i < values.length && running; i = i + 2 * width){
         int leftStart = i;
-        int rightStart =  Math.min(i+width, values.length);
-        int end = Math.min(width*2 + i, values.length);
+        int rightStart =  Math.min(i+width, values.length); //ensures the right index is not greater than array length
+        int end = Math.min(width*2 + i, values.length); //ensures the end index is not greater than array length
         Rectangle[] sorted = merge(leftStart, rightStart, end);
         assertSorted(sorted);
         move(leftStart, end, sorted);
@@ -26,8 +36,12 @@ public class MergeSort extends Sort {
     }
   }
 
-
-
+  /**
+   * Copies sorted values into the charts bar array
+   * @param start the first index to copy sorted values into
+   * @param end the last+1 index to copy the sorted values into
+   * @param sorted the sorted array of rectangles
+   */
   private void move(int start, int end, Rectangle[] sorted){
     for(int m = start; m < end; m++){
       if(!running) return;
@@ -38,6 +52,13 @@ public class MergeSort extends Sort {
   }
 
 
+  /**
+   * Merges two runs of data into one sorted piece of data
+   * @param leftStart the left starting index
+   * @param rightStart the right starting index
+   * @param end the ending index (+1 of last value to merge)
+   * @return a sorted array of rectangles
+   */
   private Rectangle[] merge(int leftStart, int rightStart, int end){
     int left = leftStart;
     int right = rightStart;
@@ -66,6 +87,10 @@ public class MergeSort extends Sort {
   }
 
 
+  /**
+   * Runs merge sort
+   */
+  @Override
   protected void runSort() {
     sort();
   }

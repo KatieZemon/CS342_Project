@@ -4,15 +4,21 @@ import java.util.ArrayList;
 
 /**
  * Tree Node class
- * @author Thomas Clau
- * 12/1/13 7:33 PM
+ * A node has list of index values whose bars have equal height, and pointers to nodes of lesser and greater value
+ * @author Thomas Clay
  */
 public class TreeSortNode{
 
+  /** The list of indicies with equal values */
   public ArrayList<Integer> indexValues = new ArrayList<Integer>();
+  /** The node with lesser values */
   public TreeSortNode left = null;
+  /** The node with greater value */
   public TreeSortNode right = null;
 
+  /**
+   * @param indexValue the first value of the Node, stored in {@link #indexValues}
+   */
   TreeSortNode(int indexValue){
     this.indexValues.add(indexValue);
   }
@@ -28,8 +34,8 @@ public class TreeSortNode{
   /**
    * copies this nodes values into the given array
    * @param starting the position in the given array to start
-   * @param indices the array of indicies to append this indexValues to;
-   * @return the next index //TODO reword
+   * @param indices the array of indices to append this indexValues to;
+   * @return the index after the last index written to
    */
   public int copyValues(int starting, int[] indices){
     int j;

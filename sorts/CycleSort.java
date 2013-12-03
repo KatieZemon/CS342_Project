@@ -3,8 +3,9 @@ package code.sorts;
 import java.awt.*;
 
 /**
+ * Cycle Sort.
+ * Finds the position of an item, then cycles it with the item in that position
  * @author Thomas
- *         12/1/13 12:22 AM
  */
 public class CycleSort extends Sort {
   public CycleSort(int[] values, int delay){
@@ -12,6 +13,10 @@ public class CycleSort extends Sort {
   }
 
 
+  /**
+   * Colors the bars being compared with <code>compare</code>
+   * @see #compare
+   */
   private int colorCompare(int a, int b){
     colorBar(a, Color.ORANGE);
     colorBar(b, Color.ORANGE);
@@ -19,6 +24,11 @@ public class CycleSort extends Sort {
     return compare(a, b);
   }
 
+  /**
+   * Finds where the value at <code>start</code> should be placed in the array
+   * @param start where to start looking for the items position
+   * @return where the item can be inserted
+   */
   private int findItemsPosition(int start){
     int pos = start;
     for(int i = start+1; i < values.length && running; i++){
@@ -31,6 +41,12 @@ public class CycleSort extends Sort {
     return pos;
   }
 
+  /**
+   * Places an item at the destination, or places it after the destination if the
+   * item at <code>destion</code> is equal in value
+   * @param current the items current positition
+   * @param destination the starting index of where it should be placed
+   */
   private void placeItem(int current, int destination){
     while(colorCompare(current, destination) == 0
         && destination < values.length
@@ -44,6 +60,10 @@ public class CycleSort extends Sort {
   }
 
   @Override
+  /**
+   * runs cycle sort
+   * @see #runSort()
+   */
   protected void runSort() {
     for(int cycleStart = 0; cycleStart < values.length -1 && running; cycleStart++){
       int pos = findItemsPosition(cycleStart);

@@ -5,11 +5,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
+ * A default implementation of bucket sort
+ * Uses insertion sort to sort the buckets
+ * @see code.sorts.AbstractBucketSort
  * @author Thomas
- *         12/1/13 5:37 PM
  */
 public class GenericBucketSort extends AbstractBucketSort<ArrayList<ArrayList<Integer>>> {
 
+  /**
+   * Constructor for generic bucket sort, where the name is "Bucket Sort"
+   * @see #Sort(int[], Integer, String)
+   */
   public GenericBucketSort(int[] values, int delay) {
     super(values, delay, "Bucket Sort");
   }

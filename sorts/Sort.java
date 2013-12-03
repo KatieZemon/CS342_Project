@@ -58,7 +58,7 @@ public abstract class Sort extends JPanel implements Runnable {
    * Constructor used to create a new sorting algorithm. It initializes the
    * sort with the given values, the delay, and a sort name
    * @param values the values to sort
-   * @param delay the delay per iteration of sort
+   * @param delay the delay in milliseconds per iteration and/or comparison of sort
    * @param sortName the name of the sort
    */
   public Sort(int[] values, Integer delay, String sortName) {
@@ -289,6 +289,9 @@ public abstract class Sort extends JPanel implements Runnable {
     }
   }
 
+  /**
+   * @param panelHeight sets the height of the panel
+   */
   public void setPanelHeight(int panelHeight){
     this.panelHeight = panelHeight;
   }
