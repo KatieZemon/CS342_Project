@@ -141,7 +141,6 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
    */
   void initValsArr()
   {
-    //TODO consider having prime values, so the reset button goes back to the original data set; this may mean more buttons
     values = new int[numItems];
     for (int i = 0; i < numItems; i++)
     {
