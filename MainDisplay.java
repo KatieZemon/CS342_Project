@@ -115,6 +115,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     // Start Button
     startButton = new JButton("Sort");
     startButton.addActionListener(this);
+    startButton.setEnabled(false);
     c.add(startButton);
 
     // Reset Button
@@ -181,10 +182,16 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     c.validate();
   }
 
+  /**
+   * Logic for addinga sort to the display.  Does not allow the number of
+   * sorts to exceed {@link #MAX_SORTS}
+   * @param clazz Class of the sort to add to the display
+   */
   public void addSort(Class clazz)
   {
     if(sorts.size() < MAX_SORTS)
     {
+      startButton.setEnabled(true);
       Sort algorithm;
       try{
         algorithm = (Sort) clazz.getConstructor(int[].class, int.class).newInstance(values, delay);
@@ -254,6 +261,11 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     resetButtonAction(5, delay*2);
   }
 
+  /**
+   * Attempts to stop the sorts threads, and reinitialize them for a new sorting run
+   * @param retryCount the number of tries to try to reset/stop the sorts
+   * @param waitTime the time it should give the threads to finish
+   */
   public void resetButtonAction(int retryCount, int waitTime)
   {
     if(retryCount < 0) return;
@@ -288,6 +300,9 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     }
   }
 
+  /**
+   * Launches the sorting algorithms
+   */
   private void startButtonAction(){
     // Disable the start button and enabled our reset button
     startButton.setEnabled(false);
