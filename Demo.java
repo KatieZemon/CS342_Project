@@ -16,7 +16,9 @@ import java.awt.event.WindowEvent;
 import static java.awt.event.KeyEvent.CTRL_MASK;
 import static javax.swing.KeyStroke.getKeyStroke;
 
-
+/**
+ * This is the main class to run the entire program
+ */
 public class Demo extends JApplet
 {
   private JDesktopPane desktop = new JDesktopPane();
@@ -44,10 +46,7 @@ public class Demo extends JApplet
     mainFrame.setSize(1000, 900);
 
     /*
-     * TODO: Remove this? This is used only when we were using music
-     * If we run the demo as an application, we want the music to stop
-     * immediately when we close our window. Long sound files will not stop playing
-     * unless we add a custom windowClosing event like below.
+     * Close the main display if the window closes
      */
     mainFrame.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent evt) {
