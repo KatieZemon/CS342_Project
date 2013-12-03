@@ -7,29 +7,24 @@ import java.awt.Color;
 import java.awt.Font;
 
 /**
- * class: Problem
- * desc:  This creates an internal frame holding our problem description
+ * This creates an internal frame holding our problem description
  */
 public class Problem extends KInternalFrame
 {
-  /** Problem class variables:
-   * FRAME_WIDTH - The width of the internalFrame
-   * FRAME_HEIGHT - The height of the internalFrame
-   * ta - The text area holding the instructions for how to use the program
-   * problemDescription - A string for holding the instructions for how to use the program
-   * font_bold - The font type for our text area
-   * scrollPane - The scrollPane the holds the text area
-   */
-  private final int FRAME_WIDTH = 600, FRAME_HEIGHT = 400;
+  /** Width of the internal frame */
+  private final int FRAME_WIDTH = 600;
+  /** Height of the internal frame */
+  private final int FRAME_HEIGHT = 400;
+  /** Text area holding the problem description*/
   private JTextArea ta;
-  private final int TA_WIDTH = 22, TA_HEIGHT = 40;
-  private String problemDescription;
-  private Font font_bold;
-  private JScrollPane scrollPane;
+  /** Text area width */
+  private final int TA_WIDTH = 22;
+  /** Text area height */
+  private final int TA_HEIGHT = 40;
+
 
   /**
-   * fn:   Problem Default Constructor
-   * desc: Creates our panel and initializes its contents
+   * Creates our panel and initializes its contents
    */
   public Problem()
   {
@@ -37,10 +32,10 @@ public class Problem extends KInternalFrame
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
 
     // Initialize font properties
-    font_bold = new Font("Bold", Font.BOLD, 16);
+    Font font_bold = new Font("Bold", Font.BOLD, 16);
 
     // Write the problem description
-    problemDescription =
+    String problemDescription =
             "The main objective for this project was to simulate multiple sorting algorithms.\n" +
                     "The program will have a menubar with an About menu and a Demos menu.\n\n" +
                     "The About menu has the following menuItems:\n" +
@@ -87,12 +82,8 @@ public class Problem extends KInternalFrame
     ta.setWrapStyleWord(true);
 
 
-    // If the problem description message is too long, we want the user to be able to
-    // scroll down to read all of the text
-    scrollPane = new JScrollPane(ta);
-
     // Add the scrollPane to our panel
-    this.add(scrollPane);
+    add(new JScrollPane(ta));
 
     repaint();
   }

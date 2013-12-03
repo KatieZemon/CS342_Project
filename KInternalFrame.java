@@ -3,11 +3,14 @@ package code;
 import javax.swing.*;
 
 /**
- * @author Thomas
- *         Date and Time: 11/29/13 2:02 PM
+ * A JInternalFrame that has a default close action of {@link #HIDE_ON_CLOSE}
+ * @author Thomas Clay
  */
 public class KInternalFrame extends JInternalFrame {
 
+  /**
+   * @param name of the frame
+   */
   KInternalFrame(String name){
     super(name, true, true, true, true);
     setOpaque(true);

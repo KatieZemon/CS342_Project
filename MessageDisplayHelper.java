@@ -5,7 +5,7 @@ import java.awt.*;
 
 /**
  * Assists with displaying messages to the user
- * @author Thomas
+ * @author Thomas Clay
  */
 public class MessageDisplayHelper {
 

@@ -16,6 +16,9 @@ import javax.swing.event.ChangeListener;
  */
 public class StayOpenCheckBoxMenuItem extends JCheckBoxMenuItem {
 
+  /**
+   * Gets the path of the menu so it can be re-displayed
+   */
   private static MenuElement[] path;
   {
     getModel().addChangeListener(new ChangeListener() {

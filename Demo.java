@@ -8,7 +8,6 @@ package code;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -107,7 +106,7 @@ public class Demo extends JApplet
 
     // Add the menu items to the Algorithms sub menu, and add the sub menu to the Demo menu
     for(String algorithmName : AlgorithmSelectionListener.sortingAlgorithms.keySet()){
-      MenuBuilder.addCheckBoxMenuItem(algorithmsMenu, algorithmName, algorithmSelectionListener, algorithmName == MainDisplay.DEFAULT_SORT);
+      MenuBuilder.addCheckBoxMenuItem(algorithmsMenu, algorithmName, algorithmSelectionListener, false);
     }
     MenuBuilder.addMenuItem(algorithmsMenu, AlgorithmSelectionListener.UNSELECT, algorithmSelectionListener, null);
     demoMenu.add(algorithmsMenu);

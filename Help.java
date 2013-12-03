@@ -8,8 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 /**
- * class: Help
- * desc:  This class contains instructions for how to use the program,
+ * This class contains instructions for how to use the program,
  * and it contains descriptions for the algorithms.
  */
 public class Help extends KInternalFrame
