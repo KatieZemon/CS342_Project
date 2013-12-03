@@ -18,7 +18,7 @@ public class CountingSort extends Sort {
   }
 
   /**
-   * Used iteratively to count the occureences of a bar's height
+   * Used iteratively to count the occurrences of a bar's height
    * @param index of the bar to count
    */
   private void count(int index){
@@ -37,7 +37,7 @@ public class CountingSort extends Sort {
 
   /**
    * @param value the height of the bar to get the number of occurences
-   * @return the number of occurences for the given value
+   * @return the number of occurrences for the given value
    */
   private int getCount(int value){
     if(counts.containsKey(value)){
@@ -47,8 +47,8 @@ public class CountingSort extends Sort {
   }
 
   /**
-   * @param occurrence the number of times this bars height has occured
-   * @return a color based on how the number of occurences
+   * @param occurrence the number of times this bars height has occurred
+   * @return a color based on how the number of occurrences
    */
   private Color getColorByOccurrence(int occurrence){
     int x = Math.min(255, occurrence * 20);
