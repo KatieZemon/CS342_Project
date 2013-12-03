@@ -70,7 +70,7 @@ public class FrameDisplayListener implements ActionListener
     else if (command == HELP)
       showFrame(helpFrame, 85, 85);
     else if (command == MAIN)
-      showFrame(Demo.mainDisplayFrame, 1, 1);
+      showFrame(Demo.MAIN_DISPLAY_FRAME, 1, 1);
     else
       System.err.print("FrameDisplayListener could not understand command");
   }
@@ -84,8 +84,8 @@ public class FrameDisplayListener implements ActionListener
    */
   public void showFrame(JInternalFrame iframe, int x, int y)
   {
+    iframe.validate();
     iframe.show();
-    iframe.toFront();
     iframe.setLocation(x, y);
   }
 }

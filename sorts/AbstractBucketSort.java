@@ -1,6 +1,7 @@
 package code.sorts;
 
 import code.MainDisplay;
+import code.ValueBar;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -94,7 +95,7 @@ public abstract class AbstractBucketSort<T> extends Sort {
    * This will make each bucket item's contiguous in the graph according to it's iterator
    */
   protected void organizeBarsByBuckets(){
-    Rectangle[] barsCopy = getBarsCopy();
+    ValueBar[] barsCopy = getBarsCopy();
     HashMap<Integer, Color> barColorsCopy = new HashMap<Integer, Color>(specialColoredBars);
     int i = 0;
     for(int b = 0; b < getNumRanges(); b++){

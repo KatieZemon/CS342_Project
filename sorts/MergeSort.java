@@ -1,5 +1,7 @@
 package code.sorts;
 
+import code.ValueBar;
+
 import java.awt.*;
 
 /**
@@ -29,7 +31,7 @@ public class MergeSort extends Sort {
         int leftStart = i;
         int rightStart =  Math.min(i+width, values.length); //ensures the right index is not greater than array length
         int end = Math.min(width*2 + i, values.length); //ensures the end index is not greater than array length
-        Rectangle[] sorted = merge(leftStart, rightStart, end);
+        ValueBar[] sorted = merge(leftStart, rightStart, end);
         assertSorted(sorted);
         move(leftStart, end, sorted);
       }
@@ -42,7 +44,7 @@ public class MergeSort extends Sort {
    * @param end the last+1 index to copy the sorted values into
    * @param sorted the sorted array of rectangles
    */
-  private void move(int start, int end, Rectangle[] sorted){
+  private void move(int start, int end, ValueBar[] sorted){
     for(int m = start; m < end; m++){
       if(!running) return;
       colorBar(m, Color.GREEN);
@@ -59,10 +61,10 @@ public class MergeSort extends Sort {
    * @param end the ending index (+1 of last value to merge)
    * @return a sorted array of rectangles
    */
-  private Rectangle[] merge(int leftStart, int rightStart, int end){
+  private ValueBar[] merge(int leftStart, int rightStart, int end){
     int left = leftStart;
     int right = rightStart;
-    Rectangle[] array = new Rectangle[end - leftStart];
+    ValueBar[] array = new ValueBar[end - leftStart];
     int j = 0;
     while(j < array.length){
       if(!running) return null;
@@ -72,11 +74,11 @@ public class MergeSort extends Sort {
       repaint();
       if(!(right < end) || (left < rightStart && compare(left, right) < 0)){
         // move left indexValue into next array position
-        array[j] = new Rectangle(bars[left]);
+        array[j] = new ValueBar(bars[left]);
         left++;
       }
       else{
-        array[j] = new Rectangle(bars[right]);
+        array[j] = new ValueBar(bars[right]);
         right++;
       }
       assert array[j] != null;

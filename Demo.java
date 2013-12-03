@@ -20,17 +20,23 @@ import static javax.swing.KeyStroke.getKeyStroke;
  */
 public class Demo extends JApplet
 {
-  private JDesktopPane desktop = new JDesktopPane();
-  static MainDisplay mainDisplayFrame;
-  private Container c = getContentPane();
-  private ActionListener displayListener = new FrameDisplayListener(desktop);
-  static ActionListener algorithmSelectionListener = null;
+  /** The JDesktopPane that manages the internal frames */
+  private static final JDesktopPane DESKTOP = new JDesktopPane();
 
-  static
-  {
-    mainDisplayFrame = new MainDisplay();
-    algorithmSelectionListener = new AlgorithmSelectionListener(mainDisplayFrame);
-  }
+  /** A listener for menu events that trigger displays of other frames */
+  private static final ActionListener DISPLAY_LISTENER = new FrameDisplayListener(DESKTOP);
+
+  /** The main display; where the sorting panels are */
+  static final MainDisplay MAIN_DISPLAY_FRAME = new MainDisplay();
+
+  /** A listener for menu events that change the sort properties */
+  static final ActionListener ALGORITHM_SELECTION_LISTENER = new AlgorithmSelectionListener(MAIN_DISPLAY_FRAME);
+
+  /** The content pane */
+  private Container c = getContentPane();
+
+
+
 
   /**
    * Creates a JFrame so that the applet can be used as an application
@@ -49,9 +55,9 @@ public class Demo extends JApplet
      */
     mainFrame.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent evt) {
-        if(!Demo.mainDisplayFrame.isClosed())
+        if(!Demo.MAIN_DISPLAY_FRAME.isClosed())
         {
-          Demo.mainDisplayFrame.doDefaultCloseAction();
+          Demo.MAIN_DISPLAY_FRAME.doDefaultCloseAction();
         }
       }
     });
@@ -69,11 +75,9 @@ public class Demo extends JApplet
   {
     c.setBackground(Color.WHITE);
     createMenus();
-    desktop.add(mainDisplayFrame);
-
-
-    desktop.setBackground(Color.LIGHT_GRAY);
-    c.add(desktop);
+    DESKTOP.add(MAIN_DISPLAY_FRAME);
+    DESKTOP.setBackground(Color.LIGHT_GRAY);
+    c.add(DESKTOP);
   }
 
   /**
@@ -92,10 +96,10 @@ public class Demo extends JApplet
     JMenu aboutMenu = MenuBuilder.makeMenu("About");
 
     // Add About menu items, and, add the about menu to the menu bar
-    MenuBuilder.addMenuItem(aboutMenu, FrameDisplayListener.AUTHOR, displayListener, getKeyStroke('1', CTRL_MASK));
-    MenuBuilder.addMenuItem(aboutMenu, FrameDisplayListener.PROBLEM, displayListener, getKeyStroke('2', CTRL_MASK));
-    MenuBuilder.addMenuItem(aboutMenu, FrameDisplayListener.REFERENCE, displayListener, getKeyStroke('3', CTRL_MASK));
-    MenuBuilder.addMenuItem(aboutMenu, FrameDisplayListener.HELP, displayListener, getKeyStroke('4', CTRL_MASK));
+    MenuBuilder.addMenuItem(aboutMenu, FrameDisplayListener.AUTHOR, DISPLAY_LISTENER, getKeyStroke('1', CTRL_MASK));
+    MenuBuilder.addMenuItem(aboutMenu, FrameDisplayListener.PROBLEM, DISPLAY_LISTENER, getKeyStroke('2', CTRL_MASK));
+    MenuBuilder.addMenuItem(aboutMenu, FrameDisplayListener.REFERENCE, DISPLAY_LISTENER, getKeyStroke('3', CTRL_MASK));
+    MenuBuilder.addMenuItem(aboutMenu, FrameDisplayListener.HELP, DISPLAY_LISTENER, getKeyStroke('4', CTRL_MASK));
     menuBar.add(aboutMenu);
 
     /** The "Demo" menu */
@@ -106,19 +110,19 @@ public class Demo extends JApplet
 
     // Add the menu items to the Algorithms sub menu, and add the sub menu to the Demo menu
     for(String algorithmName : AlgorithmSelectionListener.sortingAlgorithms.keySet()){
-      MenuBuilder.addCheckBoxMenuItem(algorithmsMenu, algorithmName, algorithmSelectionListener, false);
+      MenuBuilder.addCheckBoxMenuItem(algorithmsMenu, algorithmName, ALGORITHM_SELECTION_LISTENER, false);
     }
-    MenuBuilder.addMenuItem(algorithmsMenu, AlgorithmSelectionListener.UNSELECT, algorithmSelectionListener, null);
+    MenuBuilder.addMenuItem(algorithmsMenu, AlgorithmSelectionListener.UNSELECT, ALGORITHM_SELECTION_LISTENER, null);
     demoMenu.add(algorithmsMenu);
 
     /** The Data Type Options sub menu */
-    JMenu Data_Type_OptionsMenu = MenuBuilder.makeRadioButtonMenu("Data Type Items", algorithmSelectionListener, 0,
+    JMenu Data_Type_OptionsMenu = MenuBuilder.makeRadioButtonMenu("Data Type Items", ALGORITHM_SELECTION_LISTENER, 0,
             AlgorithmSelectionListener.RANDOM, AlgorithmSelectionListener.BEST, AlgorithmSelectionListener.WORST);
 
     // Add the Data Type Options sub menu to "Demo" menu
     demoMenu.add(Data_Type_OptionsMenu);
     // Add Demo > Main Display
-    MenuBuilder.addMenuItem(demoMenu, FrameDisplayListener.MAIN, displayListener, getKeyStroke('5', CTRL_MASK));
+    MenuBuilder.addMenuItem(demoMenu, FrameDisplayListener.MAIN, DISPLAY_LISTENER, getKeyStroke('5', CTRL_MASK));
     menuBar.add(demoMenu);
 
   }

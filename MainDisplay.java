@@ -23,10 +23,25 @@ import javax.swing.event.ChangeListener;
  */
 public class MainDisplay extends KInternalFrame implements ActionListener, ChangeListener
 {
+  /** The panel containing the sort graphs */
   static JPanel sortPanel;
+
+  /** A executor pool for sort threads */
   ExecutorService executor;
-  JSlider delaySlider, itemCountSlider;
-  JButton startButton, resetButton;
+
+  /** The slider which controls the amount of delay to use in the sorts*/
+  JSlider delaySlider;
+
+  /** The slider which controls the number of elements to sort */
+  JSlider itemCountSlider;
+
+  /** The button which starts the sorting process */
+  JButton startButton;
+
+  /** The button which resets the sorts and stops the sorting process */
+  JButton resetButton;
+
+  /** The content pane */
   Container c = getContentPane();
 
   /** The initial width of the internal frame */
@@ -43,12 +58,14 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
 
   /** the number of items to be sorted. This number is obtained by itemCountSlider*/
   int numItems = 50;
+
+  /** A bold font */
   Font font_bold = new Font("Bold", Font.BOLD, 15);
-  TitledBorder itemCount_tBorder, delay_tBorder;
 
   /** the values to be sorted */
   int[] values;
 
+  /** A map between the class of the sort, and an instance of it */
   static HashMap<Class, Sort> sorts = new HashMap<Class, Sort>();
 
   /** The maximum number of sorts to be displayed on the screen at once */
@@ -93,7 +110,6 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
 
     executor = Executors.newFixedThreadPool(MAX_SORTS);
 
-//    addSort(AlgorithmSelectionListener.sortingAlgorithms.get(DEFAULT_SORT));
   }
 
   /**
@@ -101,11 +117,9 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
    */
   void initComponents()
   {
-    // itemCountSlider
-    itemCount_tBorder = new TitledBorder(new LineBorder(Color.BLACK,3), "Array Length: N = " + numItems,
-            TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
     itemCountSlider = new JSlider(1, 800, numItems);
-    itemCountSlider.setBorder(itemCount_tBorder);
+    itemCountSlider.setBorder(new TitledBorder(new LineBorder(Color.BLACK,3), "Array Length: N = " + numItems,
+        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK));
     itemCountSlider.addChangeListener(this);
     Dimension d = itemCountSlider.getPreferredSize();
     itemCountSlider.setPreferredSize(new Dimension(d.width+60,d.height));
@@ -124,11 +138,9 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     resetButton.addActionListener(this);
     c.add(resetButton);
 
-    // delaySlider
-    delay_tBorder = new TitledBorder(new LineBorder(Color.BLACK,3), "Current Delay = " + delay + "ms",
-            TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK);
     delaySlider = new JSlider(1, 800, delay);
-    delaySlider.setBorder(delay_tBorder);
+    delaySlider.setBorder(new TitledBorder(new LineBorder(Color.BLACK,3), "Current Delay = " + delay + "ms",
+        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, font_bold, Color.BLACK));
     delaySlider.addChangeListener(this);
     d = delaySlider.getPreferredSize();
     delaySlider.setPreferredSize(new Dimension(d.width+60,d.height));
@@ -172,7 +184,6 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
       int sortHeight = (getHeight() - 100) / sorts.size();
       for(Sort sorter : sorts.values())
       {
-        System.out.println("\t >" + sorter.toString());
         sorter.setPanelHeight(sortHeight);
         sorter.setValues(values);
         sorter.delayTime = delay;
@@ -183,7 +194,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
   }
 
   /**
-   * Logic for addinga sort to the display.  Does not allow the number of
+   * Logic for adding a sort to the display.  Does not allow the number of
    * sorts to exceed {@link #MAX_SORTS}
    * @param clazz Class of the sort to add to the display
    */
@@ -350,7 +361,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
     {
       numItems = itemCountSlider.getValue();
       // Change the border title to show the new slider indexValue
-      itemCount_tBorder.setTitle("Array Length: N = " + numItems);
+      ((TitledBorder)itemCountSlider.getBorder()).setTitle("Array Length: N = " + numItems);
       initValsArr();
       updateSorts();
     }
@@ -364,7 +375,7 @@ public class MainDisplay extends KInternalFrame implements ActionListener, Chang
         s.delayTime = delay;
       }
       // Change the border title to show the new slider indexValue
-      delay_tBorder.setTitle("Current Delay = " + delay + "ms");
+      ((TitledBorder)delaySlider.getBorder()).setTitle("Current Delay = " + delay + "ms");
     }
     repaint();
   }

@@ -34,7 +34,7 @@ public class BubbleSort extends Sort
         }
         colorBar(i, Color.RED);
         colorBar(i-1, Color.YELLOW);
-        if(compare(i-1, i) > 0) //if(bars[i - 1].height > bars[i].height)
+        if(compare(i-1, i) > 0)
         {
           swap(i - 1, i);
           colorBar(i, Color.YELLOW);

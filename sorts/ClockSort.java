@@ -1,5 +1,7 @@
 package code.sorts;
 
+import code.MainDisplay;
+
 import java.awt.*;
 import static java.lang.Math.random;
 
@@ -19,34 +21,38 @@ public class ClockSort extends Sort
   }
 
   /**
+   * @param height of the bar
+   * @return a color based on the height of the bar
+   */
+  private Color getColorByValue(int height){
+    return new Color(0, 100, height * 2);
+  }
+
+  /**
    * This runs the simulation for Clock sort
    */
   public void runSort()
   {
-    int clock = 0;
     //Find the max value in the array
-    int maxVal = 0;
-    int vIndex = 0;
-    for(int i: v)
+    int currentIndex = 0;
+
+    for(int clock = 0; clock <= MainDisplay.MAX_VALUE && running; clock++)
     {
-      if(i > maxVal)
-        maxVal = i;
-    }
-    while(clock < maxVal)
-    {
-      Color color = new Color((float) random(), (float) random(), (float) random());
+      Color color = getColorByValue(clock);
       //Find all values that are equal to clock and put them in their spot
-      for(int i = vIndex; i < v.size(); i++)
+      for(int i = currentIndex; i < values.length && running; i++)
       {
-        colorBar(i, Color.RED);
-        if(compare(clock, v[i]) == 0)
+        colorBar(i, color);
+        repaint();
+        delay();
+        uncolorBar(i);
+        if(clock == getBarValue(i))
         {
-          swap(i, vIndex);
-          colorBar(vIndex, color);
-          vIndex++;
+          swap(i, currentIndex);
+          colorBar(currentIndex, color);
+          currentIndex++;
         }
       }
-      clock++;
     }
 
   }

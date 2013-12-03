@@ -45,7 +45,7 @@ public class GenericBucketSort extends AbstractBucketSort<ArrayList<ArrayList<In
         colorBar(currentMaxIndex, Color.GREEN);
         if(running == false) return;
 
-        if(compare(j, j-1) < 0) //if(bars[selectedBar].height < bars[j].height)
+        if(compare(j, j-1) < 0)
         {
           colorBar(j-1, Color.RED);
           swap(j,j-1);

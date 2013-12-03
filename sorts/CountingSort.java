@@ -1,6 +1,7 @@
 package code.sorts;
 
 import code.MainDisplay;
+import code.ValueBar;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class CountingSort extends Sort {
    * @param index of the bar to count
    */
   private void count(int index){
-    int value = bars[index].height;
+    int value = bars[index].value;
     if(counts.containsKey(value)){
       int occurrence = counts.get(value) + 1;
       colorBar(index, getColorByOccurrence(occurrence));
@@ -65,7 +66,7 @@ public class CountingSort extends Sort {
    * @param height of the bar
    * @return a color based on the height of the bar
    */
-  private Color getColorByHeight(int height){
+  private Color getColorByValue(int height){
     return new Color(0, 100, height * 2);
   }
 
@@ -90,19 +91,19 @@ public class CountingSort extends Sort {
     }
 
     //find correct position for value
-    Rectangle[] sortedArray = new Rectangle[values.length];
+    ValueBar[] sortedArray = new ValueBar[values.length];
     for (int i = 0; i < values.length && running; i++){
-      int value = bars[i].height;
+      int value = bars[i].value;
       int correctPosition = positions.get(value);
-      sortedArray[correctPosition] = new Rectangle(bars[i]);
-      colorBar(i, getColorByHeight(bars[i].height));
+      sortedArray[correctPosition] = new ValueBar(bars[i]);
+      colorBar(i, getColorByValue(bars[i].value));
       positions.put(value, correctPosition + 1); //increment position
       repaint();
       delay();
     }
 
     for (int i = 0; i < values.length && running; i++){
-      colorBar(i, getColorByHeight(sortedArray[i].height));
+      colorBar(i, getColorByValue(sortedArray[i].value));
       swap(bars[i], sortedArray[i]);
     }
 

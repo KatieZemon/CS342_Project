@@ -1,5 +1,7 @@
 package code.sorts;
 
+import code.ValueBar;
+
 import java.awt.*;
 import java.util.LinkedList;
 
@@ -194,7 +196,7 @@ public class TomSort extends Sort {
       throw new IllegalArgumentException("Tuples were not consecutive: a = " + a + " b = " + b);
     }
     System.out.println("Merging " + a + " and " + b);
-    Rectangle[] array = merge2(a._1, b._1, b._2 +1);
+    ValueBar[] array = merge2(a._1, b._1, b._2 +1);
     move(a._1, b._2 +1, array);
     return new Tuple(a._1, b._2);
   }
@@ -205,7 +207,7 @@ public class TomSort extends Sort {
    * @param end index of <code>bars</code> to stop at
    * @param sorted a sorted array
    */
-  private void move(int start, int end, Rectangle[] sorted){
+  private void move(int start, int end, ValueBar[] sorted){
     for(int m = start; m < end; m++){
       if(!running) return;
       colorBar(m, Color.CYAN);
@@ -221,10 +223,10 @@ public class TomSort extends Sort {
    * @param end the ending index (+1 of last value to merge)
    * @return a sorted array of rectangles
    */
-  private Rectangle[] merge2(int leftStart, int rightStart, int end){
+  private ValueBar[] merge2(int leftStart, int rightStart, int end){
     int left = leftStart;
     int right = rightStart;
-    Rectangle[] array = new Rectangle[end - leftStart];
+    ValueBar[] array = new ValueBar[end - leftStart];
     int j = 0;
     while(j < array.length){
       if(!running) return null;
@@ -234,11 +236,11 @@ public class TomSort extends Sort {
       repaint();
       if(!(right < end) || (left < rightStart && compare(left, right) < 0)){
         //move left indexValue into next array position
-        array[j] = new Rectangle(bars[left]);
+        array[j] = new ValueBar(bars[left]);
         left++;
       }
       else{
-        array[j] = new Rectangle(bars[right]);
+        array[j] = new ValueBar(bars[right]);
         right++;
       }
       assert array[j] != null;

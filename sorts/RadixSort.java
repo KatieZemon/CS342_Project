@@ -1,5 +1,6 @@
 package code.sorts;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -28,21 +29,20 @@ public class RadixSort extends Sort
     int numb;
     int count = 0;
 
-    for(int i: values)
+    for(int i = 0; i < values.length && running; i++)
     {
-      q.enqueue(new Integer(i));
+      colorBar(i, Color.GREEN);
+      repaint();
+      delay();
+      q.enqueue(values[i]);
       count++;
     }
 
-    for(int j = 0; j < 10; j++)
+    for(int j = 0; j < 10 && running; j++)
     {
-      if(running == false)
-      {
-        return;
-      }
-      for(int i = 0; i < 10; i++)
+      for(int i = 0; i < 10 && running; i++)
         p[i] = new Queue();
-      for(int i = 0; i < count; i++)
+      for(int i = 0; i < count && running; i++)
       {
         numb = (Integer)q.dequeue();
         p[getDigit(numb, j)].enqueue(numb);
@@ -56,10 +56,12 @@ public class RadixSort extends Sort
       ArrayList<Integer> objectValues = new ArrayList<Integer>();
       int intValues[] = new int[count];
       queueToArrayList(q, objectValues);
-      // for(int i = 0; i < count; i++)
+      int temp = objectValues.get(0);
+      objectValues.remove(0);
+      objectValues.add(temp);
       for(int i = 0; i < objectValues.size(); i++)
       {
-        intValues[i] = (int)objectValues.get(i);
+        intValues[i] = objectValues.get(i);
       }
       createBars(intValues);
       delay();
@@ -78,13 +80,13 @@ public class RadixSort extends Sort
     Cell nextVal = q.trailer();
     Cell firstVal = nextVal;
     boolean first = true;
-    while(first == true || firstVal != nextVal)
+    while(first || firstVal != nextVal)
     {
       if(first)
         first = false;
       if(nextVal.getItem() instanceof Integer)
       {
-        Integer val = new Integer((Integer)nextVal.getItem());
+        Integer val = (Integer)nextVal.getItem();
         a.add(val);
       } else if(nextVal.getItem() instanceof Queue)
       {
@@ -176,7 +178,6 @@ public class RadixSort extends Sort
     */
     public void enqueue(Object obj)
     {
-      Cell h;
       if(obj == null)
         return;
       if(tail == null)

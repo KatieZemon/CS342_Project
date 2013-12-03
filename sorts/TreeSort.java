@@ -1,5 +1,7 @@
 package code.sorts;
 
+import code.ValueBar;
+
 import java.awt.*;
 import java.util.HashMap;
 
@@ -126,9 +128,9 @@ public class TreeSort extends Sort {
    * @param orderedIndices an array of ordered indices
    */
   private void reorder(int[] orderedIndices){
-    Rectangle[] barsCopy = new Rectangle[bars.length];
+    ValueBar[] barsCopy = new ValueBar[bars.length];
     for(int i = 0; i < barsCopy.length; i++){
-      barsCopy[i] = new Rectangle(bars[i]);
+      barsCopy[i] = new ValueBar(bars[i]);
     }
     HashMap<Integer, Color> barColorsCopy = new HashMap<Integer, Color>(specialColoredBars);
     for(int i = 0; i < values.length; i++){

@@ -47,6 +47,8 @@ public class AlgorithmSelectionListener implements ActionListener
     sortingAlgorithms.put("Bucket Sort", GenericBucketSort.class);
     sortingAlgorithms.put("Trucket Sort", TrucketSort.class);
     sortingAlgorithms.put("Radix Sort", RadixSort.class);
+    sortingAlgorithms.put("Radix 2", RadixSort2.class);
+    sortingAlgorithms.put("Clock Sort", ClockSort.class);
   }
 
   /**

@@ -1,5 +1,7 @@
 package code.sorts;
 
+import code.ValueBar;
+
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -16,7 +18,7 @@ public abstract class Sort extends JPanel implements Runnable {
   protected int[] values;
 
   /** An array of bars used in the bar graph*/
-  protected Rectangle[] bars; // Our rectangular bars in the chart
+  protected ValueBar[] bars; // Our rectangular bars in the chart
 
   /** The title of the graph which displays the name of the sorting algorithm used */
   protected String graphTitle;
@@ -87,15 +89,11 @@ public abstract class Sort extends JPanel implements Runnable {
    * Creates bars for integer array passed in
    */
   protected void createBars(int[] v){
-    int xPos, yPos, yHeight;
-    bars = new Rectangle[v.length];
+    bars = new ValueBar[v.length];
     barWidth = (PANEL_WIDTH)/v.length; // The width of each bar
     for (int i = 0; i < v.length; i++)
     {
-      yHeight = (int)(((float)v[i] / 100) * (this.panelHeight - 30));
-      xPos = i*barWidth + 5;
-      yPos = this.panelHeight - yHeight - 5;
-      bars[i] = new Rectangle(xPos,yPos,barWidth,yHeight);
+      bars[i] = new ValueBar(values[i], i*barWidth + 5, barWidth, panelHeight);
     }
   }
 
@@ -142,10 +140,10 @@ public abstract class Sort extends JPanel implements Runnable {
   /**
    * @return a copy of the bars array
    */
-  protected Rectangle[] getBarsCopy(){
-    Rectangle[] barsCopy = new Rectangle[bars.length];
+  protected ValueBar[] getBarsCopy(){
+    ValueBar[] barsCopy = new ValueBar[bars.length];
     for(int i = 0; i < values.length; i++){
-      barsCopy[i] = new Rectangle(bars[i]);
+      barsCopy[i] = new ValueBar(bars[i]);
     }
     return barsCopy;
   }
@@ -163,7 +161,7 @@ public abstract class Sort extends JPanel implements Runnable {
    */
   protected int compare(int barIndex1, int barIndex2){
     delay();
-    return bars[barIndex1].height - bars[barIndex2].height;
+    return bars[barIndex1].value - bars[barIndex2].value;
   }
 
   /**
@@ -173,24 +171,28 @@ public abstract class Sort extends JPanel implements Runnable {
    */
   protected void swap(int left, int right)
   {
-    int height = bars[right].height;
-    int yPos = bars[right].y;
-    bars[right].setBounds(bars[right].x, bars[left].y, bars[left].width, bars[left].height );
-    bars[left].setBounds( bars[left].x, yPos, bars[left].width, height );
-    repaint();
-    delay();
+    swap(bars[left], bars[right]);
+//    int height = bars[right].height;
+//    int yPos = bars[right].y;
+//    bars[right].setBounds(bars[right].x, bars[left].y, bars[left].width, bars[left].height );
+//    bars[left].setBounds( bars[left].x, yPos, bars[left].width, height );
+//    repaint();
+//    delay();
   }
 
   /**
-   * swaps the sizes of Rectangles a and b
-   * @param a Rectangle "a" to be swapped with Rectangle "b"
-   * @param b Rectangle "b" to be swapped with Rectangle "a"
+   * swaps the sizes of ValueBars a and b
+   * @param a ValueBar "a" to be swapped with ValueBar "b"
+   * @param b ValueBar "b" to be swapped with ValueBar "a"
    */
-  protected void swap(Rectangle a, Rectangle b){
+  protected void swap(ValueBar a, ValueBar b){
+    int tempVal = b.value;
     int height = b.height;
     int yPos = b.y;
     b.setBounds(b.x, a.y, a.width, a.height);
+    b.value = a.value;
     a.setBounds(a.x, yPos, a.width, height);
+    a.value = tempVal;
     repaint();
     delay();
   }
@@ -200,7 +202,7 @@ public abstract class Sort extends JPanel implements Runnable {
    * @return the value of the bar
    */
   protected int getBarValue(int index){
-    return bars[index].height;
+    return bars[index].value;
   }
 
   /**
@@ -211,8 +213,8 @@ public abstract class Sort extends JPanel implements Runnable {
   protected void setBarValue(int index, int value){
     int yHeight = value;
     int yPos = panelHeight - yHeight - 5;
-    Rectangle bar = bars[index];
-    bar.setBounds(bar.x, yPos, bar.width, yHeight);
+    ValueBar original = new ValueBar(bars[index]);
+    bars[index] = new ValueBar(value, original.x, original.width, panelHeight);
     repaint();
   }
 
@@ -278,10 +280,10 @@ public abstract class Sort extends JPanel implements Runnable {
    * @param array
    * @throws AssertionError if array not in sorted order
    */
-  protected void assertSorted(Rectangle[] array){
+  protected void assertSorted(ValueBar[] array){
     int y = -1;
     for (int i = 0; i < array.length; i++) {
-      int newY = array[i].height;
+      int newY = array[i].value;
       if (!(y <= newY)){
         throw new AssertionError("y(" + y + ")   newY(" + newY + ")");
       };
