@@ -187,32 +187,29 @@ public class Help extends KInternalFrame
             " greatest item is swapped with the last item in that list. The algorithm starts again from the beginning " +
             "searching for the greatest item in the list until it reaches the next to last item in the list and swaps " +
             "its new greatest item with that item. The algorithm continues to search for the new greatest items in a smaller " +
-            "and smaller list of unsorted data until that small list of data is size 1. " +
-            "Worst case: O(n^2)\n" +
-            "Best case: O(n^2)\n" +
-            "Average case: O(n^2)\n" +
+            "and smaller list of unsorted data until that small list of data is size 1. \n\n" +
 
-            "16. Shell Sort:\n\n" +
+            "16. Shell Sort:\n" +
             "A lot like comb sort, except it uses insertion sort as a sub sequence instead of bubble sort" +
 
-            "17. Stooge Sort:\n\n" +
+            "17. Stooge Sort:\n" +
             "A stupid sorting that unsorts 1/3 of its list while sorting 2/3 of some side.  " +
-            "Preforms worse than bubble sort but still gets the job done, somehow." +
+            "Preforms worse than bubble sort but still gets the job done, somehow.\n\n" +
 
-            "18. Tom Sort:\n\n" +
+            "18. Tom Sort:\n" +
             "Similar to TimSort in that it looks for runs -- elements in the array that are already in sorted, or reverse-" +
             "sorted order.  It then reverses the reverse-sorted runs so that all the runs are in sorted order.  It then " +
             "preforms merge sort on the sorted runs.\n\n" +
 
-            "19. Tree Sort:\n\n" +
+            "19. Tree Sort:\n" +
             "Puts each value of an array into a binary tree, where left children are less than the root value, and " +
             "right children contain values that are greater than the root value.  Preforms an in-order iteration to " +
-            "retrieve the values in sorted order.  " +
+            "retrieve the values in sorted order.\n\n" +
 
-            "20. Trucket Sort:\n\n" +
+            "20. Trucket Sort:\n" +
             "A variation of bucket sort that places values in a certain range into a respective tree.  " +
             "Then when the buckets are copied into the array they are in sorted order. " +
-            "\n";
+            "\n\n";
 
     // Initialize our text area
     ta = new JTextArea(helpMessage, TA_WIDTH, TA_HEIGHT);
