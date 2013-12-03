@@ -19,8 +19,8 @@ public class CombSort extends Sort
 {
   /**
    * Constructor for comb sort. Draws the initial graph and sets values for v and d
-   * @param v: The set of data to be sorted.
-   * @param d: The delayTime (in milliseconds) in between each step of the algorithm
+   * @param v The set of data to be sorted.
+   * @param d The delayTime (in milliseconds) in between each step of the algorithm
    */
   public CombSort(int[] v, int d)
   {

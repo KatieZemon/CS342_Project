@@ -15,7 +15,7 @@ public class TreeSort extends Sort {
   private TreeSortNode root;
 
   /**
-   * Sets sort name to "Tree Sort" in {@link #Sort(int[], Integer, String)}
+   * Sets sort name to "Tree Sort" in {@link code.sorts.Sort#Sort(int[], int, String)}
    * @param values to sort
    * @param delay in milliseconds to use during the sorting process
    */

@@ -21,7 +21,7 @@ public abstract class AbstractBucketSort<T> extends Sort {
    * @param values to be sorted
    * @param delay to use during sort
    * @param name of the bucket sort variant
-   * @see #Sort(int[], int, String)
+   * @see code.sorts.Sort#Sort(int[], int, String)
    */
   public AbstractBucketSort(int[] values, int delay, String name){
     super(values, delay, name);
@@ -73,7 +73,7 @@ public abstract class AbstractBucketSort<T> extends Sort {
   protected abstract int getNumRanges();
 
   /**
-   * @return preform the sort operation on the bars array after they have been made
+   * preform the sort operation on the bars array after they have been made
    * contiguous using {@link #organizeBarsByBuckets()}
    */
   protected abstract void sortBuckets();

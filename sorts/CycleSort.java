@@ -8,6 +8,12 @@ import java.awt.*;
  * @author Thomas
  */
 public class CycleSort extends Sort {
+
+  /**
+   * @param values to be sorted
+   * @param delay to be used during sort (in milliseconds)
+   * @see code.sorts.Sort#Sort(int[], int, String)
+   */
   public CycleSort(int[] values, int delay){
     super(values, delay, "Cycle Sort");
   }

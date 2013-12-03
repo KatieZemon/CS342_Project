@@ -16,7 +16,7 @@ public class CountingSort extends Sort {
   private HashMap<Integer, Integer> counts;
 
   /**
-   * Sets sort name to "Counting Sort" in {@link #Sort(int[], Integer, String)}
+   * Sets sort name to "Counting Sort" in {@link code.sorts.Sort#Sort(int[], int, String)}
    * @param values to sort
    * @param delay to use during sort (milliseconds)
    */

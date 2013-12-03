@@ -14,7 +14,7 @@ import java.util.Iterator;
 public class TrucketSort extends AbstractBucketSort<TreeSortNode[]> {
 
   /**
-   * Sets sort name to "Trucket Sort" in {@link #Sort(int[], Integer, String)}
+   * Sets sort name to "Trucket Sort" in {@link code.sorts.Sort#Sort(int[], int, String)}
    * @param values to sort
    * @param delay in milliseconds to use during the sorting process
    */

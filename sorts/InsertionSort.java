@@ -9,8 +9,8 @@ public class InsertionSort extends Sort
 {
   /**
    * Draws the initial graph and sets values for v and d
-   * @param values: The set of data to be sorted.
-   * @param delay: The delay (in milliseconds) in between each step of the algorithm
+   * @param values The set of data to be sorted.
+   * @param delay The delay (in milliseconds) in between each step of the algorithm
    */
   public InsertionSort(int[] values, int delay)
   {

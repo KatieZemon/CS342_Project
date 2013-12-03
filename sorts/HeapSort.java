@@ -15,7 +15,7 @@ public class HeapSort extends Sort {
    * Sort constructor.  Sets name ot "Heap Sort"
    * @param values the values to be sroted
    * @param delay the delay to use in the sort
-   * @see #Sort(int[], Integer, String)
+   * @see code.sorts.Sort#Sort(int[], int, String)
    */
   public HeapSort(int[] values, int delay){
     super(values, delay, "Heap Sort");

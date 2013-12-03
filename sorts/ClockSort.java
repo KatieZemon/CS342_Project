@@ -12,8 +12,8 @@ public class ClockSort extends Sort
 {
   /**
    * Constructor for Clock sort. Draws the initial graph and sets values for v and d
-   * @param v: The set of data to be sorted.
-   * @param d: The delayTime (in milliseconds) in between each step of the algorithm
+   * @param v The set of data to be sorted.
+   * @param d The delayTime (in milliseconds) in between each step of the algorithm
    */
   public ClockSort(int[] v, int d)
   {

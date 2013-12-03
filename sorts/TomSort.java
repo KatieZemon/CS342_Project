@@ -19,7 +19,7 @@ import java.util.LinkedList;
 public class TomSort extends Sort {
 
   /**
-   * Sets sort name to "Tom Sort" in {@link #Sort(int[], Integer, String)}
+   * Sets sort name to "Tom Sort" in {@link code.sorts.Sort#Sort(int[], int, String)}
    * @param values to sort
    * @param delay in milliseconds to use during the sorting process
    */
@@ -174,7 +174,6 @@ public class TomSort extends Sort {
    */
   private void merge(LinkedList<Tuple> runs){
     if(runs.size() <= 1) return;
-    System.out.println("Merging " + runs.size() + " runs...");
     LinkedList<Tuple> nextRuns = new LinkedList<Tuple>();
     while(runs.size() > 1){
       nextRuns.add(mergeRuns(runs.pollFirst(), runs.pollFirst()));
@@ -195,7 +194,6 @@ public class TomSort extends Sort {
     if(a._2 + 1 != b._1){
       throw new IllegalArgumentException("Tuples were not consecutive: a = " + a + " b = " + b);
     }
-    System.out.println("Merging " + a + " and " + b);
     ValueBar[] array = merge2(a._1, b._1, b._2 +1);
     move(a._1, b._2 +1, array);
     return new Tuple(a._1, b._2);

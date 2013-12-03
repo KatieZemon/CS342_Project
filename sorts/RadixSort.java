@@ -11,8 +11,8 @@ public class RadixSort extends Sort
 
   /**
    * Draws the intial graph and sets values for v and d
-   * @param values: The set of data to be sorted.
-   * @param delay: The delay (in milliseconds) in between each step of the algorithm
+   * @param values The set of data to be sorted.
+   * @param delay The delay (in milliseconds) in between each step of the algorithm
    */
   public RadixSort(int[] values, int delay)
   {
@@ -72,8 +72,8 @@ public class RadixSort extends Sort
   /**
    * Converts a queue to an array where the value
    * in the queue may be another queue.
-   * @param q: a Queue object to be converted to list
-   * @param a: an ArrayList to send the queue to.
+   * @param q a Queue object to be converted to list
+   * @param a an ArrayList to send the queue to.
    */
   private void queueToArrayList(Queue q, ArrayList a)
   {
@@ -98,8 +98,8 @@ public class RadixSort extends Sort
 
   /**
   * Gets the digit at a given position in an int
-  * @param number: the int that the value is pulled from
-  * @param place: the position in number that is returned
+  * @param number the int that the value is pulled from
+  * @param place the position in number that is returned
   */
   private int getDigit(int number, int place)
   {
@@ -121,8 +121,8 @@ public class RadixSort extends Sort
 
     /**
     * Constructor for Cell class
-    * @param itm: item the cell holds
-    * @param nxt: holds the next cell
+    * @param itm item the cell holds
+    * @param nxt holds the next cell
     */
     public Cell(Object itm, Cell nxt)
     {
@@ -132,7 +132,7 @@ public class RadixSort extends Sort
 
     /**
     * Set method for Cell class
-    * @param nxt: the next cell
+    * @param nxt the next cell
     */
     public void setNext(Cell nxt)
     {
@@ -174,7 +174,7 @@ public class RadixSort extends Sort
 
     /**
     * Pushes an Object on to queue
-    * @param obj: object to be pushed
+    * @param obj object to be pushed
     */
     public void enqueue(Object obj)
     {
@@ -211,7 +211,7 @@ public class RadixSort extends Sort
 
     /**
     * Appends a queue on to the queue
-    * @param q: the Queue object to be pushed on to the queue
+    * @param q the Queue object to be pushed on to the queue
     */
     public void append(Queue q)
     {

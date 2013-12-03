@@ -21,8 +21,8 @@ public class QuickSort extends Sort
 
   /**
    * Constructor for quick sort. Draws the initial graph and sets values for v and d
-   * @param v: The set of data to be sorted.
-   * @param d: The delay (in milliseconds) in between each step of the algorithm
+   * @param v The set of data to be sorted.
+   * @param d The delay (in milliseconds) in between each step of the algorithm
    */
   public QuickSort(int[] v, int d)
   {
@@ -44,8 +44,8 @@ public class QuickSort extends Sort
    * which are smaller than the pivot and places that list to the left of our pivot, and then it creates
    * a list of elements which are larger than the pivot and places that list to the right of our pivot.
    * The algorithm is recursively called on each sublist until all possible sublists have been sorted.
-   * @left The starting index of the elements to the left of our pivot
-   * @right The last index of all elements that will be to the right of our pivot
+   * @param left The starting index of the elements to the left of our pivot
+   * @param right The last index of all elements that will be to the right of our pivot
    */
   public void quickSort(int left, int right, int length)
   {

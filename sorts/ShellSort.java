@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ShellSort extends Sort {
   /**
-   * Sets sort name to "Shell Sort" in {@link #Sort(int[], Integer, String)}
+   * Sets sort name to "Shell Sort" in {@link code.sorts.Sort#Sort(int[], int, String)}
    * @param values to sort
    * @param delay to use during sort (milliseconds)
    */

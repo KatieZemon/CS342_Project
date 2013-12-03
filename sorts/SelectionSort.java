@@ -15,8 +15,8 @@ public class SelectionSort extends Sort
 
   /**
    * Draws the intial graph and sets values for v and d
-   * @param values: The set of data to be sorted.
-   * @param delay: The delay (in milliseconds) in between each step of the algorithm
+   * @param values The set of data to be sorted.
+   * @param delay The delay (in milliseconds) in between each step of the algorithm
    */
   public SelectionSort(int[] values, int delay)
   {

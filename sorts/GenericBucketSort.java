@@ -14,7 +14,9 @@ public class GenericBucketSort extends AbstractBucketSort<ArrayList<ArrayList<In
 
   /**
    * Constructor for generic bucket sort, where the name is "Bucket Sort"
-   * @see #Sort(int[], Integer, String)
+   * @param values to be sroted
+   * @param delay length of the delay in milliseconds
+   * @see code.sorts.Sort#Sort(int[], int, String)
    */
   public GenericBucketSort(int[] values, int delay) {
     super(values, delay, "Bucket Sort");

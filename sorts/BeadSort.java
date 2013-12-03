@@ -12,7 +12,7 @@ public class BeadSort extends Sort {
    * Sets sort name to "Bead Sort"
    * @param values to be sorted
    * @param delay to use during sort
-   * @see #Sort(int[], Integer, String)
+   * @see code.sorts.Sort#Sort(int[], int, String)
    */
   public BeadSort(int[] values, int delay){
     super(values, delay, "Bead Sort");

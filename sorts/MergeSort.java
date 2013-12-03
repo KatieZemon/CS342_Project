@@ -5,8 +5,8 @@ import code.ValueBar;
 import java.awt.*;
 
 /**
+ * Performs merge sort
  * @author Thomas Clay
- * Date and Time: 11/27/13 11:26 PM
  */
 public class MergeSort extends Sort {
 
@@ -14,7 +14,7 @@ public class MergeSort extends Sort {
    * Constructor for merge sort.
    * @param values to be sorted
    * @param delay to be used during sort
-   * @see #Sort(int[], Integer, String)
+   * @see code.sorts.Sort#Sort(int[], int, String)
    */
   public MergeSort(int[] values, int delay){
     super(values, delay, "Merge Sort");

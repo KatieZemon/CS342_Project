@@ -63,8 +63,7 @@ public abstract class Sort extends JPanel implements Runnable {
    * @param delay the delay in milliseconds per iteration and/or comparison of sort
    * @param sortName the name of the sort
    */
-  public Sort(int[] values, Integer delay, String sortName) {
-    // this.panelHeight = panelHeight
+  public Sort(int[] values, int delay, String sortName) {
     this.values = values;
     this.delayTime = delay;
     graphTitle = sortName;

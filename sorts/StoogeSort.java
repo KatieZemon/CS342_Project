@@ -9,7 +9,7 @@ import java.awt.*;
 public class StoogeSort extends Sort {
 
   /**
-   * Sets name to "Stooge Sort" in {@link #Sort(int[], Integer, String)}
+   * Sets name to "Stooge Sort" in {@link code.sorts.Sort#Sort(int[], int, String)}
    * @param values to sort
    * @param delay to use during sorting
    */
