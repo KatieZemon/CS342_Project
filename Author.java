@@ -56,7 +56,6 @@ public class Author extends KInternalFrame
             // TOM CLAY
             "TOM CLAY\n" +
             "Contact:\n" +
-            "      Phone: 816-547-5127\n" +
             "      Email:  thomas.clay@mst.edu\n" +
             "Contributions:\n" +
             "      -Created AlgorithmSelectionListener.java, FrameDisplayListener.java, and MenuBuilder.java  in order to improve the organization of our code for the greater goal of making the program more portable and easier to read.  \n" +
